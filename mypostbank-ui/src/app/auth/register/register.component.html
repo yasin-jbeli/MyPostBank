@@ -1,0 +1,40 @@
+<main>
+  <div class="card">
+    <h2 class="text-center">Create an account</h2>
+    <hr>
+    <div class="alert alert-danger" role="alert" *ngIf="errorMsg.length">
+      <p *ngFor="let msg of errorMsg">{{msg}}</p>
+    </div>
+    <div class="mb-3">
+      <label for="firstname" class="form-label">Firstname</label>
+      <input [(ngModel)]="registerRequest.firstName" type="text" class="form-control" id="firstname" placeholder="Firstname">
+    </div>
+    <div class="mb-3">
+      <label for="lastname" class="form-label">Lastname</label>
+      <input [(ngModel)]="registerRequest.lastName" type="text" class="form-control" id="lastname" placeholder="Lastname">
+    </div>
+    <div class="mb-3">
+      <label for="login" class="form-label">Email address</label>
+      <input [(ngModel)]="registerRequest.email" type="email" class="form-control" id="login" placeholder="name@example.com">
+    </div>
+    <div class="mb-3">
+      <label for="phone" class="form-label">Phone</label>
+      <input [(ngModel)]="registerRequest.phone" type="tel" class="form-control" id="phone" placeholder="00000000">
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input [(ngModel)]="registerRequest.password" type="password" class="form-control" id="password" placeholder="Password">
+    </div>
+    <div class="register">
+      <button (click)="register()" type="button" class="btn btn-primary">
+        <em class="fas fa-sign-in-alt">&nbsp;Create an account</em>
+      </button>
+      <div class="msg">
+        Already have an account?&nbsp;
+        <a (click)="login()" type="button" class="btn btn-link">
+          Login
+        </a>
+      </div>
+    </div>
+  </div>
+</main>

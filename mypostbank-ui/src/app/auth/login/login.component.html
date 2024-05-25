@@ -1,0 +1,26 @@
+<main>
+<div class="card">
+  <h2 class="text-center">Login</h2>
+  <hr>
+  <div class="alert alert-danger" role="alert" *ngIf="errorMsg.length">
+    <h5 class="error-message" *ngFor="let msg of errorMsg">{{msg}}</h5>
+  </div>
+  <div class="login">
+    <label for="login" class="form-label">Email address</label>
+    <input [(ngModel)]="authRequest.email"  type="email" class="form-control" id="login" placeholder="name@example.com">
+    <label for="password" class="form-label">Password</label>
+    <input [(ngModel)]="authRequest.password" type="password" class="form-control" id="password" placeholder="Password">
+  </div>
+  <div class="log">
+    <button (click)="login()" type="button" class="btn btn-primary">
+      <em class="fas fa-sign-in-alt">&nbsp;Sign in</em>
+    </button>
+    <div class="msg">
+      Don't have an account?&nbsp;
+      <a (click)="register()" type="button" class="btn btn-link">
+        Register
+      </a>
+    </div>
+  </div>
+</div>
+</main>

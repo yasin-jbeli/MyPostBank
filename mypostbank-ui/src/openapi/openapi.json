@@ -1,0 +1,2945 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OpenAPI specification - Yasin",
+    "description": "OpenAPI Documentation for MyPostBank",
+    "termsOfService": "Terms of Service",
+    "contact": {
+      "name": "Yasin",
+      "email": "yasinjb002@gmail.com"
+    },
+    "license": {
+      "name": "License"
+    },
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080/mypostbank",
+      "description": "Local ENV"
+    },
+    {
+      "url": "https://yasin",
+      "description": "PROV ENV"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/user/update": {
+      "put": {
+        "tags": [
+          "user-controller"
+        ],
+        "summary": "Update user details",
+        "operationId": "updateUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/cards/{cardId}/deactivate": {
+      "put": {
+        "tags": [
+          "card-controller"
+        ],
+        "summary": "Deactivate card by ID",
+        "operationId": "deactivateCard",
+        "parameters": [
+          {
+            "name": "cardId",
+            "in": "path",
+            "description": "Card ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/cards/{cardId}/activate": {
+      "put": {
+        "tags": [
+          "card-controller"
+        ],
+        "summary": "Activate card by ID",
+        "operationId": "activateCard",
+        "parameters": [
+          {
+            "name": "cardId",
+            "in": "path",
+            "description": "Card ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/accounts/{accountId}/deactivate": {
+      "put": {
+        "tags": [
+          "bank-account-controller"
+        ],
+        "summary": "deactivate account by ID",
+        "operationId": "deactivateAccount",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "description": "Account ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/accounts/{accountId}/activate": {
+      "put": {
+        "tags": [
+          "bank-account-controller"
+        ],
+        "summary": "Activate account by ID",
+        "operationId": "activateAccount",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "description": "Account ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/credit-requests/{creditId}/reject": {
+      "put": {
+        "tags": [
+          "admin-controller"
+        ],
+        "summary": "Reject credit request by ID",
+        "operationId": "rejectCredit",
+        "parameters": [
+          {
+            "name": "creditId",
+            "in": "path",
+            "description": "Credit request ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Credit request rejected",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Credit request not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/cards/{cardId}/reject": {
+      "put": {
+        "tags": [
+          "admin-controller"
+        ],
+        "summary": "Reject card by ID",
+        "operationId": "rejectCard",
+        "parameters": [
+          {
+            "name": "cardId",
+            "in": "path",
+            "description": "Card ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/cards/{cardId}/deactivate": {
+      "put": {
+        "tags": [
+          "admin-controller"
+        ],
+        "summary": "Deactivate card by ID",
+        "operationId": "deactivateCard_1",
+        "parameters": [
+          {
+            "name": "cardId",
+            "in": "path",
+            "description": "Card ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/cards/{cardId}/approve": {
+      "put": {
+        "tags": [
+          "admin-controller"
+        ],
+        "summary": "Approve card by ID",
+        "operationId": "approveCard",
+        "parameters": [
+          {
+            "name": "cardId",
+            "in": "path",
+            "description": "Card ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/cards/{cardId}/activate": {
+      "put": {
+        "tags": [
+          "admin-controller"
+        ],
+        "summary": "Activate card by ID",
+        "operationId": "activateCard_1",
+        "parameters": [
+          {
+            "name": "cardId",
+            "in": "path",
+            "description": "Card ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/accounts/{accountId}/freeze": {
+      "put": {
+        "tags": [
+          "admin-controller"
+        ],
+        "summary": "Freeze account by ID",
+        "operationId": "freezeAccount",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "description": "Account ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/accounts/{accountId}/deactivate": {
+      "put": {
+        "tags": [
+          "admin-controller"
+        ],
+        "summary": "Reject account by ID",
+        "operationId": "rejectAccount",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "description": "Account ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/transfer": {
+      "post": {
+        "tags": [
+          "user-controller"
+        ],
+        "summary": "Transfer funds between accounts",
+        "operationId": "transferFunds",
+        "parameters": [
+          {
+            "name": "sourceAccountId",
+            "in": "query",
+            "description": "Source account id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "destinationAccountId",
+            "in": "query",
+            "description": "Destination account id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "amount",
+            "in": "query",
+            "description": "Amount to transfer",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/loans/request-loan": {
+      "post": {
+        "tags": [
+          "credit-controller"
+        ],
+        "summary": "Request a new loan",
+        "operationId": "requestLoan",
+        "parameters": [
+          {
+            "name": "amount",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "rate",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "duration",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "form",
+                  "proof",
+                  "statements"
+                ],
+                "type": "object",
+                "properties": {
+                  "form": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "statements": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "proof": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/checkbooks/request-checkbook": {
+      "post": {
+        "tags": [
+          "checkbook-controller"
+        ],
+        "summary": "Request a new checkbook",
+        "operationId": "addCheckbook",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/cards/request-card": {
+      "post": {
+        "tags": [
+          "card-controller"
+        ],
+        "summary": "Request a new card for an account",
+        "operationId": "requestCard",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "description": "Account ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/accounts/open": {
+      "post": {
+        "tags": [
+          "bank-account-controller"
+        ],
+        "summary": "Open a new bank account",
+        "operationId": "openAccount",
+        "parameters": [
+          {
+            "name": "accountType",
+            "in": "query",
+            "description": "Type of account",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "CHECKING",
+                "SAVINGS"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "file"
+                ],
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/register": {
+      "post": {
+        "tags": [
+          "authentication-controller"
+        ],
+        "summary": "Register a new user",
+        "operationId": "register",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticationResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/refresh": {
+      "post": {
+        "tags": [
+          "authentication-controller"
+        ],
+        "summary": "Refresh authentication token",
+        "operationId": "refresh",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/authenticate": {
+      "post": {
+        "tags": [
+          "authentication-controller"
+        ],
+        "summary": "Authenticate user",
+        "operationId": "authenticate",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthenticationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticationResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/credit-requests/{creditId}/approve": {
+      "post": {
+        "tags": [
+          "admin-controller"
+        ],
+        "summary": "Approve credit request by ID",
+        "operationId": "approveCredit",
+        "parameters": [
+          {
+            "name": "creditId",
+            "in": "path",
+            "description": "Credit request ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Credit request approved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Credit request not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/checkbook/{checkId}/update/{checkbookStatus}": {
+      "post": {
+        "tags": [
+          "admin-controller"
+        ],
+        "summary": "update checkbook status",
+        "operationId": "updateCheckbookStatus",
+        "parameters": [
+          {
+            "name": "checkId",
+            "in": "path",
+            "description": "checkbook id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "checkbookStatus",
+            "in": "path",
+            "description": "status",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ORDERED",
+                "BEING_DELIVERED",
+                "RECEIVED"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/accounts/{accountId}/activate": {
+      "post": {
+        "tags": [
+          "admin-controller"
+        ],
+        "summary": "Activate account by ID",
+        "operationId": "activateAccount_1",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "description": "Account ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/change-password": {
+      "patch": {
+        "tags": [
+          "user-controller"
+        ],
+        "summary": "Change user password",
+        "operationId": "changePassword",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangePasswordRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/transactions": {
+      "get": {
+        "tags": [
+          "user-controller"
+        ],
+        "summary": "Get transactions by user",
+        "operationId": "getTransactionsByUser",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageResponseTransactionDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/transactions/{transactionId}": {
+      "get": {
+        "tags": [
+          "user-controller"
+        ],
+        "summary": "Get transaction by ID",
+        "operationId": "getTransactionById",
+        "parameters": [
+          {
+            "name": "transactionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/trans": {
+      "get": {
+        "tags": [
+          "user-controller"
+        ],
+        "summary": "Get transaction by user",
+        "operationId": "getTrans",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TransactionDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/loans/{creditId}": {
+      "get": {
+        "tags": [
+          "credit-controller"
+        ],
+        "summary": "Get loan by ID",
+        "operationId": "getLoanById",
+        "parameters": [
+          {
+            "name": "creditId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved loan",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreditDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Loan not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreditDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/loans/{creditId}/due-payments": {
+      "get": {
+        "tags": [
+          "credit-controller"
+        ],
+        "summary": "Get due payments",
+        "operationId": "getDuePayments",
+        "parameters": [
+          {
+            "name": "creditId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RepaymentDetailDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/loans/{creditId}/all-payments": {
+      "get": {
+        "tags": [
+          "credit-controller"
+        ],
+        "summary": "Get all payments",
+        "operationId": "getAllRepaymentsByUser",
+        "parameters": [
+          {
+            "name": "creditId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RepaymentDetailDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/loans/{crediId}/paid-payments": {
+      "get": {
+        "tags": [
+          "credit-controller"
+        ],
+        "summary": "Get paid payments",
+        "operationId": "getPaidPayments",
+        "parameters": [
+          {
+            "name": "crediId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RepaymentDetailDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/loans/ongoing-loans": {
+      "get": {
+        "tags": [
+          "credit-controller"
+        ],
+        "summary": "ongoing payments",
+        "operationId": "ongoingLoans",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreditDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/loans/": {
+      "get": {
+        "tags": [
+          "credit-controller"
+        ],
+        "summary": "Get all loans by user",
+        "operationId": "getLoans",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CreditDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/details": {
+      "get": {
+        "tags": [
+          "user-controller"
+        ],
+        "summary": "Get user details",
+        "operationId": "getUserDetails",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDetailsDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/checkbooks/{checkbookId}": {
+      "get": {
+        "tags": [
+          "checkbook-controller"
+        ],
+        "summary": "Get checkbook by ID",
+        "operationId": "getCheckbookByUserId",
+        "parameters": [
+          {
+            "name": "checkbookId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved checkbook",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CheckbookDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Checkbook not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CheckbookDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/checkbooks/": {
+      "get": {
+        "tags": [
+          "checkbook-controller"
+        ],
+        "summary": "Get all checkbooks by user",
+        "operationId": "getCheckbookByUserId_1",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CheckbookDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/cards/{cardId}": {
+      "get": {
+        "tags": [
+          "card-controller"
+        ],
+        "summary": "Get card by ID",
+        "operationId": "getCardById",
+        "parameters": [
+          {
+            "name": "cardId",
+            "in": "path",
+            "description": "Card ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CardDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/cards/{accountId}/all": {
+      "get": {
+        "tags": [
+          "card-controller"
+        ],
+        "summary": "Get cards by account ID",
+        "operationId": "getCardsByAccount",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "description": "Account ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CardDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/cards/": {
+      "get": {
+        "tags": [
+          "card-controller"
+        ],
+        "summary": "Get all user cards",
+        "operationId": "getUserCards",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CardDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/accounts/{accountId}": {
+      "get": {
+        "tags": [
+          "bank-account-controller"
+        ],
+        "summary": "Get specific account by ID",
+        "operationId": "getSpecificAccount",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BankAccountDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/accounts/{accountId}/balance": {
+      "get": {
+        "tags": [
+          "bank-account-controller"
+        ],
+        "summary": "Get account balance",
+        "operationId": "getBalance",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/accounts/accounts": {
+      "get": {
+        "tags": [
+          "bank-account-controller"
+        ],
+        "summary": "Get all accounts",
+        "operationId": "getAllAccountsNotAdmin",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BankAccountDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/accounts/": {
+      "get": {
+        "tags": [
+          "bank-account-controller"
+        ],
+        "summary": "Get user accounts",
+        "operationId": "getUserAccounts",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BankAccountDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/users": {
+      "get": {
+        "tags": [
+          "admin-controller"
+        ],
+        "summary": "Get all users",
+        "operationId": "getAllUsers",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/users/{userId}": {
+      "get": {
+        "tags": [
+          "admin-controller"
+        ],
+        "summary": "Get user by ID",
+        "operationId": "getUserById",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/transactions": {
+      "get": {
+        "tags": [
+          "admin-controller"
+        ],
+        "summary": "Get all transactions",
+        "operationId": "getAllTransactions",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageResponseTransactionDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/transactions/{transactionId}": {
+      "get": {
+        "tags": [
+          "admin-controller"
+        ],
+        "summary": "Get transaction by ID",
+        "operationId": "getTransaction",
+        "parameters": [
+          {
+            "name": "transactionId",
+            "in": "path",
+            "description": "Transaction ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/loans": {
+      "get": {
+        "tags": [
+          "admin-controller"
+        ],
+        "summary": "Get all loans",
+        "operationId": "getAllLoans",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CreditDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/loans/{creditId}/installments": {
+      "get": {
+        "tags": [
+          "admin-controller"
+        ],
+        "summary": "Get credit installments",
+        "operationId": "getInstallments",
+        "parameters": [
+          {
+            "name": "creditId",
+            "in": "path",
+            "description": "Credit request ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RepaymentDetailDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/credit-requests": {
+      "get": {
+        "tags": [
+          "admin-controller"
+        ],
+        "summary": "Get all credit requests",
+        "operationId": "creditRequests",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CreditDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/checkbook-requests": {
+      "get": {
+        "tags": [
+          "admin-controller"
+        ],
+        "summary": "Get all checkbook requests",
+        "operationId": "checkbookRequests",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CheckbookDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/cards": {
+      "get": {
+        "tags": [
+          "admin-controller"
+        ],
+        "summary": "Get all cards",
+        "operationId": "getAllCards",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CardDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/cards/pending": {
+      "get": {
+        "tags": [
+          "admin-controller"
+        ],
+        "summary": "Get all pending cards",
+        "operationId": "getPendingCards",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CardDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/accounts": {
+      "get": {
+        "tags": [
+          "admin-controller"
+        ],
+        "summary": "Get all accounts",
+        "operationId": "getAllAccounts",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BankAccountDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/accounts/{accountId}": {
+      "get": {
+        "tags": [
+          "admin-controller"
+        ],
+        "summary": "Get account by ID",
+        "operationId": "getAccountById",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "description": "Account ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BankAccountDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/accounts/savings": {
+      "get": {
+        "tags": [
+          "admin-controller"
+        ],
+        "summary": "Get all savings accounts",
+        "operationId": "getSavingsAccounts",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BankAccountDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/accounts/pending": {
+      "get": {
+        "tags": [
+          "admin-controller"
+        ],
+        "summary": "Get all pending accounts",
+        "operationId": "getPendingAccounts",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BankAccountDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/accounts/checking": {
+      "get": {
+        "tags": [
+          "admin-controller"
+        ],
+        "summary": "Get all checking accounts",
+        "operationId": "getCheckingAccounts",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BankAccountDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/activate-account": {
+      "get": {
+        "tags": [
+          "authentication-controller"
+        ],
+        "summary": "Activate user account",
+        "operationId": "confirm",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "description": "Activation token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/user/delete": {
+      "delete": {
+        "tags": [
+          "user-controller"
+        ],
+        "summary": "Delete user account",
+        "operationId": "deleteUser",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/cards/{cardId}/delete": {
+      "delete": {
+        "tags": [
+          "card-controller"
+        ],
+        "summary": "delete card",
+        "operationId": "deleteCard",
+        "parameters": [
+          {
+            "name": "cardId",
+            "in": "query",
+            "description": "card id",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/cards/{cardId}/cancel-request": {
+      "delete": {
+        "tags": [
+          "card-controller"
+        ],
+        "summary": "Cancel card request by ID",
+        "operationId": "cancelCardRequest",
+        "parameters": [
+          {
+            "name": "cardId",
+            "in": "path",
+            "description": "Card ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/accounts/{accountId}/delete": {
+      "delete": {
+        "tags": [
+          "bank-account-controller"
+        ],
+        "summary": "delete account by ID",
+        "operationId": "deleteAccount",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "description": "Account ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/users/{userId}/delete": {
+      "delete": {
+        "tags": [
+          "admin-controller"
+        ],
+        "summary": "Delete user by ID",
+        "operationId": "deleteUser_1",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/cards/{cardId}/delete": {
+      "delete": {
+        "tags": [
+          "admin-controller"
+        ],
+        "summary": "Delete card by ID",
+        "operationId": "deleteCard_1",
+        "parameters": [
+          {
+            "name": "cardId",
+            "in": "path",
+            "description": "Card ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/accounts/{accountId}/close": {
+      "delete": {
+        "tags": [
+          "admin-controller"
+        ],
+        "summary": "Close account by ID",
+        "operationId": "closeAccount",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "description": "Account ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BankAccount": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastModifiedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdBy": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "lastModifiedBy": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "accountNo": {
+            "type": "string"
+          },
+          "accountType": {
+            "type": "string",
+            "enum": [
+              "CHECKING",
+              "SAVINGS"
+            ]
+          },
+          "balance": {
+            "type": "number"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "PENDING",
+              "INACTIVE",
+              "FROZEN"
+            ]
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "cards": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Card"
+            }
+          },
+          "loans": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Credit"
+            }
+          }
+        }
+      },
+      "Card": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastModifiedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdBy": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "lastModifiedBy": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "cardNo": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "PENDING",
+              "FROZEN",
+              "ACTIVE",
+              "BLOCKED"
+            ]
+          },
+          "expirationDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "account": {
+            "$ref": "#/components/schemas/BankAccount"
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          }
+        }
+      },
+      "Checkbook": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastModifiedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdBy": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "lastModifiedBy": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ORDERED",
+              "BEING_DELIVERED",
+              "RECEIVED"
+            ]
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "checkbookNo": {
+            "type": "string"
+          }
+        }
+      },
+      "Credit": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastModifiedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdBy": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "lastModifiedBy": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "amount": {
+            "type": "number"
+          },
+          "interestRate": {
+            "type": "number"
+          },
+          "duration": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ONGOING",
+              "PENDING",
+              "REJECTED",
+              "PAID"
+            ]
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "account": {
+            "$ref": "#/components/schemas/BankAccount"
+          },
+          "repaymentDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RepaymentDetail"
+            }
+          }
+        }
+      },
+      "GrantedAuthority": {
+        "type": "object",
+        "properties": {
+          "authority": {
+            "type": "string"
+          }
+        }
+      },
+      "RepaymentDetail": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastModifiedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdBy": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "lastModifiedBy": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "credit": {
+            "$ref": "#/components/schemas/Credit"
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "month": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "principalPayment": {
+            "type": "number"
+          },
+          "interestPayment": {
+            "type": "number"
+          },
+          "remainingBalance": {
+            "type": "number"
+          },
+          "paymentAmount": {
+            "type": "number"
+          },
+          "paymentStatus": {
+            "type": "string",
+            "enum": [
+              "PAID",
+              "NOT_PAID",
+              "PARTIAL",
+              "OVERDUE",
+              "CANCELLED",
+              "INSUFFICIENT_FUNDS"
+            ]
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastModifiedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdBy": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "lastModifiedBy": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "USER",
+              "ADMIN",
+              "MANAGER"
+            ]
+          },
+          "accounts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BankAccount"
+            }
+          },
+          "cards": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Card"
+            }
+          },
+          "checkbooks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Checkbook"
+            }
+          },
+          "loans": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Credit"
+            }
+          },
+          "name": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "authorities": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GrantedAuthority"
+            }
+          },
+          "accountNonExpired": {
+            "type": "boolean"
+          },
+          "accountNonLocked": {
+            "type": "boolean"
+          },
+          "credentialsNonExpired": {
+            "type": "boolean"
+          }
+        }
+      },
+      "RegisterRequest": {
+        "required": [
+          "email",
+          "firstName",
+          "lastName",
+          "password",
+          "phone"
+        ],
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "pattern": "^[a-zA-Z]+$",
+            "type": "string"
+          },
+          "lastName": {
+            "pattern": "^[a-zA-Z]+$",
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phone": {
+            "pattern": "^[0-9]+$",
+            "type": "string"
+          },
+          "password": {
+            "maxLength": 20,
+            "minLength": 8,
+            "pattern": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[/@$!%*?&])[A-Za-z\\d/@$!%*?&]+$",
+            "type": "string"
+          }
+        }
+      },
+      "AuthenticationResponse": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string"
+          },
+          "refreshToken": {
+            "type": "string"
+          }
+        }
+      },
+      "AuthenticationRequest": {
+        "required": [
+          "email",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "ChangePasswordRequest": {
+        "type": "object",
+        "properties": {
+          "currentPassword": {
+            "type": "string"
+          },
+          "newPassword": {
+            "type": "string"
+          },
+          "confirmationPassword": {
+            "type": "string"
+          }
+        }
+      },
+      "PageResponseTransactionDTO": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TransactionDTO"
+            }
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "last": {
+            "type": "boolean"
+          }
+        }
+      },
+      "TransactionDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "transactionType": {
+            "type": "string",
+            "enum": [
+              "TRANSFER",
+              "CARD_PAYMENT",
+              "WITHDRAWAL",
+              "DEPOSIT",
+              "CREDIT_INSTALLMENT"
+            ]
+          },
+          "amount": {
+            "type": "number"
+          },
+          "description": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "beneficiary": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "cardId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "accountId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "CreditDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "amount": {
+            "type": "number"
+          },
+          "interestRate": {
+            "type": "number"
+          },
+          "duration": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ONGOING",
+              "PENDING",
+              "REJECTED",
+              "PAID"
+            ]
+          },
+          "account": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "owner": {
+            "type": "string"
+          }
+        }
+      },
+      "RepaymentDetailDTO": {
+        "type": "object",
+        "properties": {
+          "month": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "principalPayment": {
+            "type": "number"
+          },
+          "interestPayment": {
+            "type": "number"
+          },
+          "remainingBalance": {
+            "type": "number"
+          },
+          "paymentAmount": {
+            "type": "number"
+          },
+          "paymentStatus": {
+            "type": "string",
+            "enum": [
+              "PAID",
+              "NOT_PAID",
+              "PARTIAL",
+              "OVERDUE",
+              "CANCELLED",
+              "INSUFFICIENT_FUNDS"
+            ]
+          }
+        }
+      },
+      "UserDetailsDTO": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "accounts": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "cards": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "USER",
+              "ADMIN",
+              "MANAGER"
+            ]
+          },
+          "dateJoined": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "CheckbookDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "checkbookNo": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ORDERED",
+              "BEING_DELIVERED",
+              "RECEIVED"
+            ]
+          },
+          "owner": {
+            "type": "string"
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "CardDTO": {
+        "type": "object",
+        "properties": {
+          "cardId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "cardNo": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "PENDING",
+              "FROZEN",
+              "ACTIVE",
+              "BLOCKED"
+            ]
+          },
+          "expirationDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "accountId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "createDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "owner": {
+            "type": "string"
+          }
+        }
+      },
+      "BankAccountDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "accountNo": {
+            "type": "string"
+          },
+          "accountType": {
+            "type": "string",
+            "enum": [
+              "CHECKING",
+              "SAVINGS"
+            ]
+          },
+          "balance": {
+            "type": "number"
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "PENDING",
+              "INACTIVE",
+              "FROZEN"
+            ]
+          },
+          "owner": {
+            "type": "string"
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "UserDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "USER",
+              "ADMIN",
+              "MANAGER"
+            ]
+          },
+          "dateJoined": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "description": "JWT auth",
+        "in": "header",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

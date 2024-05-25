@@ -1,0 +1,57 @@
+<main>
+  <h1>Dashboard</h1>
+  <div class="insights">
+    <div class="balance" (click)="navAccounts()">
+      <span class="material-symbols-outlined">payments</span>
+      <div class="middle">
+        <h3>Total Balance:</h3>
+        <h2>{{ getTotalBalance() }}TND</h2>
+      </div>
+    </div>
+    <div class="due-payments" *ngIf="payments && payments.length > 0" (click)="navLoan()">
+      <span class="material-symbols-outlined">schedule</span>
+      <div class="middle" *ngFor="let payment of payments.slice(0, 1)">
+        <h3>Next Payment On:</h3>
+        <h3>{{payment.dueDate}}</h3>
+        <h2>{{payment.paymentAmount}}TND</h2>
+      </div>
+    </div>
+    <div class="message">
+      <span class="material-symbols-outlined">overview_key</span>
+      <div class="middle">
+        <h2>Your Finances,</h2>
+        <h4>At a glance</h4>
+      </div>
+    </div>
+  </div>
+<div class="recent-transactions">
+  <h2>Recent Transactions</h2>
+  <table *ngIf="transaction && transaction.content.length > 0">
+    <thead>
+    <tr>
+      <th>Transaction Id</th>
+      <th>Type</th>
+      <th>Amount</th>
+      <th>Description</th>
+      <th>Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let trans of transaction.content.slice(0,8)">
+      <td>{{ trans.id }}</td>
+      <td><span [ngClass]="{
+              'deposit': trans.transactionType === 'DEPOSIT',
+              'withdrawal': trans.transactionType === 'WITHDRAWAL',
+              'card-payment': trans.transactionType === 'CARD_PAYMENT',
+              'transfer': trans.transactionType === 'TRANSFER',
+              'credit': trans.transactionType === 'CREDIT_INSTALLMENT'
+            }">{{ trans.transactionType.replace('_', ' ').toLowerCase() }}</span></td>
+      <td class="highlight"><b>{{ trans.amount }} TND</b></td>
+      <td>{{ trans.description }}</td>
+      <td>{{ trans.date.substring(0,10) }}</td>
+    </tr>
+    </tbody>
+  </table>
+  <a (click)="navigateToTransactions()">Show All</a>
+</div>
+</main>

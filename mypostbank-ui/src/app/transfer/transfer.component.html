@@ -1,0 +1,43 @@
+<main>
+  <div class="card">
+    <h1>Transfer</h1>
+    <form [formGroup]="transferForm" (ngSubmit)="onSubmit()">
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Source Account:</mat-label>
+          <mat-select formControlName="sourceAccountId">
+            <mat-option *ngFor="let account of sourceAccounts" [value]="account.id">
+              {{ account.accountNo }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div *ngIf="transferForm.get('sourceAccountId').invalid && transferForm.get('sourceAccountId').touched">
+          <small *ngIf="transferForm.get('sourceAccountId').errors?.['required']">Source Account is required</small>
+        </div>
+      </div>
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Destination Account:</mat-label>
+          <input type="text" matInput formControlName="destinationAccount" [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let account of filteredAccounts | async" [value]="account">
+              {{ account.owner }} - "{{ account.accountNo }}"
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <div *ngIf="transferForm.get('destinationAccount').invalid && transferForm.get('destinationAccount').touched">
+          <small *ngIf="transferForm.get('destinationAccount').errors?.['required']">Destination Account is required</small>
+        </div>
+      </div>
+      <div>
+        <label for="amount">Amount:</label>
+        <input type="number" id="amount" formControlName="amount">
+        <div *ngIf="transferForm.get('amount').invalid && transferForm.get('amount').touched">
+          <small *ngIf="transferForm.get('amount').errors?.['required']">Amount is required</small>
+          <small *ngIf="transferForm.get('amount').errors?.['min']">Amount must be at least 0.01</small>
+        </div>
+      </div>
+      <button type="submit" [disabled]="transferForm.invalid">Transfer</button>
+    </form>
+  </div>
+</main>

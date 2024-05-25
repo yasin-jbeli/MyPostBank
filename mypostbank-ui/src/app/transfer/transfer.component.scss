@@ -1,0 +1,72 @@
+.card {
+  width: 400px;
+  padding: 2rem 1.5rem;
+  margin: 150px auto;
+  background: #f9f9f9;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: var(--box-shadow);
+}
+
+input {
+  width: 100%;
+  outline: none;
+  border: none;
+  padding: 12px 20px;
+  margin: 10px 0;
+  border-radius: 20px;
+  background: #e4e4e4;
+}
+
+main {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  font-size: 1rem;
+  margin-top: 1.8rem;
+  padding: 10px;
+  border-radius: 20px;
+  outline: none;
+  border: none;
+  width: 100%;
+  color: #fff;
+  cursor: pointer;
+  background: #14145b;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background: #0d0d33;
+}
+
+h2 {
+  color: #14145b;
+  margin-bottom: 1rem;
+}
+
+.msg {
+  margin-top: 2rem;
+}
+
+a {
+  color: #14145b;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.error-message {
+  color: #ffffff;
+  background-color: #f44336;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  border-radius: 20px;
+}
+
+h1 {
+  margin: 1.4rem;
+}

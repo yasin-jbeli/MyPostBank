@@ -1,0 +1,61 @@
+spring:
+  profiles:
+    active: dev
+  servlet:
+    multipart:
+      max-file-size: 50MB
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mpbdb
+    username: postgres
+    password: postgres
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    open-in-view: false
+    database: postgresql
+    properties:
+      hibernate:
+        format_sql: true
+  mail:
+    host: localhost
+    port: 1025
+    username: yasin
+    password:
+    properties:
+      mail:
+        smtp:
+          trust: "*"
+        auth: true
+        starttls:
+          enable: true
+        connection timeout: 5000
+        timeout: 3000rv
+        write timeout: 5000
+
+springdoc:
+  default-produces-media-type: application/json
+
+server:
+  servlet:
+    context-path: /mypostbank/
+  port: 8088
+application:
+  security:
+    jwt:
+      secret-key: 8d05b11a5a7f416ef6e04a1911eb3a9400f2785885e4063e1b57def802274738
+      expiration: 86400000
+      refresh-token:
+        expiration: 604800000
+  mailing:
+    frontend:
+      activation-url: http://localhost:4200/activate-account
+
+  file:
+    upload:
+      files-output-path: ./uploads
+
+encryption:
+  password: "5329a29414f948bedc166be4ee16dd44"
+  salt: "35626bd58a15e1038682dc06abd83ad2"

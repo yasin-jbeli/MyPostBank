@@ -1,0 +1,56 @@
+<main>
+  <div class="card">
+    <h1>Request Loan</h1>
+    <form (ngSubmit)="submitLoanRequest()" enctype="multipart/form-data">
+      <div class="amount">
+        <label>Select Account:</label>&nbsp;
+        <mat-form-field appearance="fill">
+          <mat-label>Select Account</mat-label>
+          <mat-select [(ngModel)]="selectedAccount" name="selectedAccount">
+            <mat-option *ngFor="let account of sourceAccounts" [value]="account">{{ account.accountNo}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <label for="amount">Amount:</label>&nbsp;
+        <input type="number" id="amount" name="amount" [(ngModel)]="loanRequest.amount" (ngModelChange)="onAmountChange()" required>
+      </div>
+
+      <div>
+        <label for="loanOptionSelect">Loan Options:</label>&nbsp;
+        <mat-form-field appearance="fill">
+          <mat-label>Select Loan Option</mat-label>
+          <mat-select id="loanOptionSelect" [(ngModel)]="selectedLoanOption" name="selectedOption">
+            <mat-option *ngFor="let option of loanOptions" [value]="option" (click)="selectLoanOption(option, loanRequest.amount)">
+              {{ option.duration }} months - Interest Rate: {{ option.rate.toFixed(2) }}% - Amount to Pay (with interest): {{ calculateTotalAmount(option) | currency:'TND' }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <p>Please download the application form using the link below, fill it out, and then upload it:</p>
+        <a href="./assets/LoanApplicationForm.pdf" download>Download</a><br><br>
+        <label for="applicationForm" class="custom-file-upload">Upload Application Form</label>
+        <input type="file" id="applicationForm" name="custom-file-upload" (change)="onFileSelected($event, 'applicationForm')" required>
+      </div>
+
+      <div>
+        <label for="bankStatements">Bank Statements:</label>
+        <input type="file" id="bankStatements" name="bankStatements" (change)="onFileSelected($event, 'bankStatements')" required>
+        <label for="bankStatements" class="custom-file-upload">Upload File</label>
+      </div>
+
+      <div>
+        <label for="proofOfIncome">Proof of Income:</label>&nbsp;
+        <input type="file" id="proofOfIncome" name="proofOfIncome" (change)="onFileSelected($event, 'proofOfIncome')" required>
+        <label for="proofOfIncome" class="custom-file-upload">Upload File</label>
+      </div>
+
+      <div>
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+</main>

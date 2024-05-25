@@ -1,0 +1,113 @@
+main {
+  margin-top: 1.4rem;
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+}
+
+main .loans {
+  margin-top: 2rem;
+  width: 50%;
+}
+
+main .loans h2 {
+  margin-bottom: 0.8rem;
+}
+
+main .installments {
+  box-shadow: none;
+  transition: none;
+  overflow-y: auto;
+  max-height: 400px;
+}
+
+main .loans table {
+  margin-top: 1.4rem;
+  background: var(--color-white);
+  width: 100%;
+  border-radius: var(--card-border-radius);
+  padding: var(--card-padding);
+  text-align: center;
+  box-shadow: var(--box-shadow);
+  transition: all 300ms ease;
+  overflow-y: auto;
+  max-height: 800px;
+}
+
+main .loans table:hover {
+  box-shadow: none;
+}
+
+main table tbody td {
+  height: 5rem;
+  border-bottom: 1px solid var(--color-light);
+  color: var(--color-dark-variant);
+}
+
+main table tbody tr:last-child {
+  border: none;
+}
+
+span:hover {
+  cursor: pointer;
+}
+
+#del {
+  color: rgba(255,0,0,0.8);
+}
+
+main .details {
+  width: 50%;
+  margin-top: 2rem;
+  max-height: 800px;
+  overflow-y: auto;
+}
+
+#ice {
+  color: cornflowerblue;
+}
+
+.card {
+  margin-top: 1.4rem;
+  background: var(--color-white);
+  border-radius: var(--card-border-radius);
+  padding: var(--card-padding);
+  text-align: left;
+  transition: all 300ms ease;
+  overflow-y: auto;
+}
+.card {
+  position: relative; /* Make the card container relative */
+}
+
+.buttons-container {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  display: flex;
+}
+
+button {
+  margin-left: 10px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.rej:hover {
+  background-color: rgba(255,0,0,0.8);
+  color: white;
+}
+
+.app {
+  background: #14145b;
+  color: white;
+}
+
+.paid { background-color: #d8f4ec; border-radius: var(--card-border-radius); padding: 5px 20px 5px 20px; color: #62d1b6; font-weight: 700; }
+.ongoing { background-color: #fff3d2; border-radius: var(--card-border-radius); padding: 5px 20px 5px 20px; color:#fec722; font-weight: 700;  }
+
+.not-paid { background-color: #849eff; border-radius: var(--card-border-radius); padding: 5px 20px 5px 20px; color: #e3e8ff; font-weight: 700; }
+.overdue { background-color: #fbe3e3; border-radius: var(--card-border-radius); padding: 5px 20px 5px 20px; color: #ec8686; font-weight: 700;  }
+

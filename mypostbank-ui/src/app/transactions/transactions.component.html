@@ -1,0 +1,41 @@
+<main *ngIf="transaction && transaction.content.length>0">
+  <h1>Transactions</h1>
+  <div class="search-container">
+    <input type="text" placeholder="Search transactions" [(ngModel)]="searchKeyword" (input)="applySearch()">
+  </div>
+  <div class="transactions" id="transactionData">
+    <table *ngIf="transaction && transaction.content.length > 0">
+      <thead>
+      <tr>
+        <th>Transaction Id</th>
+        <th>Type</th>
+        <th>Amount</th>
+        <th>Description</th>
+        <th>Date</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let trans of transaction.content">
+        <td>{{ trans.id }}</td>  <td><span [ngClass]="{
+              'deposit': trans.transactionType === 'DEPOSIT',
+              'withdrawal': trans.transactionType === 'WITHDRAWAL',
+              'card-payment': trans.transactionType === 'CARD_PAYMENT',
+              'transfer': trans.transactionType === 'TRANSFER',
+              'credit': trans.transactionType === 'CREDIT_INSTALLMENT'
+            }">{{ trans.transactionType.replace('_', ' ').toLowerCase() }}</span></td>
+        <td class="highlight"><b>{{ trans.amount }} TND</b></td>
+        <td>{{ trans.description }}</td>
+        <td>{{ trans.date }}</td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="page">
+      <mat-paginator [pageSize]="pageSize" [pageIndex]="pageIndex" [length]="totalTransactions" (page)="onPageChange($event)">
+      </mat-paginator>
+      <a (click)="downloadTransactions()">Download</a>
+    </div>
+  </div>
+</main>
+<main *ngIf="!transaction" class="no">
+  <h1>You Don't Have Any Saved Transactions At The Moment...</h1>
+</main>

@@ -1,0 +1,34 @@
+<main>
+  <h1>Profile</h1>
+  <div class="card">
+  <form (ngSubmit)="updateProfile()" #profileForm="ngForm">
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input type="text" id="firstName" name="firstName" [(ngModel)]="user.firstName" required>
+    </div>
+    <div class="form-group">
+      <label for="lastName">Last Name</label>
+      <input type="text" id="lastName" name="lastName" [(ngModel)]="user.lastName" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" [(ngModel)]="user.email" required>
+    </div>
+    <div class="form-group">
+      <label for="phone">Phone</label>
+      <input type="tel" id="phone" name="phone" [(ngModel)]="user.phone" required>
+    </div>
+    <br>
+    <a><b>Change Password</b></a>
+    <button type="submit" [disabled]="!profileForm.valid">Save Changes</button>
+  </form>
+  <div class="info">
+    <h3>Date Joined:</h3>
+    <h2> {{ userInfo.dateJoined.substring(0,10) }} </h2>
+    <h3>Active Accounts:</h3>
+    <h2 *ngFor="let account of accounts"> {{ account.accountNo}} </h2>
+    <h3>Active Cards:</h3>
+    <h2 *ngFor="let card of cards"> {{ card.cardNo }} </h2>
+  </div>
+  </div>
+</main>

@@ -1,0 +1,76 @@
+<main class="container">
+  <div class="loans">
+    <h1>Loans</h1>
+    <table class="table" *ngIf="loans && loans.length > 0">
+      <thead>
+      <tr>
+        <th>Id</th>
+        <th>User</th>
+        <th>Status</th>
+        <th>Duration</th>
+        <th>Amount</th>
+        <th>Interest Rate</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let loan of loans" (click)="togglePaymentDetails(loan)">
+        <td>{{ loan.id }}</td>
+        <td>{{ loan.owner}}</td>
+        <td><span [ngClass]="{
+              'ongoing': loan.status === 'ONGOING',
+              'paid': loan.status === 'PAID'
+            }">{{ loan.status }}</span></td>
+        <td>{{ loan.duration }} Months</td>
+        <td><b>{{ loan.amount }}TND</b></td>
+        <td>{{ loan.interestRate }}%</td>
+      </tr>
+      <tr *ngIf="selectedLoan">
+        <td colspan="6">
+          <div class="installments">
+          <table>
+            <tr>
+              <th>Month</th>
+              <th>Installment Payment</th>
+              <th>Status</th>
+              <th>Due Date</th>
+            </tr>
+            <tr *ngFor="let payment of payments">
+              <td>{{ payment.month }}</td>
+              <td><b>{{ payment.paymentAmount }}TND</b></td>
+              <td><span [ngClass]="{
+              'paid': payment.paymentStatus === 'PAID',
+              'not-paid': payment.paymentStatus === 'NOT_PAID',
+              'overdue': payment.paymentStatus === 'OVERDUE'}">{{ payment.paymentStatus.replace('_', ' ').toLowerCase() }}</span></td>
+              <td>{{ payment.dueDate.substring(0.10) }}</td>
+            </tr>
+          </table>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="details" *ngIf="requests && requests.length > 0">
+    <h1>Requests</h1>
+    <div class="card" *ngFor="let request of requests">
+      <h4>Requests Id:</h4>
+      <h2>{{ request.id }}</h2>
+      <h4>Applicant:</h4>
+      <h2>{{ request.owner }}</h2>
+      <h4>Loan Amount:</h4>
+      <h2>{{ request.amount }}TND</h2>
+      <h4>Loan Duration:</h4>
+      <h2>{{ request.duration }} Months</h2>
+      <h4>Loan Interest Rate:</h4>
+      <h2>{{ request.interestRate }}%</h2>
+      <h4></h4>
+      <h4></h4>
+      <h4>ID Document:</h4>
+      <a>Documents</a>
+      <div class="buttons-container">
+        <button title="Reject Request" class="rej" (click)="reject(request.id)">Reject</button>
+        <button title="Approve Request" class="app" (click)="approve(request.id)">Approve</button>
+      </div>
+    </div>
+  </div>
+</main>

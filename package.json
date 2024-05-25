@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "@angular/forms": "^17.3.7",
+    "chart.js": "^4.4.3",
+    "chartjs-adapter-date-fns": "^3.0.0",
+    "ng-openapi-gen": "^0.51.0",
+    "ngx-captcha": "^13.0.0",
+    "superagent": "^9.0.1",
+    "swagger-ui-express": "^5.0.0"
+  }
+}

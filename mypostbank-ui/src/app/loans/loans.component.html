@@ -1,0 +1,67 @@
+<main *ngIf="credit && installment.length > 0">
+  <h1>Loans</h1>
+  <div class="insights">
+    <div class="Credit-info">
+      <span class="material-symbols-outlined">account_balance</span>
+      <div class="middle">
+        <h3>Loan Amount:</h3>
+        <h1>{{ credit?.amount }} TND</h1>
+        <div class="details">
+          <div class="detail">
+            <h4>Duration:</h4>
+            <h2>{{ credit?.duration }} Months</h2>
+          </div>
+          <div class="detail">
+            <h4>Interest Rate:</h4>
+            <h2>{{ credit?.interestRate }}%</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="remaining-amount">
+      <span class="material-symbols-outlined">mintmark</span>
+      <div class="middle">
+        <h3>Paid Amount:</h3>
+        <h1>{{ paidAmountValue }} TND</h1>
+        <h3>Loan Balance:</h3>
+        <h1>{{ remainingBalanceValue }} TND</h1>
+      </div>
+    </div>
+  </div>
+  <div class="repayments" style="height: 500px; overflow-y: auto;">
+    <h2>Installments</h2>
+    <table *ngIf="installment && installment.length > 0" style="width: 100%;">
+      <thead>
+      <tr>
+        <th>Month</th>
+        <th>Amount</th>
+        <th>Principal Payment</th>
+        <th>Interest Payment</th>
+        <th>Date</th>
+        <th>Status</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let inst of installment" [ngClass]="{'paid-row': inst.paymentStatus === 'PAID'}">
+        <td>{{ inst.month }}</td>
+        <td class="highlight"><b>{{ inst.paymentAmount }} TND</b></td>
+        <td>{{ inst.principalPayment }} TND</td>
+        <td>{{ inst.interestPayment }} TND</td>
+        <td>{{ inst.dueDate.substring(0,10) }}</td>
+        <td>
+            <span [ngClass]="{
+              'paid': inst.paymentStatus === 'PAID',
+              'not-paid': inst.paymentStatus === 'NOT_PAID',
+              'overdue': inst.paymentStatus === 'OVERDUE'
+            }">
+              {{ inst.paymentStatus.replace('_', ' ').toLowerCase() }}
+            </span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+<main *ngIf="!credit" class="no">
+  <h1>You Don't Have Any Ongoing Loans At The Moment...</h1>
+</main>

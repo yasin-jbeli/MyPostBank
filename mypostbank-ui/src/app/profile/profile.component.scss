@@ -1,0 +1,59 @@
+main {
+  margin-top: 1.4rem;
+}
+
+.card {
+  display:flex;
+  gap: 5rem;
+}
+.card {
+  position: relative;
+}
+
+.card .info {
+  width:30%;
+  margin-top: 1.6rem;
+  background: var(--color-blue);
+  border-radius: var(--card-border-radius);
+  padding: var(--card-padding);
+  text-align: left;
+  transition: all 300ms ease;
+  overflow-y: auto;
+  color: white;
+  max-height: 500px;
+}
+
+input {
+  width: 92%;
+  outline: none;
+  border: 1px solid #fff;
+  padding: 12px 20px;
+  margin-bottom: 10px;
+  border-radius: 20px;
+  background: #e4e4e4;
+}
+
+button {
+  font-size: 1rem;
+  margin-top: 1.8rem;
+  padding: 10px;
+  border-radius: 20px;
+  outline: none;
+  border: none;
+  width: 90%;
+  color: #fff;
+  cursor: pointer;
+  background: #14145b;
+}
+
+form {
+  width:30%;
+  margin-top: 1.4rem;
+  background: var(--color-white);
+  border-radius: var(--card-border-radius);
+  padding: var(--card-padding);
+  text-align: left;
+  transition: all 300ms ease;
+  overflow-y: auto;
+  max-height: 500px;
+}

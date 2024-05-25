@@ -1,0 +1,75 @@
+<main class="container" *ngIf="accounts && accounts.length>0">
+  <h1>Your Accounts</h1>
+  <div class="wrapper">
+    <div class="accounts">
+      <div class="card" *ngFor="let account of accounts" (click)="showAccountDetails(account)" [ngClass]="{'grayed-out': account.status !== 'ACTIVE', 'savings': account.accountType == 'SAVINGS'}" >
+        <div class="card-content">
+          <div class="account-info">
+            <h4>Account Number:</h4>
+            <h2>{{ account.accountNo}}</h2>
+            <h4>Type:</h4>
+            <h2 class="type">{{ account.accountType }}</h2>
+          </div>
+          <div class="card-actions" *ngIf="account.accountType != 'SAVINGS'">
+            <span id="add" (click)="addCard(account.id)" title="Request Card for this Account" class="material-symbols-outlined">add_card</span>
+            <span id="check" (click)="addCheckbook(account.id)" title="Request Checkbook for this Account" class="material-symbols-outlined">add_notes</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="info">
+      <div class="account-details-container" *ngIf="selectedAccount">
+        <div class="account-details">
+          <div class="insights">
+          <div class="balance">
+            <h3>Balance:</h3>
+            <h1 class="yellow">{{ selectedAccount.balance }}TND</h1>
+          </div>
+            <div>
+              <h4>Status:</h4>
+              <h3 class="active">{{ selectedAccount.status }}</h3>
+              <h4>Created On:</h4>
+              <h3>{{selectedAccount.createdDate.substring(0,10)}} </h3>
+            </div>
+          </div>
+          <div (click)="trans()" class="card-trans" *ngIf="accounts && accounts.length > 0">
+            <h2>Recent Transactions</h2>
+            <table *ngIf="transaction && transaction.length > 0">
+              <thead>
+              <tr>
+                <th>Transaction Id</th>
+                <th>Type</th>
+                <th>Amount</th>
+                <th>Description</th>
+                <th>Date</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let trans of transaction.slice(0,5)">
+                <td>{{ trans.id }}</td>
+                <td><span [ngClass]="{
+              'deposit': trans.transactionType === 'DEPOSIT',
+              'withdrawal': trans.transactionType === 'WITHDRAWAL',
+              'card-payment': trans.transactionType === 'CARD_PAYMENT',
+              'transfer': trans.transactionType === 'TRANSFER',
+              'credit': trans.transactionType === 'CREDIT_INSTALLMENT'
+            }">{{ trans.transactionType.replace('_', ' ').toLowerCase() }}</span></td>
+                <td class="highlight"><b>{{ trans.amount }}TND</b></td>
+                <td>{{ trans.description }}</td>
+                <td>{{ trans.date.substring(0,10) }}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <canvas id="canvas"></canvas>
+          <div class="pie-chart-section">
+              <canvas id="pieChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<main *ngIf="accounts.length==0" class="no">
+  <h1>You Don't Have Any Bank Accounts At The Moment...</h1>
+</main>

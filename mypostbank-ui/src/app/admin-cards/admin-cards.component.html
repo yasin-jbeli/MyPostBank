@@ -1,0 +1,43 @@
+<main class="container">
+  <div class="cards">
+    <h1>Cards</h1>
+    <table class="table" *ngIf="cards && cards.length > 0">
+      <thead>
+      <tr>
+        <th>Id</th>
+        <th>Card Number</th>
+        <th>Status</th>
+        <th>Expiration Date</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let card of cards">
+        <td>{{ card.cardId }}</td>
+        <td>{{ card.cardNo}}</td>
+        <td [ngClass]="{'status-pending': card.status === 'PENDING', 'status-active': card.status === 'ACTIVE', 'status-closed': card.status === 'BLOCKED','status-frozen': card.status === 'FROZEN'}">{{ card.status }}</td>
+        <td>{{ card.expirationDate }}</td>
+        <td><span (click)="deactivate(card.cardId)" id="off" title="Deactivate Card" class="material-symbols-outlined">credit_card_off</span><span (click)="activate(card.cardId)" id="on" title="Activate Card" class="material-symbols-outlined">credit_card</span></td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+  <div class="details" *ngIf="requests && requests.length > 0">
+    <h1>Requests</h1>
+    <div class="card" *ngFor="let request of requests">
+      <h4>Requests Id:</h4>
+      <h2>{{ request.cardId }}</h2>
+      <h4>Applicant:</h4>
+      <h2>{{ request.owner }}</h2>
+      <h4>Account Id:</h4>
+      <h2>{{ request.accountId }}</h2>
+      <h4>Request sent on:</h4>
+      <h2>{{ request.createDate.substring(0,10) }}</h2>
+      <div class="buttons-container">
+      <button title="Reject Request" class="rej" (click)="reject(request.cardId)">Reject</button>
+      <button title="Approve Request" class="app" (click)="approve(request.cardId)">Approve</button>
+    </div>
+    </div>
+  </div>
+
+</main>

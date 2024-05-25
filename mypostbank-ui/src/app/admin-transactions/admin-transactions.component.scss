@@ -1,0 +1,58 @@
+main {
+  margin-top: 1.4rem;
+}
+
+main .transactions {
+  margin-top: 2rem;
+}
+
+main .transactions table {
+  background: var(--color-white);
+  width: 100%;
+  border-radius: var(--card-border-radius);
+  padding: var(--card-padding);
+  text-align: center;
+  transition: all 300ms ease;
+}
+
+main table tbody td {
+  height: 2.8rem;
+  border-bottom: 1px solid var(--color-light);
+  color: var(--color-dark-variant);
+}
+
+main table tbody tr:last-child {
+  border: none;
+}
+
+main .transactions a {
+  text-align: center;
+  display: block;
+  margin: 1rem auto;
+  color: var(--color-dark);
+}
+
+.deposit { background-color: #d8f4ec; border-radius: var(--card-border-radius); padding: 5px 20px 5px 20px; color: #62d1b6; font-weight: 700; }
+.withdrawal { background-color: #fbe3e3; border-radius: var(--card-border-radius); padding: 5px 20px 5px 20px; color: #ec8686; font-weight: 700;  }
+.card-payment { background-color: #fbe3e3; border-radius: var(--card-border-radius); padding: 5px 20px 5px 20px; color: #ec8686; font-weight: 700;  }
+.transfer { background-color: #fff3d2; border-radius: var(--card-border-radius); padding: 5px 20px 5px 20px; color:#fec722; font-weight: 700;  }
+.credit { background-color: #849eff; border-radius: var(--card-border-radius); padding: 5px 20px 5px 20px; color: #e3e8ff; font-weight: 700; }
+
+tr:hover {
+  background-color: rgba(255,255,0,0.2);
+}
+
+.page {
+  margin-top: 1.4rem;
+}
+
+input {
+  margin-top: 1.4rem;
+  width: 20%;
+  outline: none;
+  border: 1px solid #fff;
+  padding: 12px 20px;
+  margin-bottom: 10px;
+  border-radius: 20px;
+  background: #e4e4e4;
+}

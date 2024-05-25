@@ -1,0 +1,45 @@
+<main class="container">
+  <div class="accounts">
+    <h1>Bank Accounts</h1>
+    <table class="table" *ngIf="accounts && accounts.length > 0">
+      <thead>
+      <tr>
+        <th>Id</th>
+        <th>Account Number</th>
+        <th>Balance</th>
+        <th>Account Type</th>
+        <th>Owner</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let account of accounts">
+        <td>{{ account.id }}</td>
+        <td>{{ account.accountNo}}</td>
+        <td><b>{{ account.balance}}TND</b></td>
+        <td>{{ account.accountType }}</td>
+        <td>{{ account.owner }}</td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+  <div class="details" *ngIf="requests && requests.length > 0">
+    <h1>Requests</h1>
+    <div class="card" *ngFor="let request of requests">
+      <h4>Requests Id:</h4>
+      <h2>{{ request.id }}</h2>
+      <h4>Applicant:</h4>
+      <h2>{{ request.owner }}</h2>
+      <h4>Account Type:</h4>
+      <h2>{{ request.accountType }}</h2>
+      <h4>Request sent on:</h4>
+      <h2>{{ request.createdDate.substring(0,10) }}</h2>
+      <h4>ID Document:</h4>
+      <h2>ID</h2>
+      <div class="buttons-container">
+      <button title="Reject Request" class="rej" (click)="reject(request.id)">Reject</button>
+      <button title="Approve Request" class="app" (click)="approve(request.id)">Approve</button>
+      </div>
+      </div>
+    </div>
+</main>

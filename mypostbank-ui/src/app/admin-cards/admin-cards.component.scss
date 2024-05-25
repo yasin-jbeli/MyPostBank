@@ -1,0 +1,121 @@
+main {
+  margin-top: 1.4rem;
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+}
+
+main .cards {
+  margin-top: 2rem;
+  width: 50%;
+}
+
+main .cards h2 {
+  margin-bottom: 0.8rem;
+}
+
+main .cards table {
+  margin-top: 1.4rem;
+  background: var(--color-white);
+  width: 100%;
+  border-radius: var(--card-border-radius);
+  padding: var(--card-padding);
+  text-align: center;
+  box-shadow: var(--box-shadow);
+  transition: all 300ms ease;
+  overflow-y: auto;
+  max-height: 800px;
+}
+
+main .cards table:hover {
+  box-shadow: none;
+}
+
+main table tbody td {
+  height: 5rem;
+  border-bottom: 1px solid var(--color-light);
+  color: var(--color-dark-variant);
+}
+
+main table tbody tr:last-child {
+  border: none;
+}
+
+span:hover {
+  cursor: pointer;
+}
+
+#del {
+  color: rgba(255,0,0,0.8);
+}
+
+main .details {
+  width: 50%;
+  margin-top: 2rem;
+  overflow-y: auto;
+  max-height: 800px;
+}
+
+tr:hover {
+  background-color: rgba(255,255,0,0.2);
+}
+
+#ice {
+  color: cornflowerblue;
+}
+
+.status-pending {
+  background-color: rgba(255, 255, 0, 0.1);
+}
+
+.status-active {
+  background-color: rgba(0, 255, 0, 0.2);
+}
+
+.status-closed {
+  background-color: rgba(255, 0, 0, 0.2);
+}
+
+.status-frozen {
+  background: rgba(0,0,255,0.2);
+}
+
+.card {
+  margin-top: 1.4rem;
+  background: var(--color-blue);
+  border-radius: var(--card-border-radius);
+  padding: var(--card-padding);
+  text-align: left;
+  transition: all 300ms ease;
+  overflow-y: auto;
+  color: white;
+    .app {
+      background: #f9c224;
+      color: white;
+    }
+}
+
+.card {
+  position: relative;
+}
+
+.buttons-container {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  display: flex;
+}
+
+button {
+  margin-left: 10px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.app {
+  background: #14145b;
+  color: white;
+}
+

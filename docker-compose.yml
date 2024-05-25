@@ -1,0 +1,51 @@
+services:
+  postgres:
+    container_name: postgres-sql-mpb
+    image: postgres
+    environment:
+      POSTGRES_USER: yasin
+      POSTGRES_PASSWORD: yasin
+      PGDATA: /var/lib/postgresql/data
+      POSTGRES_DB: mpb_network
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - 5433:5432
+    networks:
+      - spring-mpb
+    restart: unless-stopped
+
+  mail-dev:
+    container_name: mail-dev-mpb
+    image: maildev/maildev
+    ports:
+      - 1080:1080
+      - 1025:1025
+
+  mpb-api:
+    container_name: mpb-api  # Corrected property name
+    image: mpb/mpb:1.0.0
+    ports:
+      - 8080:8080
+    networks:
+      - spring-mpb
+    depends_on:
+      - postgres
+  mpb-ui:
+    container_name: mpb-ui
+    image: mpb/mpb-ui:1.0.0
+    ports:
+      - 8081:80
+    networks:
+      - spring-mpb
+    depends_on:
+      - mpb-api
+
+
+networks:
+  spring-mpb:
+    driver: bridge
+
+volumes:
+  postgres:
+    driver: local

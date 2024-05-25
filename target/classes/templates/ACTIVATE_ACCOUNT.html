@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Email Confirmation</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h2>Email Confirmation</h2>
+<p>Hello <span th:text="${username}"></span>,</p>
+<p>Please click on the link below to confirm your email:</p>
+<p><a th:href="${confirmationUrl}">Confirm Email</a></p>
+<p>If you didn't request this confirmation, you can ignore this email.</p>
+<p>Activation Code: <span th:text="${activationCode}"></span></p>
+<p>Thank you!</p>
+</body>
+</html>

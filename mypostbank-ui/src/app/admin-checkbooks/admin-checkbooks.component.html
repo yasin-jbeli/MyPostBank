@@ -1,0 +1,34 @@
+<main class="container">
+  <div class="checkbooks">
+    <h1>Checkbooks</h1>
+    <table class="table" *ngIf="checkbooks && checkbooks.length > 0">
+      <thead>
+      <tr>
+        <th>Id</th>
+        <th>Checkbook Number</th>
+        <th>Owner</th>
+        <th>Requested On</th>
+        <th>Status</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let check of checkbooks">
+        <td>{{ check.id }}</td>
+        <td>{{ check.checkbookNo }}</td>
+        <td>{{ check.owner }}</td>
+        <td>{{ check.createdOn.substring(0,10) }}</td>
+        <td>
+          <mat-form-field appearance="fill">
+            <mat-label>{{ check.status }}</mat-label>
+            <mat-select [(value)]="check.status" (selectionChange)="onStatusChange(check.id, $event.value)">
+              <mat-option *ngFor="let status of getAvailableStatuses(check.status)" [value]="status">
+                {{ status }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</main>

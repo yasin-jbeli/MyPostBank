@@ -1,0 +1,8 @@
+com/Spring/MyPostBank/PaymentProcessorTest.class
+com/Spring/MyPostBank/AccountServiceTest.class
+com/Spring/MyPostBank/PaymentProcessorIntegrationTest.class
+com/Spring/MyPostBank/MyPostBankApplicationTests.class
+com/Spring/MyPostBank/CreditServiceTest.class
+com/Spring/MyPostBank/AuthenticationServiceTest.class
+com/Spring/MyPostBank/CreditServiceIntegrationTest.class
+com/Spring/MyPostBank/AccountServiceIntegrationTest.class

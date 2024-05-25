@@ -1,0 +1,63 @@
+.card {
+  width: 500px;
+  padding: 2rem 1rem;
+  margin: 150px auto;
+  background: #fff;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: var(--box-shadow);
+}
+
+input {
+  width: 92%;
+  outline: none;
+  border: 1px solid #fff;
+  padding: 12px 20px;
+  margin-bottom: 10px;
+  border-radius: 20px;
+  background: #e4e4e4;
+}
+
+main {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.log > button {
+  font-size: 1rem;
+  margin-top: 1.8rem;
+  padding: 10px;
+  border-radius: 20px;
+  outline: none;
+  border: none;
+  width: 90%;
+  color: #fff;
+  cursor: pointer;
+  background: #14145b;
+}
+
+h2 {
+  color: #14145b;
+  margin-bottom: 1rem;
+}
+
+.msg {
+  margin-top: 2rem;
+}
+
+a {
+  color: #14145b;
+  cursor: pointer;
+}
+
+.error-message {
+  color: #ffffff; /* Text color for error messages */
+  background-color: #f9c224; /* Background color for error messages */
+  font-size: 0.9rem; /* Adjust font size as needed */
+  padding: 0.5rem 1rem; /* Add padding to the error messages */
+  margin-top: 0.5rem; /* Add some space above the error messages */
+  border-radius: 20px; /* Add rounded corners */
+}
+

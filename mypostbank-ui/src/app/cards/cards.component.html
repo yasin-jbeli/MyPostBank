@@ -1,0 +1,53 @@
+<main>
+  <h1>Cards</h1>
+  <div class="card-container">
+    <div class="cards">
+      <div class="card" *ngFor="let card of cards" (click)="showCardInfo(card)" [ngClass]="{'grayed-out': card.status !== 'ACTIVE'}">
+        <div class="content">
+          <div class="chip">
+            <img src="./assets/credit-card-chip-png-0-removebg-preview.png" alt="">
+          </div>
+          <div class="number">
+            <h2>{{ card.cardNo}}</h2>
+          </div>
+          <div class="info">
+            <h4>Card Holder:</h4>
+            <h3>{{ user.firstName }} {{ user.lastName }}</h3>
+            <h4>Expiration Date:</h4>
+            <h4>{{ card.expirationDate }}</h4>
+          </div>
+          <div class="mastercard">
+            <img src="./assets/Mastercard-logo.png" alt="">
+            <h5>Mastercard</h5>
+          </div>
+        </div>
+        <div class="icons">
+          <span *ngIf="card.status != 'PENDING'" (click)="deactivate(card.cardId)" id="off" title="Deactivate Card" class="material-symbols-outlined">credit_card_off</span>
+          <span *ngIf="card.status != 'PENDING'" (click)="activate(card.cardId)" id="on" title="Activate Card" class="material-symbols-outlined">credit_card</span>
+          <span *ngIf="card.status== 'PENDING'" (click)="delete(card.cardId)" id="del" title="Cancel Card Request" class="material-symbols-outlined">cancel</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div (click)="trans()" class="card-trans" style="height: 500px; overflow-y: auto;" *ngIf="cards && cards.length > 0">
+    <h2>Recent Purchases</h2>
+    <table *ngIf="transaction && transaction.length > 0">
+      <thead>
+      <tr>
+        <th>Transaction Id</th>
+        <th>Amount</th>
+        <th>Description</th>
+        <th>Date</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let trans of transaction.slice(0,5)">
+        <td>{{ trans.id }}</td>
+        <td class="highlight"><b>{{ trans.amount }}TND</b></td>
+        <td>{{ trans.description }}</td>
+        <td>{{ trans.date.substring(0,10) }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</main>

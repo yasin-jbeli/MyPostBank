@@ -1,0 +1,28 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<body>
+<div class="container">
+  <aside>
+    <div class="top">
+      <img class="logo" src="./assets/logo1.png" alt="">
+      <h2 class="title">MyPostBank</h2>
+    </div>
+    <div class="sidebar">
+      <ul>
+        <li><a routerLink="/admin/dashboard"><span class="material-symbols-outlined">grid_view</span><h3>Dashboard</h3></a></li>
+        <li><a routerLink="/admin/users"><span class="material-symbols-outlined">group</span><h3>Users</h3></a></li>
+        <li><a routerLink="/admin/accounts"><span class="material-symbols-outlined">account_balance_wallet</span><h3>Accounts</h3></a></li>
+        <li><a routerLink="/admin/cards"><span class="material-symbols-outlined">credit_card</span><h3>Cards</h3></a></li>
+        <li><a routerLink="/admin/transactions"><span class="material-symbols-outlined">receipt_long</span><h3>Transactions</h3></a></li>
+        <li><a routerLink="/admin/credit"><span class="material-symbols-outlined">attach_money</span><h3>Credit</h3></a></li>
+        <li><a routerLink="/admin/checkbooks"><span class="material-symbols-outlined">checkbook</span><h3>Checkbooks</h3></a></li>
+        <li><a (click)="logout()"><span class="material-symbols-outlined">logout</span><h3>Logout</h3></a></li>
+      </ul>
+    </div>
+  </aside>
+  <div id="main-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+</body>
+
+

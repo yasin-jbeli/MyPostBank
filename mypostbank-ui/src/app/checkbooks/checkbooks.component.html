@@ -1,0 +1,5 @@
+<main>
+<div *ngIf="checkbooks[0].status != 'RECEIVED'">
+  <h1>You're Checkbook is: {{ checkbooks[0].status.replace('_','').toLocaleLowerCase() }}</h1>
+</div>
+</main>
