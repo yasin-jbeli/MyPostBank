@@ -38,8 +38,7 @@ export class AuthenticationControllerService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  register$Response(params: Register$Params, context?: HttpContext): Observable<StrictHttpResponse<{
-}>> {
+  register$Response(params: Register$Params, context?: HttpContext): Observable<StrictHttpResponse<AuthenticationResponse>> {
     return register(this.http, this.rootUrl, params, context);
   }
 
@@ -53,12 +52,9 @@ export class AuthenticationControllerService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  register(params: Register$Params, context?: HttpContext): Observable<{
-}> {
+  register(params: Register$Params, context?: HttpContext): Observable<AuthenticationResponse> {
     return this.register$Response(params, context).pipe(
-      map((r: StrictHttpResponse<{
-}>): {
-} => r.body)
+      map((r: StrictHttpResponse<AuthenticationResponse>): AuthenticationResponse => r.body)
     );
   }
 

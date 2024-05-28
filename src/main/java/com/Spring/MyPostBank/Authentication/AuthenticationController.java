@@ -22,7 +22,7 @@ public class AuthenticationController {
 
     @Operation(summary = "Register a new user")
     @PostMapping("/register")
-    public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest request) throws MessagingException {
+    public ResponseEntity<AuthenticationResponse> register(@Valid @RequestBody RegisterRequest request) throws MessagingException {
         return ResponseEntity.ok(service.register(request));
     }
 
@@ -44,9 +44,8 @@ public class AuthenticationController {
     @Operation(summary = "Activate user account")
     @GetMapping("/activate-account")
     public void confirm(
-           @Valid  @Parameter(in = ParameterIn.QUERY, description = "Activation token") @RequestParam String token
+            @Valid  @Parameter(in = ParameterIn.QUERY, description = "Activation token") @RequestParam String token
     ) throws MessagingException {
         service.activateAccount(token);
     }
-
 }

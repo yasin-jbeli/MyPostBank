@@ -9,14 +9,12 @@ import com.Spring.MyPostBank.Repositories.TokenRepository;
 import com.Spring.MyPostBank.Repositories.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.mail.MessagingException;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -73,6 +71,7 @@ public class AuthenticationService {
                 newToken,
                 "Account Activation"
         );
+
     }
 
     private String generateAndSaveActivationToken(User user) {
@@ -89,17 +88,19 @@ public class AuthenticationService {
         return generatedToken;
     }
 
+
     private String generateActivationCode() {
 
         String characters = "0123456789";
         StringBuilder codeBuilder = new StringBuilder();
         SecureRandom secureRandom = new SecureRandom();
-        for (int i = 0; i < 6; i++) {
+        for(int i = 0; i< 6; i++){
             int randomIndex = secureRandom.nextInt(characters.length());
             codeBuilder.append(characters.charAt(randomIndex));
         }
-        return codeBuilder.toString();
+        return  codeBuilder.toString();
     }
+
 
     private void revokeAllUserTokens(User user) {
 
@@ -112,7 +113,9 @@ public class AuthenticationService {
         });
 
         tokenRepository.saveAll(validUserTokens);
+
     }
+
 
     private void saveUserToken(User user, String jwtToken) {
         var token = Token.builder()
@@ -132,16 +135,23 @@ public class AuthenticationService {
                         request.getPassword()
                 )
         );
-        var user = userRepository.findByEmail(request.getEmail()).orElseThrow();
+        var user = userRepository.findByEmail(request.getEmail())
+                .orElseThrow();
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
+        revokeAllUserTokens(user);
+        saveUserToken(user, jwtToken);
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
                 .build();
     }
 
-    public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+    public void refreshToken(
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) throws IOException {
 
         final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 
@@ -173,7 +183,7 @@ public class AuthenticationService {
                 .orElseThrow(() -> new AuthenticationException.InvalidTokenException("Invalid token"));
         if (LocalDateTime.now().isAfter(savedToken.getExpiresAt())) {
             sendValidationEmail(savedToken.getUser());
-            throw new AuthenticationException.TokenExpiredException("Activation token has expired. A new token has been sent to the same email address");
+            throw new AuthenticationException.TokenExpiredException("Activation token has expired. A new token has been send to the same email address");
         }
 
         var user = userRepository.findById(savedToken.getUser().getId())
@@ -184,4 +194,11 @@ public class AuthenticationService {
         savedToken.setValidatedAt(LocalDateTime.now());
         tokenRepository.save(savedToken);
     }
+
+
 }
+
+
+
+
+
