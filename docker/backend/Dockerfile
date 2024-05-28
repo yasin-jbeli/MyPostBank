@@ -12,7 +12,7 @@ ARG APP_VERSION=1.0.0
 WORKDIR /app
 COPY --from=build /build/target/MyPostBank-*.jar /app/
 
-EXPOSE 8088
+EXPOSE 8080
 
 ENV DB_URL=jdbc:postgresql://localhost:5432/mpbdb
 ENV MAILDEV_URL=localhost

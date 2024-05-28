@@ -40,7 +40,7 @@ springdoc:
 server:
   servlet:
     context-path: /mypostbank/
-  port: 8088
+  port: 8080
 application:
   security:
     jwt:

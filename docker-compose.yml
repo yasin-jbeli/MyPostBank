@@ -23,10 +23,10 @@ services:
       - 1025:1025
 
   mpb-api:
-    container_name: mpb-api  # Corrected property name
+    container_name: mpb-api
     image: mpb/mpb:1.0.0
     ports:
-      - 8080:8080
+      - 8088:8088
     networks:
       - spring-mpb
     depends_on:
@@ -35,7 +35,7 @@ services:
     container_name: mpb-ui
     image: mpb/mpb-ui:1.0.0
     ports:
-      - 8081:80
+      - 8080:80
     networks:
       - spring-mpb
     depends_on:
