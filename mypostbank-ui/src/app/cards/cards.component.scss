@@ -156,3 +156,10 @@ table tbody tr:last-child {
   opacity: 0.5;
 }
 
+.no h1 {
+  color: var(--color-info-dark);
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin-top: 25rem;
+}

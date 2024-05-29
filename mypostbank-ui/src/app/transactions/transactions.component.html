@@ -36,6 +36,6 @@
     </div>
   </div>
 </main>
-<main *ngIf="!transaction" class="no">
+<main *ngIf="transaction.content.length==0" class="no">
   <h1>You Don't Have Any Saved Transactions At The Moment...</h1>
 </main>

@@ -74,7 +74,6 @@ public class SecurityConfig {
                 )
 
                 .build();
-
     }
 
     @Bean

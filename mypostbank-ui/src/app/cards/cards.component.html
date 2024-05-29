@@ -1,4 +1,4 @@
-<main>
+<main *ngIf="cards.length>0">
   <h1>Cards</h1>
   <div class="card-container">
     <div class="cards">
@@ -50,4 +50,7 @@
       </tbody>
     </table>
   </div>
+</main>
+<main *ngIf="cards.length==0" class="no">
+  <h1>You Don't Have Any Cards At The Moment...</h1>
 </main>

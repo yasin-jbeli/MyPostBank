@@ -34,8 +34,7 @@
       <h2>{{ request.accountType }}</h2>
       <h4>Request sent on:</h4>
       <h2>{{ request.createdDate.substring(0,10) }}</h2>
-      <h4>ID Document:</h4>
-      <h2>ID</h2>
+      <h4 (click)="download(request.userId)">Click Here to Download ID</h4>
       <div class="buttons-container">
       <button title="Reject Request" class="rej" (click)="reject(request.id)">Reject</button>
       <button title="Approve Request" class="app" (click)="approve(request.id)">Approve</button>

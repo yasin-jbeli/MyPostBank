@@ -34,7 +34,7 @@ public class ApplicationConfig {
 
         return username -> userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("USER NOT FOUND"));
-        }
+    }
 
     @Bean
     public AuthenticationProvider authenticationProvider() {

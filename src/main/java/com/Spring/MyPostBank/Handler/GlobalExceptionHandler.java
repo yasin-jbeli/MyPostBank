@@ -15,9 +15,7 @@ import jakarta.mail.MessagingException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import static com.Spring.MyPostBank.Handler.BusinessErrorCodes.*;
-import static org.ietf.jgss.GSSException.UNAUTHORIZED;
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static org.springframework.http.HttpStatus.*;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {

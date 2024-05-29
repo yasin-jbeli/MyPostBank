@@ -5,6 +5,7 @@ import {UserDto} from "../services/models/user-dto";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
 import { MatDialogModule } from '@angular/material/dialog';
+import {FileService} from "../services/files/FileService";
 
 
 @Component({
@@ -16,7 +17,8 @@ export class AdminAccountsComponent implements OnInit {
   accounts: BankAccountDto[];
   requests: BankAccountDto[];
 
-  constructor(private adminService: AdminControllerService) {}
+  constructor(private adminService: AdminControllerService,
+              private fileService: FileService) {}
 
   ngOnInit(): void {
     this.loadAccounts();
@@ -65,6 +67,20 @@ export class AdminAccountsComponent implements OnInit {
       accountId: id
     };
     this.adminService.activateAccount1(requestParams).subscribe();
+  }
+
+  download(id: number) {
+    const userId = id; // Example user ID
+    const documentType = 'bank-account'; // Example document type
+
+    this.fileService.downloadFile(userId, documentType).subscribe(
+      () => {
+        console.log('All files downloaded successfully');
+      },
+      error => {
+        console.error('Failed to download all files:', error);
+      }
+    );
   }
 }
 
