@@ -7,7 +7,7 @@
         <mat-form-field appearance="fill">
           <mat-label>Select Account</mat-label>
           <mat-select [(ngModel)]="selectedAccount" name="selectedAccount">
-            <mat-option *ngFor="let account of sourceAccounts" [value]="account">{{ account.accountNo}}</mat-option>
+            <mat-option *ngFor="let account of sourceAccounts" [value]="account">{{ account.accountNo }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -32,24 +32,25 @@
       <div>
         <p>Please download the application form using the link below, fill it out, and then upload it:</p>
         <a href="./assets/LoanApplicationForm.pdf" download>Download</a><br><br>
-        <label for="applicationForm" class="custom-file-upload">Upload Application Form</label>
-        <input type="file" id="applicationForm" name="custom-file-upload" (change)="onFileSelected($event, 'applicationForm')" required>
+        <input type="file" id="applicationForm" name="applicationForm" class="file-input-hidden" (change)="onFileSelected($event, 'applicationForm')" required>
+        <label for="applicationForm" class="button">Upload Application Form</label>
+        <span *ngIf="fileNames['applicationForm']">{{ fileNames['applicationForm'] }}</span>
       </div>
 
       <div>
-        <label for="bankStatements">Bank Statements:</label>
-        <input type="file" id="bankStatements" name="bankStatements" (change)="onFileSelected($event, 'bankStatements')" required>
-        <label for="bankStatements" class="custom-file-upload">Upload File</label>
+        <input type="file" id="bankStatements" name="bankStatements" class="file-input-hidden" (change)="onFileSelected($event, 'bankStatements')" required>
+        <label for="bankStatements" class="button">Upload Bank Statements</label>
+        <span *ngIf="fileNames['bankStatements']">{{ fileNames['bankStatements'] }}</span>
       </div>
 
       <div>
-        <label for="proofOfIncome">Proof of Income:</label>&nbsp;
-        <input type="file" id="proofOfIncome" name="proofOfIncome" (change)="onFileSelected($event, 'proofOfIncome')" required>
-        <label for="proofOfIncome" class="custom-file-upload">Upload File</label>
+        <input type="file" id="proofOfIncome" name="proofOfIncome" class="file-input-hidden" (change)="onFileSelected($event, 'proofOfIncome')" required>
+        <label for="proofOfIncome" class="button">Upload Proof of Income</label>
+        <span *ngIf="fileNames['proofOfIncome']">{{ fileNames['proofOfIncome'] }}</span>
       </div>
 
       <div>
-        <button type="submit">Submit</button>
+        <button type="submit" class="button">Submit</button>
       </div>
     </form>
   </div>

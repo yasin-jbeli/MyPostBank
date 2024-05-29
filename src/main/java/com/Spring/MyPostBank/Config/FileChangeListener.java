@@ -31,6 +31,9 @@ import java.util.Optional;
 @Setter
 public class FileChangeListener extends Thread {
 
+    // TRANSACTION ORDER:
+    // TYPE,amount,description,date,beneficiary,cardId,accountId
+
     private static final Logger LOGGER = LoggerFactory.getLogger(FileChangeListener.class);
 
     private final TransactionRepository transactionRepository;

@@ -18,6 +18,7 @@ export class CreditComponent implements OnInit {
   bankStatements: File;
   proofOfIncome: File;
   selectedOption: any;
+  fileNames: { [key: string]: string } = {};
 
   constructor(
     private creditService: CreditControllerService,

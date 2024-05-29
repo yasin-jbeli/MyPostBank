@@ -13,6 +13,8 @@ import { changePassword } from '../fn/user-controller/change-password';
 import { ChangePassword$Params } from '../fn/user-controller/change-password';
 import { deleteUser } from '../fn/user-controller/delete-user';
 import { DeleteUser$Params } from '../fn/user-controller/delete-user';
+import { getNotifications } from '../fn/user-controller/get-notifications';
+import { GetNotifications$Params } from '../fn/user-controller/get-notifications';
 import { getTrans } from '../fn/user-controller/get-trans';
 import { GetTrans$Params } from '../fn/user-controller/get-trans';
 import { getTransactionById } from '../fn/user-controller/get-transaction-by-id';
@@ -21,6 +23,7 @@ import { getTransactionsByUser } from '../fn/user-controller/get-transactions-by
 import { GetTransactionsByUser$Params } from '../fn/user-controller/get-transactions-by-user';
 import { getUserDetails } from '../fn/user-controller/get-user-details';
 import { GetUserDetails$Params } from '../fn/user-controller/get-user-details';
+import { Notification } from '../models/notification';
 import { PageResponseTransactionDto } from '../models/page-response-transaction-dto';
 import { TransactionDto } from '../models/transaction-dto';
 import { transferFunds } from '../fn/user-controller/transfer-funds';
@@ -239,6 +242,39 @@ export class UserControllerService extends BaseService {
   getTrans(params?: GetTrans$Params, context?: HttpContext): Observable<Array<TransactionDto>> {
     return this.getTrans$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<TransactionDto>>): Array<TransactionDto> => r.body)
+    );
+  }
+
+  /** Path part for operation `getNotifications()` */
+  static readonly GetNotificationsPath = '/user/notifications';
+
+  /**
+   * Get notifications by user.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getNotifications()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getNotifications$Response(params?: GetNotifications$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Notification>>> {
+    return getNotifications(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * Get notifications by user.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getNotifications$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getNotifications(params?: GetNotifications$Params, context?: HttpContext): Observable<Array<Notification>> {
+    return this.getNotifications$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<Notification>>): Array<Notification> => r.body)
     );
   }
 

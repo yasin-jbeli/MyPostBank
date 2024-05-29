@@ -35,9 +35,9 @@ $mypostbank-ui-theme: mat.define-light-theme((
 // that you are using.
 @include mat.all-component-themes($mypostbank-ui-theme);
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
 
-
+  // Global styles
 :root {
   --color-blue: #14145b;
   --color-yellow: #f9c224;
@@ -49,7 +49,7 @@ $mypostbank-ui-theme: mat.define-light-theme((
   --color-backgroud: #f6f6f9;
   --color-dark-variant: #677483;
 
-  --card-border-radius : 2rem;
+  --card-border-radius: 2rem;
   --border-radius-1: 0.4rem;
   --border-radius-2: 1.2rem;
   --card-padding: 1.8rem;
@@ -66,7 +66,7 @@ img {
   width: 100%;
 }
 
-h1{
+h1 {
   font-weight: 800;
   font-size: 1.8rem;
 }
@@ -112,19 +112,30 @@ b {
   text-decoration: none;
   list-style: none;
   box-sizing: border-box;
-  font-family: Poppins, sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 html {
   font-size: 16px;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Poppins, sans-serif; }
+html, body {
+  height: 100%;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+}
 
+/* styles.css (global styles) or component-specific styles */
+.custom-snackbar {
+  background-color: #14145b; /* Custom background color */
+  color: #ffffff; /* Custom text color */
+  font-size: 18px; /* Larger font size */
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.custom-snackbar .mat-snack-bar-container {
+  border-top: 5px solid #f9c224; /* Custom border color */
+}
+

@@ -12,6 +12,7 @@ export { CheckbookDto } from './models/checkbook-dto';
 export { Credit } from './models/credit';
 export { CreditDto } from './models/credit-dto';
 export { GrantedAuthority } from './models/granted-authority';
+export { Notification } from './models/notification';
 export { PageResponseTransactionDto } from './models/page-response-transaction-dto';
 export { RegisterRequest } from './models/register-request';
 export { RepaymentDetail } from './models/repayment-detail';

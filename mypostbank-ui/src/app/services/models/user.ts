@@ -5,6 +5,7 @@ import { Card } from '../models/card';
 import { Checkbook } from '../models/checkbook';
 import { Credit } from '../models/credit';
 import { GrantedAuthority } from '../models/granted-authority';
+import { Notification } from '../models/notification';
 export interface User {
   accountNonExpired?: boolean;
   accountNonLocked?: boolean;
@@ -24,6 +25,7 @@ export interface User {
   lastName?: string;
   loans?: Array<Credit>;
   name?: string;
+  notifications?: Array<Notification>;
   password?: string;
   phone?: string;
   role?: 'USER' | 'ADMIN' | 'MANAGER';

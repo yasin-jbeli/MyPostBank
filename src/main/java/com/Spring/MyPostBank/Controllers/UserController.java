@@ -3,6 +3,7 @@ package com.Spring.MyPostBank.Controllers;
 import com.Spring.MyPostBank.Authentication.ChangePasswordRequest;
 import com.Spring.MyPostBank.DTOs.TransactionDTO;
 import com.Spring.MyPostBank.DTOs.UserDetailsDTO;
+import com.Spring.MyPostBank.Models.Notification;
 import com.Spring.MyPostBank.Models.User;
 import com.Spring.MyPostBank.Services.UserService;
 import com.Spring.MyPostBank.Services.TransactionService;
@@ -111,6 +112,17 @@ public class UserController {
             return ResponseEntity.ok("Funds transferred successfully");
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body("Error transferring funds: " + e.getMessage());
+        }
+    }
+
+    @Operation(summary = "Get notifications by user")
+    @GetMapping("/notifications")
+    public ResponseEntity<List<Notification>> getNotifications(Principal connectedUser) {
+        List<Notification> notifications = userService.getNot(connectedUser);
+        if (notifications != null) {
+            return ResponseEntity.ok(notifications);
+        } else {
+            return ResponseEntity.notFound().build();
         }
     }
 }

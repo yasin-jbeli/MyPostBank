@@ -25,5 +25,5 @@ public interface CreditService {
 
     List<RepaymentDetailDTO> getAllRepaymentsByUser(Principal connectedUser, Integer creditId);
 
-    public CreditDTO getOngoingLoans(Principal connectedUser);
+    CreditDTO getOngoingLoans(Principal connectedUser);
 }

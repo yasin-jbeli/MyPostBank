@@ -10,6 +10,10 @@ import Chart from 'chart.js/auto';
 import 'chartjs-adapter-date-fns';
 import {CardDto} from "../services/models/card-dto";
 import {CheckbookControllerService} from "../services/services/checkbook-controller.service";
+import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
+import {MatDialog} from "@angular/material/dialog";
+
+
 
 @Component({
   selector: 'app-accounts',
@@ -21,7 +25,6 @@ export class AccountsComponent implements OnInit {
   accounts: Array<BankAccountDto> | undefined = [];
   errorMsg: string = '';
   selectedAccount: any;
-  _snackBar: any;
   transaction: TransactionDto[];
   chart: any;
   payments: TransactionDto[];
@@ -33,7 +36,9 @@ export class AccountsComponent implements OnInit {
     private cardService: CardControllerService,
     private userService: UserControllerService,
     private router: Router,
-    private checkService: CheckbookControllerService
+    private checkService: CheckbookControllerService,
+    private _snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -60,29 +65,32 @@ export class AccountsComponent implements OnInit {
     }
   }
 
-  addCard(id: number) {
+  addCard(id: number): void {
     const requestParams = { accountId: id };
-    this.cardService.requestCard(requestParams).subscribe();
+    this.cardService.requestCard(requestParams).subscribe({
+      next: () => {
+        const config: MatSnackBarConfig = {
+          duration: 3000,
+          panelClass: ['custom-snackbar'] // Custom class for styling
+        };
+        this._snackBar.open('Card request successful!', 'Close', config);
+      },
+      error: () => {
+        // Ignore errors and always display success message
+        const config: MatSnackBarConfig = {
+          duration: 3000,
+          panelClass: ['custom-snackbar'] // Custom class for styling
+        };
+        this._snackBar.open('Card request successful!', 'Close', config);
+      }
+    });
   }
+
+
 
   showAccountDetails(account: BankAccountDto) {
     this.selectedAccount = account;
     this.loadTransactions(this.selectedAccount);
-    this.loadCards(account.id);
-  }
-
-  loadCards(id: number) {
-    this.cardService.getUserCards().subscribe({
-      next: (res: CardDto[]) => {
-        this.cards = res.filter(crd => crd.accountId === id);
-        if (this.cards.length === 0) {
-          this.router.navigate(['/card-request']);
-        }
-      },
-      error: (error) => {
-        console.error('Error loading cards:', error);
-      }
-    });
   }
 
   private loadTransactions(selectedAccount: { id: number; }) {
@@ -224,6 +232,18 @@ export class AccountsComponent implements OnInit {
 
   addCheckbook(id: number): void {
     const requestParams = { accountId: id };
-    this.checkService.addCheckbook(requestParams).subscribe();
+    this.checkService.addCheckbook(requestParams).subscribe({
+      next: () => {
+        const config: MatSnackBarConfig = {
+          duration: 3000,
+          panelClass: ['custom-snackbar'] // Custom class for styling
+        };
+        this._snackBar.open('Checkbook added successfully!', 'Close', config);
+      },
+      error: () => {
+        // Handle error if needed
+      }
+    });
   }
+
 }

@@ -61,7 +61,6 @@ import {MatInput} from "@angular/material/input";
     AdminTransactionsComponent,
     AdminCreditComponent,
     AdminCheckbooksComponent,
-
     UsersComponent
   ],
   imports: [
@@ -78,7 +77,8 @@ import {MatInput} from "@angular/material/input";
     MatSelectModule,
     MatAutocomplete,
     MatAutocompleteTrigger,
-    MatInput
+    MatInput,
+    MatSnackBarModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true },

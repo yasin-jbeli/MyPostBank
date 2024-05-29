@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { BankAccountControllerService } from '../services/services/bank-account-controller.service';
 import { Router } from "@angular/router";
 import { take } from 'rxjs/operators';
-import {OpenAccount$Params} from "../services/fn/bank-account-controller/open-account";
+import { OpenAccount$Params } from "../services/fn/bank-account-controller/open-account";
 
 @Component({
   selector: 'app-open-account',
@@ -14,6 +14,7 @@ export class OpenAccountComponent {
   accountType: 'CHECKING' | 'SAVINGS' | null = null;
   idFile: File | null = null;
   errorMsg: string = '';
+  selectedFileName: string = '';
 
   constructor(
     private router: Router,
@@ -47,11 +48,13 @@ export class OpenAccountComponent {
     }
   }
 
-
-  onFileSelected(event: any): void {
-    const files = event.target.files;
-    if (files && files.length > 0) {
-      this.idFile = files[0];
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.idFile = file;  // Add this line to assign the selected file to idFile
+      this.selectedFileName = file.name;
+    } else {
+      this.selectedFileName = '';
     }
   }
 }

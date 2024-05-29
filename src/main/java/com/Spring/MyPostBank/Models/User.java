@@ -1,6 +1,7 @@
 package com.Spring.MyPostBank.Models;
 
 import com.Spring.MyPostBank.Enums.Role;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import jakarta.persistence.*;
 import lombok.experimental.SuperBuilder;
@@ -51,6 +52,11 @@ public class User extends AbstractEntity implements UserDetails, Principal {
 
   @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
   private List<Credit> loans;
+
+
+  @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+  @JsonManagedReference
+  private List<Notification> notifications;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {

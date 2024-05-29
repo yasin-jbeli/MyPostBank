@@ -1,0 +1,29 @@
+@use '../../node_modules/@angular/material/index' as mat;
+
+// Import your custom font
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+
+// Define the palettes for your theme
+$mypostbank-ui-primary: mat.define-palette(mat.$indigo-palette);
+$mypostbank-ui-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$mypostbank-ui-warn: mat.define-palette(mat.$red-palette);
+
+// Define the custom typography config using your custom font
+$mypostbank-typography: mat.define-typography-config(
+  $font-family: 'Poppins, sans-serif'
+);
+
+// Create the theme object
+$mypostbank-ui-theme: mat.define-light-theme((
+  color: (
+    primary: $mypostbank-ui-primary,
+    accent: $mypostbank-ui-accent,
+    warn: $mypostbank-ui-warn,
+  ),
+  typography: $mypostbank-typography,
+  density: 0
+));
+
+// Include theme styles for core and each component used in your app
+@include mat.core();
+@include mat.all-component-themes($mypostbank-ui-theme);

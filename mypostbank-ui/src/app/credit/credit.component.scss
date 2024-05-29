@@ -25,26 +25,38 @@ input, select {
   background: #e4e4e4;
 }
 
-button {
+.button {
   font-size: 1rem;
   margin-top: 1.8rem;
   padding: 10px;
   border-radius: 20px;
   outline: none;
   border: none;
-  width: 20%;
+  width: 100%;
   color: #fff;
   cursor: pointer;
   background: #14145b;
   transition: background-color 0.3s ease;
+  display: inline-block;
+  text-align: center;
 }
 
-button:hover {
-  background: #0d0d33;
+.button:hover {
+  background-color: #0d0d40;
 }
+
+.file-input-hidden {
+  display: none;
+}
+
+.file-input span {
+  display: block;
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
 
 h1 {
-  color: #14145b;
   margin-bottom: 1rem;
 }
 

@@ -1,21 +1,12 @@
 package com.Spring.MyPostBank.Services;
 
 import com.Spring.MyPostBank.Authentication.ChangePasswordRequest;
-import com.Spring.MyPostBank.DTOs.BankAccountDTO;
-import com.Spring.MyPostBank.DTOs.Mappers.BankAccountMapper;
 import com.Spring.MyPostBank.DTOs.UserDetailsDTO;
 import com.Spring.MyPostBank.Enums.AccountStatus;
 import com.Spring.MyPostBank.Enums.AccountType;
-import com.Spring.MyPostBank.Enums.CardStatus;
 import com.Spring.MyPostBank.Enums.TransactionType;
-import com.Spring.MyPostBank.Models.BankAccount;
-import com.Spring.MyPostBank.Models.Card;
-import com.Spring.MyPostBank.Models.Transaction;
-import com.Spring.MyPostBank.Models.User;
-import com.Spring.MyPostBank.Repositories.BankAccountRepository;
-import com.Spring.MyPostBank.Repositories.CardRepository;
-import com.Spring.MyPostBank.Repositories.TransactionRepository;
-import com.Spring.MyPostBank.Repositories.UserRepository;
+import com.Spring.MyPostBank.Models.*;
+import com.Spring.MyPostBank.Repositories.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,16 +14,12 @@ import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 import java.security.Principal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -44,6 +31,7 @@ public class UserServiceImpl implements UserService {
     private final CardRepository cardRepository;
     private final TransactionRepository transactionRepository;
     private final TextEncryptor textEncryptor;
+    private final NotificationRepository notificationRepository;
 
     public void changePassword(ChangePasswordRequest request, Principal connectedUser) {
 
@@ -175,7 +163,11 @@ public class UserServiceImpl implements UserService {
         return ResponseEntity.ok(userDetails);
     }
 
-
+    @Override
+    public List<Notification> getNot(Principal connectedUser) {
+        User user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
+        return notificationRepository.findByUserId(user.getId());
+    }
 }
 
 

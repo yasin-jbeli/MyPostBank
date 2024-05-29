@@ -7,6 +7,7 @@ import { CreditControllerService } from "../services/services/credit-controller.
 import { RepaymentDetailDto } from "../services/models/repayment-detail-dto";
 import { CreditDto } from "../services/models/credit-dto";
 import { PageResponseTransactionDto } from "../services/models/page-response-transaction-dto";
+import {Notification} from "../services/models/notification";
 
 @Component({
   selector: 'app-dashboard',
@@ -22,6 +23,7 @@ export class DashboardComponent implements OnInit {
   credit: CreditDto;
   creditId: number;
   totalTransactions: number = 0;
+  notf: Notification[] = [];
 
 
   constructor(
@@ -32,6 +34,7 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   async ngOnInit(): Promise<void> {
+    this.loadNotf();
     await this.loadTransactions();
     await this.loadAccounts();
     const creditData = await this.loadCredit();
@@ -96,5 +99,16 @@ export class DashboardComponent implements OnInit {
   navLoan() {
     this.router.navigate(['/ser/credit']);
   }
+  loadNotf() {
+    this.userService.getNotifications().subscribe(
+      (res: Notification[]) => {
+        this.notf = res.sort((a, b) => new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime());
+      },
+      (error) => {
+        console.error('Error fetching notifications:', error);
+      }
+    );
+  }
+
 
 }

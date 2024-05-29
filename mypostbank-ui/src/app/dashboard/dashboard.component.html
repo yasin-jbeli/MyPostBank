@@ -16,11 +16,12 @@
         <h2>{{payment.paymentAmount}}TND</h2>
       </div>
     </div>
-    <div class="message">
-      <span class="material-symbols-outlined">overview_key</span>
+    <div class="message" *ngIf="notf && notf.length>0">
+     <span class="material-symbols-outlined">notifications</span>
       <div class="middle">
-        <h2>Your Finances,</h2>
-        <h4>At a glance</h4>
+        <h3>Latest:</h3>
+        <h2>{{notf[0].createdDate.substring(0,10)}}</h2>
+        <h3>{{notf[0].message}}</h3>
       </div>
     </div>
   </div>

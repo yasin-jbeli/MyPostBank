@@ -1007,6 +1007,30 @@
         }
       }
     },
+    "/user/notifications": {
+      "get": {
+        "tags": [
+          "user-controller"
+        ],
+        "summary": "Get notifications by user",
+        "operationId": "getNotifications",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Notification"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/user/loans/{creditId}": {
       "get": {
         "tags": [
@@ -2368,6 +2392,40 @@
           }
         }
       },
+      "Notification": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastModifiedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdBy": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "lastModifiedBy": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "read": {
+            "type": "boolean"
+          }
+        }
+      },
       "RepaymentDetail": {
         "type": "object",
         "properties": {
@@ -2501,6 +2559,12 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Credit"
+            }
+          },
+          "notifications": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Notification"
             }
           },
           "name": {

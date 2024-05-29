@@ -8,9 +8,11 @@ import com.Spring.MyPostBank.Enums.AccountType;
 import com.Spring.MyPostBank.Enums.CardStatus;
 import com.Spring.MyPostBank.Models.BankAccount;
 import com.Spring.MyPostBank.Models.Card;
+import com.Spring.MyPostBank.Models.Notification;
 import com.Spring.MyPostBank.Models.User;
 import com.Spring.MyPostBank.Repositories.BankAccountRepository;
 import com.Spring.MyPostBank.Repositories.CardRepository;
+import com.Spring.MyPostBank.Repositories.NotificationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +36,7 @@ public class CardServiceImpl implements CardService {
     private final CardRepository cardRepository;
     private final TextEncryptor textEncryptor;
     private final CardMapper cardMapper;
+    private final NotificationRepository notificationRepository;
 
 
     private final Function<String, String> maskCardNumber = cardNo -> {
@@ -63,13 +66,26 @@ public class CardServiceImpl implements CardService {
             Card card = optionalCard.get();
             card.setStatus(CardStatus.ACTIVE);
             cardRepository.save(card);
+            Notification not = Notification.builder()
+                    .message("Your card request with ID: "+card.getId()+", has been approved.")
+                    .user(card.getUser())
+                    .isRead(false)
+                    .build();
+            notificationRepository.save(not);
         }
     }
 
     @Override
     public void rejectCard(Integer cardId) {
+        Optional<Card> card = Optional.of(cardRepository.findById(cardId).get());
         if (cardRepository.existsById(cardId)) {
             cardRepository.deleteById(cardId);
+            Notification not = Notification.builder()
+                    .message("Your card request with ID: "+card.get().getId()+", has been rejected.")
+                    .user(card.get().getUser())
+                    .isRead(false)
+                    .build();
+            notificationRepository.save(not);
         }
     }
 

@@ -1,21 +1,27 @@
-<h1>Open New Account</h1>
 <main>
-<div class="card">
-  <form (ngSubmit)="onSubmit()" enctype="multipart/form-data">
-    <div class="form-group">
-      <label for="accountType">Account Type:  </label>
-      <select class="form-control" id="accountType" name="accountType" [(ngModel)]="accountType" required>
-        <option value="" disabled>Select Account Type</option>
-        <option value="CHECKING">Checking</option>
-        <option value="SAVINGS">Savings</option>
-      </select>
-      <div class="file-input">
-        <label for="idFile">ID File:  </label>
-        <input type="file" id="idFile" name="idFile" (change)="onFileSelected($event)">
+  <div class="card">
+    <h1>Open New Account</h1>
+    <form (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="accountType">Account Type: </label>
+        <mat-form-field appearance="fill">
+          <mat-label>Account Type</mat-label>
+          <mat-select id="accountType" name="accountType" [(ngModel)]="accountType" required>
+            <mat-option value="" disabled>Select Account Type</mat-option>
+            <mat-option value="CHECKING">Checking</mat-option>
+            <mat-option value="SAVINGS">Savings</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div class="file-input">
+          <input type="file" id="idFile" name="idFile" class="file-input-hidden" (change)="onFileSelected($event)">
+          <label for="idFile" class="button">Choose File</label>
+          <span *ngIf="selectedFileName">{{ selectedFileName }}</span>
+        </div>
+
+        <button type="submit" class="button">Open Account</button>
       </div>
-      <button type="submit" class="btn">Open Account</button>
-    </div>
-  </form>
-  <p *ngIf="errorMsg" class="text-danger">{{ errorMsg }}</p>
-</div>
+    </form>
+    <p *ngIf="errorMsg" class="text-danger">{{ errorMsg }}</p>
+  </div>
 </main>

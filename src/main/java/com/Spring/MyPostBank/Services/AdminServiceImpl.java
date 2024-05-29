@@ -35,6 +35,7 @@ public class AdminServiceImpl implements AdminService {
     private final TextEncryptor textEncryptor;
     private final RepaymentDetailMapper repaymentDetailMapper;
     private final TransactionRepository transactionRepository;
+    private final NotificationRepository notificationRepository;
 
     private final Function<String, String> maskAccountNumber = accountNo -> {
         int maskLength = accountNo.length() - 4;
@@ -90,6 +91,12 @@ public class AdminServiceImpl implements AdminService {
 
         account.setStatus(AccountStatus.ACTIVE);
         accountRepository.save(account);
+        Notification not = Notification.builder()
+                .message("Your bank account request with ID: "+account.getId()+", has been approved.")
+                .user(account.getUser())
+                .isRead(false)
+                .build();
+        notificationRepository.save(not);
     }
 
 
@@ -100,6 +107,12 @@ public class AdminServiceImpl implements AdminService {
         if (optionalAccount.isPresent()) {
             BankAccount account = optionalAccount.get();
             accountRepository.delete(account);
+            Notification not = Notification.builder()
+                    .message("Your bank account request with ID: "+account.getId()+", has been rejected.")
+                    .user(account.getUser())
+                    .isRead(false)
+                    .build();
+            notificationRepository.save(not);
         }
     }
 
@@ -188,7 +201,7 @@ public class AdminServiceImpl implements AdminService {
         accountRepository.save(account.get());
         repaymentDetailRepository.saveAll(installments);
         Transaction trans = Transaction.builder()
-                .transactionType(TransactionType.TRANSFER)
+                .transactionType(TransactionType.DEPOSIT)
                 .amount(credit.getAmount())
                 .description("Loan")
                 .date(LocalDateTime.now())
@@ -196,6 +209,12 @@ public class AdminServiceImpl implements AdminService {
                 .build();
         System.out.println("Saving transaction: " + trans);
         transactionRepository.save(trans);
+        Notification not = Notification.builder()
+                .message("Your loan request with ID: "+credit.getId()+", has been approved.")
+                .user(credit.getUser())
+                .isRead(false)
+                .build();
+        notificationRepository.save(not);
 
     }
 
@@ -236,6 +255,12 @@ public class AdminServiceImpl implements AdminService {
             Credit credit = optionalCredit.get();
             creditRepository.delete(credit);
             System.out.println("Credit deleted");
+            Notification not = Notification.builder()
+                    .message("Your loan request with ID: "+credit.getId()+", has been rejected.")
+                    .user(credit.getUser())
+                    .isRead(false)
+                    .build();
+            notificationRepository.save(not);
         } else {
             throw new RuntimeException("Credit with ID " + creditId + " not found");
         }
