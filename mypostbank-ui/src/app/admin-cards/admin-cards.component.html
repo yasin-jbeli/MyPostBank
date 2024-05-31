@@ -14,7 +14,7 @@
       <tr *ngFor="let card of cards">
         <td>{{ card.cardId }}</td>
         <td>{{ card.cardNo}}</td>
-        <td [ngClass]="{'status-pending': card.status === 'PENDING', 'status-active': card.status === 'ACTIVE', 'status-closed': card.status === 'BLOCKED','status-frozen': card.status === 'FROZEN'}">{{ card.status }}</td>
+        <td><span [ngClass]="{'status-pending': card.status === 'PENDING', 'status-active': card.status === 'ACTIVE', 'status-closed': card.status === 'BLOCKED','status-frozen': card.status === 'FROZEN'}">{{ card.status }}</span></td>
         <td>{{ card.expirationDate }}</td>
         <td><span (click)="deactivate(card.cardId)" id="off" title="Deactivate Card" class="material-symbols-outlined">credit_card_off</span><span (click)="activate(card.cardId)" id="on" title="Activate Card" class="material-symbols-outlined">credit_card</span></td>
       </tr>

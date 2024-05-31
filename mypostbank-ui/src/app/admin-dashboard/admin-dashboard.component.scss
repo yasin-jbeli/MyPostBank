@@ -1,0 +1,97 @@
+main {
+  margin-top: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+main .insights {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.6rem;
+}
+
+main .insights > div {
+  background: var(--color-white);
+  padding: var(--card-padding);
+  border-radius: var(--card-border-radius);
+  margin-top: 1rem;
+  box-shadow: var(--box-shadow);
+  transition: all 300ms ease;
+}
+
+main .insights > div:hover {
+  box-shadow: none;
+}
+
+main .insights > div span {
+  background: var(--color-yellow);
+  padding: 0.5rem;
+  border-radius: 50%;
+  color: var(--color-white);
+  font-size: 2rem;
+}
+
+main .insights h3 {
+  margin: 1rem 0 0.6rem;
+  font-size: 1rem;
+}
+
+main .recent-transactions {
+  margin-top: 2.6rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+main .recent-transactions > div {
+  flex: 1;
+  margin-right: 1.6rem;
+}
+
+main .recent-transactions > div:last-child {
+  margin-right: 0;
+}
+
+main .recent-transactions h2 {
+  margin-bottom: 0.8rem;
+}
+
+main .recent-transactions table {
+  background: var(--color-white);
+  width: 100%;
+  border-radius: var(--card-border-radius);
+  padding: var(--card-padding);
+  text-align: center;
+  box-shadow: var(--box-shadow);
+  transition: all 300ms ease;
+}
+
+main .recent-transactions table:hover {
+  box-shadow: none;
+}
+
+main table tbody td {
+  height: 4rem;
+  border-bottom: 1px solid var(--color-light);
+  color: var(--color-dark-variant);
+}
+
+main table tbody tr:last-child {
+  border: none;
+}
+
+.deposit { background-color: #d8f4ec; border-radius: var(--card-border-radius); padding: 5px 20px; color: #62d1b6; font-weight: 700; }
+.withdrawal { background-color: #fbe3e3; border-radius: var(--card-border-radius); padding: 5px 20px; color: #ec8686; font-weight: 700; }
+.card { background-color: #fbe3e3; border-radius: var(--card-border-radius); padding: 5px 20px; color: #ec8686; font-weight: 700; }
+.transfer { background-color: #fff3d2; border-radius: var(--card-border-radius); padding: 5px 20px; color: #fec722; font-weight: 700; }
+.credit { background-color: #849eff; border-radius: var(--card-border-radius); padding: 5px 20px; color: #e3e8ff; font-weight: 700; }
+
+main .insights .message {
+  background-color: #14145b;
+  color: white;
+}
+
+main .insights .message .middle {
+  margin-top: 1rem;
+}

@@ -1,1 +1,62 @@
-<p>admin-dashboard works!</p>
+<main>
+  <h1>Dashboard</h1>
+  <p class="date-today">Today's date: {{ today }}</p>
+  <div class="insights">
+    <div class="insight-card" (click)="navBA()">
+      <span class="material-symbols-outlined">account_balance_wallet</span>
+      <div class="middle">
+        <h3>Bank Account Requests:</h3>
+        <h2>{{ accounts.length }} Pending</h2>
+      </div>
+    </div>
+    <div class="insight-card" (click)="navCa()">
+      <span class="material-symbols-outlined">credit_card</span>
+      <div class="middle">
+        <h3>Card Requests:</h3>
+        <h2>{{ cards.length }} Pending</h2>
+      </div>
+    </div>
+    <div class="insight-card" (click)="navLo()">
+      <span class="material-symbols-outlined">attach_money</span>
+      <div class="middle">
+        <h3>Loan Requests:</h3>
+        <h2>{{ loans.length }} Pending</h2>
+      </div>
+    </div>
+  </div>
+  <div class="recent-transactions">
+    <div class="transactions-summary">
+      <h2>Transaction Summary</h2>
+      <table (click)="navTrans()">
+        <thead>
+        <tr>
+          <th>Type</th>
+          <th>Total Amount</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><span class="deposit">Deposit</span></td>
+          <td><b>{{ depositTotal }}TND</b></td>
+        </tr>
+        <tr>
+          <td><span class="withdrawal">Withdrawal</span></td>
+          <td><b>{{ withdrawalTotal }}TND</b></td>
+        </tr>
+        <tr>
+          <td><span class="transfer">Transfer</span></td>
+          <td><b>{{ transferTotal }}TND</b></td>
+        </tr>
+        <tr>
+          <td><span class="card">Card Payments</span></td>
+          <td><b>{{ cardPaymentTotal }}TND</b></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="user-registrations">
+      <h2>User Registrations in the Last 3 Months</h2>
+      <canvas #userChart></canvas>
+    </div>
+  </div>
+</main>

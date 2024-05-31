@@ -64,21 +64,11 @@ tr:hover {
   color: cornflowerblue;
 }
 
-.status-pending {
-  background-color: rgba(255, 255, 0, 0.1);
-}
+.status-active { background-color: #d8f4ec; border-radius: var(--card-border-radius); padding: 5px 20px 5px 20px; color: #62d1b6; font-weight: 700; }
+.status-closed { background-color: #fbe3e3; border-radius: var(--card-border-radius); padding: 5px 20px 5px 20px; color: #ec8686; font-weight: 700;  }
+.status-pending { background-color: #fff3d2; border-radius: var(--card-border-radius); padding: 5px 20px 5px 20px; color:#fec722; font-weight: 700;  }
+.status-frozen { background-color: #849eff; border-radius: var(--card-border-radius); padding: 5px 20px 5px 20px; color: #e3e8ff; font-weight: 700; }
 
-.status-active {
-  background-color: rgba(0, 255, 0, 0.2);
-}
-
-.status-closed {
-  background-color: rgba(255, 0, 0, 0.2);
-}
-
-.status-frozen {
-  background: rgba(0,0,255,0.2);
-}
 
 .card {
   margin-top: 1.4rem;

@@ -2,7 +2,6 @@ package com.Spring.MyPostBank.Services;
 
 import com.Spring.MyPostBank.DTOs.Mappers.TransactionMapper;
 import com.Spring.MyPostBank.DTOs.TransactionDTO;
-import com.Spring.MyPostBank.Enums.TransactionType;
 import com.Spring.MyPostBank.Models.BankAccount;
 import com.Spring.MyPostBank.Models.Transaction;
 import com.Spring.MyPostBank.Models.User;
@@ -19,6 +18,7 @@ import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -86,6 +86,17 @@ public class TransactionServiceImpl implements TransactionService {
                 .collect(Collectors.toList());
         List<Transaction> transactions = transactionRepository.findByBeneficiaryInOrAccountIdIn(accountIds, accountIds);
         return transactions.stream()
+                .map(transaction -> Optional.ofNullable(transactionMapper.mapToDTO(transaction)))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Optional<TransactionDTO>> getAllTrans() {
+        List<Transaction> transactions = transactionRepository.findAll();
+        LocalDate today = LocalDate.now();
+
+        return transactions.stream()
+                .filter(transaction -> transaction.getDate().toLocalDate().equals(today))
                 .map(transaction -> Optional.ofNullable(transactionMapper.mapToDTO(transaction)))
                 .collect(Collectors.toList());
     }

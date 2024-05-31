@@ -10,10 +10,7 @@ import com.Spring.MyPostBank.Enums.PaymentStatus;
 import com.Spring.MyPostBank.Enums.TransactionType;
 import com.Spring.MyPostBank.Exception.InsufficientFunds;
 import com.Spring.MyPostBank.Models.*;
-import com.Spring.MyPostBank.Repositories.BankAccountRepository;
-import com.Spring.MyPostBank.Repositories.CreditRepository;
-import com.Spring.MyPostBank.Repositories.RepaymentDetailRepository;
-import com.Spring.MyPostBank.Repositories.TransactionRepository;
+import com.Spring.MyPostBank.Repositories.*;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -40,6 +37,7 @@ public class CreditServiceImpl implements CreditService{
     private final RepaymentDetailRepository repaymentDetailRepository;
     private final BankAccountRepository accountRepository;
     private final TransactionRepository transactionRepository;
+    private final NotificationRepository notificationRepository;
 
     @Override
     public void requestLoan(BigDecimal amount,BigDecimal rate,Integer duration,Integer accountId, Principal connectedUser,MultipartFile applicationForm, MultipartFile bankStatements, MultipartFile proofOfIncome) {
@@ -136,6 +134,12 @@ public class CreditServiceImpl implements CreditService{
             } catch (InsufficientFunds.InsufficientBalanceException e) {
                 payment.setPaymentStatus(PaymentStatus.OVERDUE);
                 repaymentDetailRepository.save(payment);
+                Notification not = Notification.builder()
+                        .message("Loan Installment with ID: "+payment.getId()+", is overdue.")
+                        .user(payment.getUser())
+                        .isRead(false)
+                        .build();
+                notificationRepository.save(not);
             }
         }
     }
@@ -155,6 +159,13 @@ public class CreditServiceImpl implements CreditService{
 
         payment.setPaymentStatus(PaymentStatus.PAID);
         repaymentDetailRepository.save(payment);
+
+        Notification not = Notification.builder()
+                .message("Loan Installment with ID: "+payment.getId()+", has been paid successfully.")
+                .user(payment.getUser())
+                .isRead(false)
+                .build();
+        notificationRepository.save(not);
 
         Transaction transaction = Transaction.builder()
                 .transactionType(TransactionType.CREDIT_INSTALLMENT)

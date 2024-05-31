@@ -18,8 +18,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/admin")
@@ -201,6 +201,12 @@ public class AdminController {
         return ResponseEntity.ok((PageResponse<TransactionDTO>) transactionService.getAllTransactions(page, size));
     }
 
+    @Operation(summary = "Get all transactions")
+    @GetMapping("/transactions/noPage")
+    public List<Optional<TransactionDTO>> getAllTrans(){
+        return transactionService.getAllTrans();
+    }
+
     @Operation(summary = "Get transaction by ID")
     @GetMapping("/transactions/{transactionId}")
     public TransactionDTO getTransaction(
@@ -272,6 +278,8 @@ public class AdminController {
         adminService.rejectCredit(creditId);
         return ResponseEntity.ok("Credit request with ID " + creditId + " rejected.");
     }
+
+
 
 
 }

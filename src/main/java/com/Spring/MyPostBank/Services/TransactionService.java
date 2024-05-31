@@ -2,7 +2,6 @@ package com.Spring.MyPostBank.Services;
 
 import com.Spring.MyPostBank.DTOs.TransactionDTO;
 import com.Spring.MyPostBank.Utils.PageResponse;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
@@ -22,4 +21,6 @@ public interface TransactionService {
     Object getAllTransactions(int page, int size);
 
     List<Optional<TransactionDTO>> getTrans(Principal connectedUser);
+
+    List<Optional<TransactionDTO>> getAllTrans();
 }

@@ -43,6 +43,8 @@ import { getAllCards } from '../fn/admin-controller/get-all-cards';
 import { GetAllCards$Params } from '../fn/admin-controller/get-all-cards';
 import { getAllLoans } from '../fn/admin-controller/get-all-loans';
 import { GetAllLoans$Params } from '../fn/admin-controller/get-all-loans';
+import { getAllTrans } from '../fn/admin-controller/get-all-trans';
+import { GetAllTrans$Params } from '../fn/admin-controller/get-all-trans';
 import { getAllTransactions } from '../fn/admin-controller/get-all-transactions';
 import { GetAllTransactions$Params } from '../fn/admin-controller/get-all-transactions';
 import { getAllUsers } from '../fn/admin-controller/get-all-users';
@@ -539,6 +541,39 @@ export class AdminControllerService extends BaseService {
   getTransaction(params: GetTransaction$Params, context?: HttpContext): Observable<TransactionDto> {
     return this.getTransaction$Response(params, context).pipe(
       map((r: StrictHttpResponse<TransactionDto>): TransactionDto => r.body)
+    );
+  }
+
+  /** Path part for operation `getAllTrans()` */
+  static readonly GetAllTransPath = '/admin/transactions/noPage';
+
+  /**
+   * Get all transactions.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getAllTrans()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllTrans$Response(params?: GetAllTrans$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<TransactionDto>>> {
+    return getAllTrans(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * Get all transactions.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getAllTrans$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllTrans(params?: GetAllTrans$Params, context?: HttpContext): Observable<Array<TransactionDto>> {
+    return this.getAllTrans$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<TransactionDto>>): Array<TransactionDto> => r.body)
     );
   }
 
