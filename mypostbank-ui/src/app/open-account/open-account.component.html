@@ -1,6 +1,9 @@
 <main>
   <div class="card">
     <h1>Open New Account</h1>
+    <div class="alert alert-danger" role="alert" *ngIf="errorMsg.length">
+      <h5 class="error-message" *ngFor="let msg of errorMsg">{{msg}}</h5>
+    </div>
     <form (ngSubmit)="onSubmit()" enctype="multipart/form-data">
       <div class="form-group">
         <label for="accountType">Account Type: </label>

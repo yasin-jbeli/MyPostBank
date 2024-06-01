@@ -86,7 +86,7 @@ export class CardsComponent implements OnInit {
     const requestParams = {
       cardId: cardId
     };
-    this.cardService.deleteCard(requestParams).subscribe({
+    this.cardService.cancelCardRequest(requestParams).subscribe({
       next: () => {
         this.loadCards();
       },

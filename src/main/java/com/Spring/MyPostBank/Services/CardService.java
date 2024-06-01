@@ -33,7 +33,6 @@ public interface CardService {
 
     ResponseEntity<String> cancelCardRequest(Integer cardId, Principal principal);
 
-
     String generateCardNo();
 
     List<CardDTO> getCardsByAccount(Principal connectedUser, Integer accoutnId);

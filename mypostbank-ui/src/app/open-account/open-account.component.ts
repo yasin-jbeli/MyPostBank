@@ -51,7 +51,7 @@ export class OpenAccountComponent {
   onFileSelected(event: any) {
     const file = event.target.files[0];
     if (file) {
-      this.idFile = file;  // Add this line to assign the selected file to idFile
+      this.idFile = file;
       this.selectedFileName = file.name;
     } else {
       this.selectedFileName = '';

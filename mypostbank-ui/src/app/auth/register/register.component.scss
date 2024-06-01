@@ -46,4 +46,11 @@ main {
   cursor: pointer;
 }
 
-
+.error-message {
+  color: #ec8686; /* Text color for error messages */
+  background-color: #fbe3e3; /* Background color for error messages */
+  font-size: 0.9rem; /* Adjust font size as needed */
+  padding: 0.5rem 1rem; /* Add padding to the error messages */
+  margin-top: 0.5rem; /* Add some space above the error messages */
+  border-radius: 20px; /* Add rounded corners */
+}

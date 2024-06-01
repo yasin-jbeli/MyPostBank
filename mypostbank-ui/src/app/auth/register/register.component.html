@@ -3,7 +3,7 @@
     <h2 class="text-center">Create an account</h2>
     <hr>
     <div class="alert alert-danger" role="alert" *ngIf="errorMsg.length">
-      <p *ngFor="let msg of errorMsg">{{msg}}</p>
+      <h5 class="error-message" *ngFor="let msg of errorMsg">{{msg}}</h5>
     </div>
     <div class="mb-3">
       <label for="firstname" class="form-label">Firstname</label>

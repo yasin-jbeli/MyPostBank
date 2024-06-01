@@ -17,6 +17,7 @@ export class TransferComponent implements OnInit {
   sourceAccounts: BankAccountDto[] = [];
   destinationAccounts: BankAccountDto[] = [];
   filteredAccounts: Observable<BankAccountDto[]>;
+  errorMsg: any;
 
   constructor(
     private userService: UserControllerService,

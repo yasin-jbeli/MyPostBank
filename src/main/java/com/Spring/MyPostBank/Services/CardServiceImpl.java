@@ -91,8 +91,8 @@ public class CardServiceImpl implements CardService {
 
     @Override
     public void deleteCard(Integer cardId) {
-        if (accountRepository.existsById(cardId)) {
-            accountRepository.deleteById(cardId);
+        if (cardRepository.existsById(cardId)) {
+            cardRepository.deleteById(cardId);
         }
     }
 
