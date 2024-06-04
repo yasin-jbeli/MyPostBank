@@ -86,10 +86,20 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(OperationNotPermittedException.class)
     public ResponseEntity<ExceptionResponse> handleException(OperationNotPermittedException exp) {
+        BusinessErrorCodes errorCode = BusinessErrorCodes.NO_CODE;
+
+        if (BusinessErrorCodes.UNAUTHORIZED_ACCESS.getDescription().equals(exp.getMessage())) {
+            errorCode = BusinessErrorCodes.UNAUTHORIZED_ACCESS;
+        } else if (BusinessErrorCodes.INSUFFICIENT_FUNDS.getDescription().equals(exp.getMessage())) {
+            errorCode = BusinessErrorCodes.INSUFFICIENT_FUNDS;
+        }
+
         return ResponseEntity
-                .status(BAD_REQUEST)
+                .status(errorCode.getHttpStatus())
                 .body(
                         ExceptionResponse.builder()
+                                .businessErrorCode(errorCode.getCode())
+                                .businessErrorDescription(errorCode.getDescription())
                                 .error(exp.getMessage())
                                 .build()
                 );

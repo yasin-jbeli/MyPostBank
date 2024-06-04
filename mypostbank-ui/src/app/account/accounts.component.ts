@@ -123,7 +123,7 @@ export class AccountsComponent implements OnInit {
         }
 
         this.renderBarChart(monthlySpending, monthlyIncome, lastThreeMonths);
-        this.renderPieChart(categoryLabels, categorySpending); // Render pie chart with category labels and spending
+        this.renderPieChart(categoryLabels, categorySpending);
       },
       error: (error) => {
         console.error('Error fetching transactions:', error);

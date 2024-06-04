@@ -32,7 +32,7 @@ input, select {
   border-radius: 20px;
   outline: none;
   border: none;
-  width: 100%;
+  width: 30%;
   color: #fff;
   cursor: pointer;
   background: #14145b;
@@ -72,4 +72,27 @@ h1 {
 
 p {
   color: black;
+}
+
+.error-message {
+  color: #ec8686;
+  background-color: #fbe3e3;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  border-radius: 20px;
+  width:30%;
+  display: inline-block;
+
+}
+
+.success-message{
+  color: #62d1b6;
+  background-color: #d8f4ec;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  border-radius: 20px;
+  width: 30%;
+  display: inline-block;
 }

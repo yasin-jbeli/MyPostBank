@@ -2,6 +2,12 @@
   <div class="card">
     <h1>Request Loan</h1>
     <form (ngSubmit)="submitLoanRequest()" enctype="multipart/form-data">
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+      <div *ngIf="successMessage" class="success-message">
+        {{ successMessage }}
+      </div>
       <div class="amount">
         <label>Select Account:</label>&nbsp;
         <mat-form-field appearance="fill">
@@ -33,19 +39,17 @@
         <p>Please download the application form using the link below, fill it out, and then upload it:</p>
         <a href="./assets/LoanApplicationForm.pdf" download>Download</a><br><br>
         <input type="file" id="applicationForm" name="applicationForm" class="file-input-hidden" (change)="onFileSelected($event, 'applicationForm')" required>
-        <label for="applicationForm" class="button">Upload Application Form</label>
+        <label for="applicationForm" class="button">Upload Application Form</label><br>
         <span *ngIf="fileNames['applicationForm']">{{ fileNames['applicationForm'] }}</span>
       </div>
-
       <div>
         <input type="file" id="bankStatements" name="bankStatements" class="file-input-hidden" (change)="onFileSelected($event, 'bankStatements')" required>
-        <label for="bankStatements" class="button">Upload Bank Statements</label>
+        <label for="bankStatements" class="button">Upload Bank Statements</label><br>
         <span *ngIf="fileNames['bankStatements']">{{ fileNames['bankStatements'] }}</span>
       </div>
-
       <div>
         <input type="file" id="proofOfIncome" name="proofOfIncome" class="file-input-hidden" (change)="onFileSelected($event, 'proofOfIncome')" required>
-        <label for="proofOfIncome" class="button">Upload Proof of Income</label>
+        <label for="proofOfIncome" class="button">Upload Proof of Income</label><br>
         <span *ngIf="fileNames['proofOfIncome']">{{ fileNames['proofOfIncome'] }}</span>
       </div>
 

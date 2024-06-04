@@ -33,7 +33,6 @@ import { deleteCard1 } from '../fn/admin-controller/delete-card-1';
 import { DeleteCard1$Params } from '../fn/admin-controller/delete-card-1';
 import { deleteUser1 } from '../fn/admin-controller/delete-user-1';
 import { DeleteUser1$Params } from '../fn/admin-controller/delete-user-1';
-import { FileEntity } from '../models/file-entity';
 import { freezeAccount } from '../fn/admin-controller/freeze-account';
 import { FreezeAccount$Params } from '../fn/admin-controller/freeze-account';
 import { getAccountById } from '../fn/admin-controller/get-account-by-id';
@@ -52,8 +51,6 @@ import { getAllUsers } from '../fn/admin-controller/get-all-users';
 import { GetAllUsers$Params } from '../fn/admin-controller/get-all-users';
 import { getCheckingAccounts } from '../fn/admin-controller/get-checking-accounts';
 import { GetCheckingAccounts$Params } from '../fn/admin-controller/get-checking-accounts';
-import { getFilesByTypeAndId } from '../fn/admin-controller/get-files-by-type-and-id';
-import { GetFilesByTypeAndId$Params } from '../fn/admin-controller/get-files-by-type-and-id';
 import { getInstallments } from '../fn/admin-controller/get-installments';
 import { GetInstallments$Params } from '../fn/admin-controller/get-installments';
 import { getPendingAccounts } from '../fn/admin-controller/get-pending-accounts';
@@ -643,39 +640,6 @@ export class AdminControllerService extends BaseService {
   getInstallments(params: GetInstallments$Params, context?: HttpContext): Observable<Array<RepaymentDetailDto>> {
     return this.getInstallments$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<RepaymentDetailDto>>): Array<RepaymentDetailDto> => r.body)
-    );
-  }
-
-  /** Path part for operation `getFilesByTypeAndId()` */
-  static readonly GetFilesByTypeAndIdPath = '/admin/files/{fileType}/{id}';
-
-  /**
-   * Fetch files by type and ID.
-   *
-   *
-   *
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `getFilesByTypeAndId()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  getFilesByTypeAndId$Response(params: GetFilesByTypeAndId$Params, context?: HttpContext): Observable<StrictHttpResponse<FileEntity>> {
-    return getFilesByTypeAndId(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * Fetch files by type and ID.
-   *
-   *
-   *
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `getFilesByTypeAndId$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  getFilesByTypeAndId(params: GetFilesByTypeAndId$Params, context?: HttpContext): Observable<FileEntity> {
-    return this.getFilesByTypeAndId$Response(params, context).pipe(
-      map((r: StrictHttpResponse<FileEntity>): FileEntity => r.body)
     );
   }
 

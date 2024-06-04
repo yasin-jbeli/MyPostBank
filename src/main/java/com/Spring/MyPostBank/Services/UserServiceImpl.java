@@ -5,6 +5,8 @@ import com.Spring.MyPostBank.DTOs.UserDetailsDTO;
 import com.Spring.MyPostBank.Enums.AccountStatus;
 import com.Spring.MyPostBank.Enums.AccountType;
 import com.Spring.MyPostBank.Enums.TransactionType;
+import com.Spring.MyPostBank.Exception.OperationNotPermittedException;
+import com.Spring.MyPostBank.Handler.BusinessErrorCodes;
 import com.Spring.MyPostBank.Models.*;
 import com.Spring.MyPostBank.Repositories.*;
 import lombok.RequiredArgsConstructor;
@@ -98,57 +100,39 @@ public class UserServiceImpl implements UserService {
         if (!sourceAccount.getUser().getId().equals(user.getId())
                 || !sourceAccount.getStatus().equals(AccountStatus.ACTIVE)
                 || sourceAccount.getAccountType().equals(AccountType.SAVINGS)) {
-            System.out.println("Unauthorized access to source account or invalid account status/type.");
-            throw new RuntimeException("Unauthorized access to source account or invalid account status/type.");
+            throw new OperationNotPermittedException(BusinessErrorCodes.UNAUTHORIZED_ACCESS.getDescription());
         }
 
         if (sourceAccount.getBalance().compareTo(amount) < 0) {
-            System.out.println("Insufficient funds in the source account.");
-            throw new RuntimeException("Insufficient funds in the source account.");
+            throw new OperationNotPermittedException(BusinessErrorCodes.INSUFFICIENT_FUNDS.getDescription());
         }
 
         sourceAccount.setBalance(sourceAccount.getBalance().subtract(amount));
         destinationAccount.setBalance(destinationAccount.getBalance().add(amount));
 
-        System.out.println("Transferring " + amount + " from " + sourceAccountId + " to " + destinationAccountId);
-
         accountRepository.save(sourceAccount);
         accountRepository.save(destinationAccount);
 
-        if(sourceAccount.getUser()==destinationAccount.getUser()){
-            Transaction transfer = Transaction.builder()
-                    .transactionType(TransactionType.TRANSFER)
-                    .amount(amount)
-                    .description("Transfer from Account: " + sourceAccount.getAccountNo()+ " to: "+destinationAccount.getAccountNo())
-                    .date(LocalDateTime.now())
-                    .beneficiary(destinationAccount.getId())
-                    .accountId(sourceAccount.getId())
-                    .build();
-            System.out.println("Saving transaction: " + transfer);
-            transactionRepository.save(transfer);
-        }
-        else {
-            Transaction transfer = Transaction.builder()
-                    .transactionType(TransactionType.TRANSFER)
-                    .amount(amount)
-                    .description("Transfer from : " + sourceAccount.getUser().getFirstName() + " " + sourceAccount.getUser().getLastName() + " to: " + destinationAccount.getUser().getFirstName() + " " + destinationAccount.getUser().getLastName() + ".")
-                    .date(LocalDateTime.now())
-                    .beneficiary(destinationAccount.getId())
-                    .accountId(sourceAccount.getId())
-                    .build();
-            System.out.println("Saving transaction: " + transfer);
-            transactionRepository.save(transfer);
+        Transaction transfer = Transaction.builder()
+                .transactionType(TransactionType.TRANSFER)
+                .amount(amount)
+                .description("Transfer from : " + sourceAccount.getUser().getFirstName() + " " + sourceAccount.getUser().getLastName() + " to: " + destinationAccount.getUser().getFirstName() + " " + destinationAccount.getUser().getLastName() + ".")
+                .date(LocalDateTime.now())
+                .beneficiary(destinationAccount.getId())
+                .accountId(sourceAccount.getId())
+                .build();
 
-            Notification not = Notification.builder()
-                    .message("You received a transfer of amount: " + transfer.getAmount() + "TND, from " + sourceAccount.getUser().getFirstName() + " " + sourceAccount.getUser().getLastName())
-                    .user(destinationAccount.getUser())
-                    .isRead(false)
-                    .build();
-            notificationRepository.save(not);
-        }
+        transactionRepository.save(transfer);
+
+        Notification not = Notification.builder()
+                .message("You received a transfer of amount: " + transfer.getAmount() + "TND, from " + sourceAccount.getUser().getFirstName() + " " + sourceAccount.getUser().getLastName())
+                .user(destinationAccount.getUser())
+                .isRead(false)
+                .build();
+        notificationRepository.save(not);
+
         System.out.println("Transfer completed successfully.");
     }
-
 
 
 

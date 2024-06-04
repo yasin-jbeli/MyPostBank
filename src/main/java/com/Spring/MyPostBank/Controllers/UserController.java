@@ -107,12 +107,9 @@ public class UserController {
             @Valid @Parameter(in = ParameterIn.QUERY, description = "Amount to transfer") @RequestParam BigDecimal amount,
             Principal connectedUser
     ) {
-        try {
+
             userService.transfer(connectedUser, sourceAccountId, destinationAccountId, amount);
             return ResponseEntity.ok("Funds transferred successfully");
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body("Error transferring funds: " + e.getMessage());
-        }
     }
 
     @Operation(summary = "Get notifications by user")

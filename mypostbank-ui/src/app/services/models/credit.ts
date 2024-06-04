@@ -1,7 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
 import { BankAccount } from '../models/bank-account';
-import { FileEntity } from '../models/file-entity';
 import { RepaymentDetail } from '../models/repayment-detail';
 import { User } from '../models/user';
 export interface Credit {
@@ -10,7 +9,6 @@ export interface Credit {
   createdBy?: number;
   createdDate?: string;
   duration?: number;
-  files?: Array<FileEntity>;
   id?: number;
   interestRate?: number;
   lastModifiedBy?: number;

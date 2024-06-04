@@ -11,7 +11,6 @@ export { Checkbook } from './models/checkbook';
 export { CheckbookDto } from './models/checkbook-dto';
 export { Credit } from './models/credit';
 export { CreditDto } from './models/credit-dto';
-export { FileEntity } from './models/file-entity';
 export { GrantedAuthority } from './models/granted-authority';
 export { Notification } from './models/notification';
 export { PageResponseTransactionDto } from './models/page-response-transaction-dto';

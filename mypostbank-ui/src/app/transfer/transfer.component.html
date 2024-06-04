@@ -2,6 +2,16 @@
   <div class="card">
     <h1>Transfer</h1>
     <form [formGroup]="transferForm" (ngSubmit)="onSubmit()">
+      <div *ngIf="errorMsg.length" class="message-container">
+        <div *ngFor="let msg of errorMsg" class="error-message">
+          {{ msg }}
+        </div>
+      </div>
+      <div *ngIf="successMessage" class="message-container">
+        <div *ngFor="let msg of successMessage" class="success-message">
+          {{ msg }}
+        </div>
+      </div>
       <div>
         <mat-form-field appearance="fill">
           <mat-label>Source Account:</mat-label>
@@ -18,7 +28,7 @@
       <div>
         <mat-form-field appearance="fill">
           <mat-label>Destination Account:</mat-label>
-          <input type="text" matInput formControlName="destinationAccount" [matAutocomplete]="auto">
+          <input type="text" matInput formControlName="destinationAccount" [matAutocomplete]="auto" [value]="displayFn(transferForm.get('destinationAccount').value)">
           <mat-autocomplete #auto="matAutocomplete">
             <mat-option *ngFor="let account of filteredAccounts | async" [value]="account">
               {{ account.owner }} - "{{ account.accountNo }}"

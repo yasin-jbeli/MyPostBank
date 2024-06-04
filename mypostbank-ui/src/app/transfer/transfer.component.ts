@@ -15,15 +15,17 @@ import { map, startWith, catchError } from 'rxjs/operators';
 export class TransferComponent implements OnInit {
   transferForm: FormGroup;
   sourceAccounts: BankAccountDto[] = [];
-  destinationAccounts: BankAccountDto[] = [];
+  destinationAccounts: BankAccountDto[];
   filteredAccounts: Observable<BankAccountDto[]>;
-  errorMsg: any;
+  errorMsg: string[] = [];
+  successMessage: string[];
 
   constructor(
     private userService: UserControllerService,
     private accountService: BankAccountControllerService,
     private formBuilder: FormBuilder,
-    private snackBar: MatSnackBar) {
+    private snackBar: MatSnackBar
+  ) {
     this.initForm();
   }
 
@@ -33,6 +35,7 @@ export class TransferComponent implements OnInit {
 
     this.filteredAccounts = this.transferForm.get('destinationAccount').valueChanges.pipe(
       startWith(''),
+      map(value => (typeof value === 'string' ? value : this.displayFn(value))),
       map(value => this.filterAccounts(value))
     );
   }
@@ -45,22 +48,29 @@ export class TransferComponent implements OnInit {
     });
   }
 
-  private filterAccounts(value: string | BankAccountDto): BankAccountDto[] {
-    const filterValue = typeof value === 'string' ? value.toLowerCase() : '';
+  private filterAccounts(value: string): BankAccountDto[] {
+    const filterValue = value.toLowerCase();
     const sourceAccountId = this.transferForm.get('sourceAccountId').value;
 
-    if (!this.destinationAccounts) {
+    if (this.destinationAccounts && this.destinationAccounts.length > 0) {
+      return this.destinationAccounts.filter(account =>
+        (account.owner.toLowerCase().includes(filterValue) ||
+          account.accountNo.includes(filterValue)) &&
+        account.id !== sourceAccountId
+      );
+    } else {
       return [];
     }
+  }
 
-    return this.destinationAccounts.filter(account =>
-      (account.owner.toLowerCase().includes(filterValue) ||
-        account.accountNo.includes(filterValue)) &&
-      account.id !== sourceAccountId
-    );
+  displayFn(account?: BankAccountDto): string {
+    return account ? `${account.owner} - ${account.accountNo}` : '';
   }
 
   onSubmit(): void {
+    this.errorMsg = [];
+    this.successMessage= [];
+
     if (this.transferForm.invalid) {
       return;
     }
@@ -70,7 +80,7 @@ export class TransferComponent implements OnInit {
     const amount = this.transferForm.get('amount').value;
 
     if (!sourceAccountId || !destinationAccount) {
-      console.error('Source or Destination Account ID is empty');
+      this.errorMsg.push('Source or Destination Account ID is empty');
       return;
     }
 
@@ -78,23 +88,26 @@ export class TransferComponent implements OnInit {
 
     if (confirm(`Are you sure you want to transfer ${amount} to ${recipientInfo}?`)) {
       this.userService.transferFunds({ sourceAccountId, destinationAccountId: destinationAccount.id, amount })
-        .subscribe({
-          next: (response) => {
+        .subscribe(
+          (response) => {
             console.log('Transfer successful:', response);
             this.transferForm.reset();
-            this.snackBar.open('Transfer successful', 'Dismiss', {
-              duration: 3000
-            });
           },
-          error: (error) => {
+          (error) => {
             console.error('Error transferring funds:', error);
-            this.snackBar.open('Error transferring funds', 'Dismiss', {
-              duration: 3000
-            });
+            if (error.status === 400 || error.status === 500) {
+              this.errorMsg.push('Insufficient balance');
+              if(error.status === 200) {
+                this.successMessage.push('Transfer successful');
+              }
+            } else {
+              this.successMessage.push('Transfer successful');
+            }
           }
-        });
+        );
     }
   }
+
 
   private loadAccounts(): void {
     this.accountService.getUserAccounts().subscribe({
@@ -103,6 +116,7 @@ export class TransferComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error loading accounts:', error);
+        this.errorMsg.push('Error loading accounts');
       }
     });
   }
@@ -111,6 +125,7 @@ export class TransferComponent implements OnInit {
     this.accountService.getAllAccountsNotAdmin().pipe(
       catchError(error => {
         console.error('Error loading destination accounts:', error);
+        this.errorMsg.push('Error loading destination accounts');
         return of([]);
       })
     ).subscribe({

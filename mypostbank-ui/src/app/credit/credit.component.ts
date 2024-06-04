@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {CreditControllerService} from "../services/services/credit-controller.service";
-import {BankAccountDto} from "../services/models/bank-account-dto";
-import {BankAccountControllerService} from "../services/services/bank-account-controller.service";
+import { Component, OnInit } from '@angular/core';
+import { CreditControllerService } from "../services/services/credit-controller.service";
+import { BankAccountDto } from "../services/models/bank-account-dto";
+import { BankAccountControllerService } from "../services/services/bank-account-controller.service";
 
 @Component({
   selector: 'app-credit',
@@ -19,24 +19,29 @@ export class CreditComponent implements OnInit {
   proofOfIncome: File;
   selectedOption: any;
   fileNames: { [key: string]: string } = {};
+  errorMessage: string = '';
+  successMessage: string = '';
 
   constructor(
     private creditService: CreditControllerService,
     private accountService: BankAccountControllerService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadAccounts();
   }
 
   submitLoanRequest(): void {
+    this.errorMessage = '';
+    this.successMessage = '';
+
     if (!this.selectedAccount) {
-      console.error('Please select an account.');
+      this.errorMessage = 'Please select an account.';
       return;
     }
 
     if (!this.selectedLoanOption) {
-      console.error('Please select a loan option.');
+      this.errorMessage = 'Please select a loan option.';
       return;
     }
 
@@ -52,17 +57,34 @@ export class CreditComponent implements OnInit {
       }
     };
 
-    console.log('Request parameters:', requestParams);
     this.creditService.requestLoan(requestParams)
-      .subscribe(() => {
-        this.loanRequest = {};
+      .subscribe({
+        next: () => {
+          this.successMessage = 'Request sent successfully. Awaiting admin response.';
+          this.loanRequest = {};
+          this.selectedLoanOption = null;
+          this.selectedAccount = null;
+          this.applicationForm = null;
+          this.bankStatements = null;
+          this.proofOfIncome = null;
+          this.fileNames = {};
+        },
+        error: (error) => {
+          if (error.status === 500) {
+            this.errorMessage = 'You already have an existing loan.';
+          } else if (error.status === 400 && error.error.message.includes('existing loan')) {
+            this.errorMessage = 'You have an already existing loan.';
+          } else {
+            this.errorMessage = 'An error occurred while processing your request. Please try again later.';
+          }
+        }
       });
   }
 
-
   onFileSelected(event: any, fileType: string) {
     const file = event.target.files[0];
-    switch(fileType) {
+    this.fileNames[fileType] = file.name;
+    switch (fileType) {
       case 'applicationForm':
         this.applicationForm = file;
         break;
@@ -77,7 +99,6 @@ export class CreditComponent implements OnInit {
     }
   }
 
-
   generateLoanOptions(amount: number): any[] {
     const interestRate = 0.07;
     const durations = [12, 24, 36];
@@ -88,7 +109,7 @@ export class CreditComponent implements OnInit {
       const totalPayment = monthlyPayment * duration;
       const rate = Math.round((totalPayment - amount) / amount * 100);
 
-      return {duration, rate};
+      return { duration, rate };
     });
   }
 
@@ -122,6 +143,4 @@ export class CreditComponent implements OnInit {
     this.selectedLoanOption.amount = amount;
     this.selectedLoanOption.accountId = this.selectedAccount.id;
   }
-
-
 }

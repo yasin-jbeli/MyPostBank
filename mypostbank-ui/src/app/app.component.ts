@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {ChangeDetectorRef, Component} from '@angular/core';
 import { Router } from '@angular/router';
 import {TokenService} from "./services/token/token.service";
 import {Token} from "@angular/compiler";
@@ -10,5 +10,10 @@ import {Token} from "@angular/compiler";
 })
 export class AppComponent {
   title = 'MyPostBank';
+
+  constructor(
+    cdr: ChangeDetectorRef
+  ) {
+  }
 
 }
