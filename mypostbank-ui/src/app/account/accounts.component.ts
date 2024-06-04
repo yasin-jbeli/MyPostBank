@@ -96,7 +96,9 @@ export class AccountsComponent implements OnInit {
   private loadTransactions(selectedAccount: { id: number; }) {
     this.userService.getTrans().subscribe({
       next: (response: TransactionDto[]) => {
-        this.transaction = response.filter(trans => trans.accountId === selectedAccount.id || trans.beneficiary === selectedAccount.id);
+        this.transaction = response
+          .filter(trans => trans.accountId === selectedAccount.id || trans.beneficiary === selectedAccount.id)
+          .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
         this.payments = response.filter(trans => trans.accountId === selectedAccount.id && trans.transactionType === 'CARD_PAYMENT');
 
         const lastThreeMonths = this.getLastThreeMonths();
@@ -147,7 +149,7 @@ export class AccountsComponent implements OnInit {
       const transDate = new Date(trans.date);
       months.forEach((month, index) => {
         if (transDate.getFullYear() === month.getFullYear() && transDate.getMonth() === month.getMonth()) {
-          if (trans.transactionType === 'WITHDRAWAL' || trans.transactionType === 'CARD_PAYMENT') {
+          if (trans.transactionType === 'WITHDRAWAL' || trans.transactionType === 'CARD_PAYMENT' || (trans.transactionType === 'TRANSFER' && trans.accountId === this.selectedAccount.id)) {
             spending[index] += Math.abs(trans.amount);
           }
         }
@@ -156,13 +158,14 @@ export class AccountsComponent implements OnInit {
     return spending;
   }
 
+
   calculateMonthlyIncome(months: Date[]): number[] {
     const income = Array(3).fill(0);
     this.transaction.forEach(trans => {
       const transDate = new Date(trans.date);
       months.forEach((month, index) => {
         if (transDate.getFullYear() === month.getFullYear() && transDate.getMonth() === month.getMonth()) {
-          if (trans.transactionType === 'DEPOSIT') {
+          if (trans.transactionType === 'DEPOSIT' || (trans.transactionType === 'TRANSFER' && trans.beneficiary === this.selectedAccount.id)) {
             income[index] += trans.amount;
           }
         }
@@ -170,6 +173,7 @@ export class AccountsComponent implements OnInit {
     });
     return income;
   }
+
 
   renderBarChart(spending: number[], income: number[], months: Date[]): void {
     const monthLabels = months.map(month => month.toLocaleString('default', { month: 'short', year: 'numeric' }));

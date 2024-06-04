@@ -14,6 +14,7 @@ export class OpenAccountComponent {
   accountType: 'CHECKING' | 'SAVINGS' | null = null;
   idFile: File | null = null;
   errorMsg: string = '';
+  successMsg: string = '';
   selectedFileName: string = '';
 
   constructor(
@@ -22,6 +23,9 @@ export class OpenAccountComponent {
   ) { }
 
   onSubmit(): void {
+    this.errorMsg = '';
+    this.successMsg = '';
+
     if (this.accountType && this.idFile) {
       const formData = new FormData();
       formData.append('accountType', this.accountType);
@@ -38,13 +42,18 @@ export class OpenAccountComponent {
         .pipe(take(1))
         .subscribe(
           () => {
-            console.log('Account opened successfully');
+            this.successMsg = 'Account opened successfully';
+            this.accountType = null;
+            this.idFile = null;
+            this.selectedFileName = '';
           },
           (error: any) => {
             console.error('Error opening account', error);
             this.errorMsg = 'Error opening account. Please try again.';
           }
         );
+    } else {
+      this.errorMsg = 'Please select an account type and upload a file.';
     }
   }
 

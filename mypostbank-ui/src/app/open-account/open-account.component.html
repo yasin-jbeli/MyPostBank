@@ -1,8 +1,11 @@
 <main>
   <div class="card">
     <h1>Open New Account</h1>
-    <div class="alert alert-danger" role="alert" *ngIf="errorMsg.length">
-      <h5 class="error-message" *ngFor="let msg of errorMsg">{{msg}}</h5>
+    <div *ngIf="errorMsg" class="alert alert-danger" role="alert">
+      <h5 class="error-message">{{ errorMsg }}</h5>
+    </div>
+    <div *ngIf="successMsg" class="alert alert-success" role="alert">
+      <h5 class="success-message">{{ successMsg }}</h5>
     </div>
     <form (ngSubmit)="onSubmit()" enctype="multipart/form-data">
       <div class="form-group">
@@ -15,16 +18,13 @@
             <mat-option value="SAVINGS">Savings</mat-option>
           </mat-select>
         </mat-form-field>
-
         <div class="file-input">
           <input type="file" id="idFile" name="idFile" class="file-input-hidden" (change)="onFileSelected($event)">
           <label for="idFile" class="button">Choose File</label>
           <span *ngIf="selectedFileName">{{ selectedFileName }}</span>
         </div>
-
         <button type="submit" class="button">Open Account</button>
       </div>
     </form>
-    <p *ngIf="errorMsg" class="text-danger">{{ errorMsg }}</p>
   </div>
 </main>

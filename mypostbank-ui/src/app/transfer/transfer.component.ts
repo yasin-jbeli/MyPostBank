@@ -15,10 +15,10 @@ import { map, startWith, catchError } from 'rxjs/operators';
 export class TransferComponent implements OnInit {
   transferForm: FormGroup;
   sourceAccounts: BankAccountDto[] = [];
-  destinationAccounts: BankAccountDto[];
+  destinationAccounts: BankAccountDto[] = [];
   filteredAccounts: Observable<BankAccountDto[]>;
   errorMsg: string[] = [];
-  successMessage: string[];
+  successMessage: string[] = [];
 
   constructor(
     private userService: UserControllerService,
@@ -69,7 +69,7 @@ export class TransferComponent implements OnInit {
 
   onSubmit(): void {
     this.errorMsg = [];
-    this.successMessage= [];
+    this.successMessage = [];
 
     if (this.transferForm.invalid) {
       return;
@@ -91,23 +91,20 @@ export class TransferComponent implements OnInit {
         .subscribe(
           (response) => {
             console.log('Transfer successful:', response);
+            this.successMessage.push('Transfer successful');
             this.transferForm.reset();
           },
           (error) => {
             console.error('Error transferring funds:', error);
             if (error.status === 400 || error.status === 500) {
               this.errorMsg.push('Insufficient balance');
-              if(error.status === 200) {
-                this.successMessage.push('Transfer successful');
-              }
             } else {
-              this.successMessage.push('Transfer successful');
+              this.errorMsg.push('Transfer failed');
             }
           }
         );
     }
   }
-
 
   private loadAccounts(): void {
     this.accountService.getUserAccounts().subscribe({
