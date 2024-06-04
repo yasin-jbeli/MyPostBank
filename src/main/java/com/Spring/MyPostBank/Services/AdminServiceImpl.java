@@ -288,9 +288,13 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void updateCheckbook(Integer checkId, CheckBookStatus status) {
-    Checkbook checkbook = checkbookRepository.findById(checkId).get();
-    checkbook.setStatus(status);
-    checkbookRepository.save(checkbook);
+        Checkbook checkbook = checkbookRepository.findById(checkId).get();
+        checkbook.setStatus(status);
+        if (status == CheckBookStatus.RECEIVED) {
+            checkbookRepository.delete(checkbook);
+        } else {
+            checkbookRepository.save(checkbook);
+        }
     }
 
     @Override

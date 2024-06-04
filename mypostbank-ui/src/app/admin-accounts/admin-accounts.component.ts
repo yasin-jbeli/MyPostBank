@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminControllerService } from "../services/services/admin-controller.service";
 import { BankAccountDto } from "../services/models/bank-account-dto";
-import {UserDto} from "../services/models/user-dto";
-import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
-import { MatDialogModule } from '@angular/material/dialog';
+import { UserDto } from "../services/models/user-dto";
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import {HttpClient} from "@angular/common/http";
 import {FileService} from "../services/files/FileService";
-
 
 @Component({
   selector: 'app-admin-accounts',
@@ -17,8 +17,7 @@ export class AdminAccountsComponent implements OnInit {
   accounts: BankAccountDto[];
   requests: BankAccountDto[];
 
-  constructor(private adminService: AdminControllerService,
-              private fileService: FileService) {}
+  constructor(private adminService: AdminControllerService, private snackBar: MatSnackBar,private fileService: FileService) {}
 
   ngOnInit(): void {
     this.loadAccounts();
@@ -37,11 +36,10 @@ export class AdminAccountsComponent implements OnInit {
   }
 
   delete(accountId: any) {
-    const requestParams = {
-      accountId: accountId
-    };
-    this.adminService.closeAccount(requestParams).subscribe();
-    this.loadAccounts();
+    const requestParams = { accountId: accountId };
+    this.adminService.closeAccount(requestParams).subscribe(() => {
+      this.loadAccounts();
+    });
   }
 
   private loadRequests() {
@@ -55,34 +53,43 @@ export class AdminAccountsComponent implements OnInit {
     });
   }
 
-  reject(id: number) {
-    const requestParams = {
-      accountId: id
-    };
-    this.adminService.rejectAccount(requestParams).subscribe();
+  rejectAccount(id: number) {
+    if (confirm('Are you sure you want to reject this account?')) {
+      const requestParams = { accountId: id };
+      this.adminService.rejectAccount(requestParams).subscribe(() => {
+        this.snackBar.open('Account rejected successfully', 'Dismiss', { duration: 3000 });
+        this.loadRequests(); // Reload requests after rejecting an account
+      }, error => {
+        console.error('Error rejecting account:', error);
+        this.snackBar.open('Error rejecting account', 'Dismiss', { duration: 3000 });
+      });
+    }
   }
 
-  approve(id: number) {
-    const requestParams = {
-      accountId: id
-    };
-    this.adminService.activateAccount1(requestParams).subscribe();
+  approveAccount(id: number) {
+    if (confirm('Are you sure you want to approve this account?')) {
+      const requestParams = { accountId: id };
+      this.adminService.activateAccount1(requestParams).subscribe(() => {
+        this.snackBar.open('Account approved successfully', 'Dismiss', { duration: 3000 });
+        this.loadRequests(); // Reload requests after approving an account
+      }, error => {
+        console.error('Error approving account:', error);
+        this.snackBar.open('Error approving account', 'Dismiss', { duration: 3000 });
+      });
+    }
   }
-
-  download(id: number) {
-    const userId = id; // Example user ID
-    const documentType = 'bank-account'; // Example document type
-
+  downloadFiles(): void {
+    const userId = 402;
+    const documentType = 'BANK_account';
     this.fileService.downloadFile(userId, documentType).subscribe(
-      () => {
-        console.log('All files downloaded successfully');
+      (data: Blob) => {
+        const url = window.URL.createObjectURL(data);
+        window.open(url, '_blank'); // Open the file in a new tab
+        window.URL.revokeObjectURL(url);
       },
       error => {
-        console.error('Failed to download all files:', error);
+        console.error('Error downloading files:', error);
       }
     );
   }
 }
-
-
-

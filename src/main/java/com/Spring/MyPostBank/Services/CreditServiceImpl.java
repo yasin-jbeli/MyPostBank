@@ -1,13 +1,9 @@
 package com.Spring.MyPostBank.Services;
 
-
 import com.Spring.MyPostBank.DTOs.CreditDTO;
 import com.Spring.MyPostBank.DTOs.Mappers.RepaymentDetailMapper;
 import com.Spring.MyPostBank.DTOs.RepaymentDetailDTO;
-import com.Spring.MyPostBank.Enums.CreditStatus;
-import com.Spring.MyPostBank.Enums.DocumentType;
-import com.Spring.MyPostBank.Enums.PaymentStatus;
-import com.Spring.MyPostBank.Enums.TransactionType;
+import com.Spring.MyPostBank.Enums.*;
 import com.Spring.MyPostBank.Exception.InsufficientFunds;
 import com.Spring.MyPostBank.Models.*;
 import com.Spring.MyPostBank.Repositories.*;
@@ -18,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import com.Spring.MyPostBank.DTOs.Mappers.CreditMapper;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.time.LocalDate;
@@ -38,6 +35,7 @@ public class CreditServiceImpl implements CreditService{
     private final BankAccountRepository accountRepository;
     private final TransactionRepository transactionRepository;
     private final NotificationRepository notificationRepository;
+
 
     @Override
     public void requestLoan(BigDecimal amount,BigDecimal rate,Integer duration,Integer accountId, Principal connectedUser,MultipartFile applicationForm, MultipartFile bankStatements, MultipartFile proofOfIncome) {
@@ -68,6 +66,7 @@ public class CreditServiceImpl implements CreditService{
             }
         }
     }
+
 
     @Override
     public List<CreditDTO> getLoansByUser(Principal connectedUser) {

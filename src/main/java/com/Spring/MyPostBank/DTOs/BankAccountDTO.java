@@ -23,8 +23,8 @@ public class BankAccountDTO {
     private BigDecimal balance;
     private Integer userId;
     private AccountStatus status;
-    // for displaying on the frontend
     private String owner;
     private LocalDateTime createdDate;
+    private byte[] cinFile;
 }
 

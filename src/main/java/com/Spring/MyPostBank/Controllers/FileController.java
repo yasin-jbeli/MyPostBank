@@ -29,49 +29,24 @@ public class FileController {
     @Value("${application.file.upload.files-output-path}")
     private String fileUploadPath;
 
-    @GetMapping("/{userId}/{documentType}/download-all")
-    public ResponseEntity<Resource> downloadAllFiles(
+    @GetMapping("/{userId}/{documentType}/{fileName}")
+    public ResponseEntity<Resource> viewFile(
             @PathVariable Integer userId,
-            @PathVariable String documentType) {
+            @PathVariable String documentType,
+            @PathVariable String fileName) {
 
-        String folderPath = fileUploadPath + File.separator + "users" + File.separator + userId
-                + File.separator + documentType;
+        String filePath = fileUploadPath + File.separator + "users" + File.separator + userId
+                + File.separator + documentType + File.separator + fileName;
 
-        File folder = new File(folderPath);
-        if (!folder.exists() || !folder.isDirectory()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Folder not found");
+        File file = new File(filePath);
+        if (!file.exists() || file.isDirectory()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "File not found");
         }
 
-        try {
-            // Create a temporary zip file
-            File zipFile = File.createTempFile("files", ".zip");
-            try (ZipOutputStream zos = new ZipOutputStream(Files.newOutputStream(zipFile.toPath()))) {
-                addFilesToZip(folder.toPath(), folder.toPath(), zos);
-            }
-
-            // Serve the zip file as a resource
-            Resource zipResource = new FileSystemResource(zipFile);
-            return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"files.zip\"")
-                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                    .body(zipResource);
-        } catch (IOException e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to create zip file", e);
-        }
-    }
-
-    private void addFilesToZip(Path basePath, Path currentPath, ZipOutputStream zos) throws IOException {
-        Files.walk(currentPath)
-                .filter(path -> !Files.isDirectory(path))
-                .forEach(path -> {
-                    try {
-                        String zipEntryName = basePath.relativize(path).toString().replace("\\", "/");
-                        zos.putNextEntry(new ZipEntry(zipEntryName));
-                        Files.copy(path, zos);
-                        zos.closeEntry();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
+        Resource fileResource = new FileSystemResource(file);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + fileName + "\"")
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(fileResource);
     }
 }

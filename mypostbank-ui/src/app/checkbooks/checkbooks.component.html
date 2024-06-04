@@ -1,5 +1,5 @@
 <main *ngIf="checkbooks[0].status != 'RECEIVED'" class="no">
-  <h1>You're Checkbook is: {{ checkbooks[0].status.replace('_','').toLocaleLowerCase() }}</h1>
+  <h1>Your Checkbook is: {{ checkbooks[0].status.replace('_',' ').toLocaleLowerCase() }}</h1>
 </main>
 <main *ngIf="checkbooks.length==0" class="no">
   <h1>You Don't Have Any Checkbook Requests...</h1>

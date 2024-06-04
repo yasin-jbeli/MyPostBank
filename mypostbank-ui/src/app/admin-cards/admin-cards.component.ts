@@ -3,6 +3,7 @@ import {AdminControllerService} from "../services/services/admin-controller.serv
 import {CardDto} from "../services/models/card-dto";
 import {BankAccountDto} from "../services/models/bank-account-dto";
 import {CardControllerService} from "../services/services/card-controller.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-admin-cards',
@@ -12,6 +13,7 @@ import {CardControllerService} from "../services/services/card-controller.servic
 export class AdminCardsComponent implements OnInit{
    cards: CardDto[];
    requests: CardDto[];
+  private snackBar: MatSnackBar;
 
   constructor(
     private adminService: AdminControllerService,
@@ -54,18 +56,42 @@ export class AdminCardsComponent implements OnInit{
     this.loadCards();
   }
 
-  reject(id: any) {
-    const requestParams = {
-      cardId: id
-    };
-    this.adminService.rejectCard(requestParams).subscribe();
+  rejectCard(id: any) {
+    if (confirm('Are you sure you want to reject this card?')) {
+      const requestParams = { cardId: id };
+      this.adminService.rejectCard(requestParams).subscribe({
+        next: () => {
+          this.snackBar.open('Card rejected successfully', 'Dismiss', {
+            duration: 3000
+          });
+        },
+        error: (error) => {
+          console.error('Error rejecting card:', error);
+          this.snackBar.open('Error rejecting card', 'Dismiss', {
+            duration: 3000
+          });
+        }
+      });
+    }
   }
 
-  approve(id: any) {
-    const requestParams = {
-      cardId: id
-    };
-    this.adminService.approveCard(requestParams).subscribe();
+  approveCard(id: any) {
+    if (confirm('Are you sure you want to approve this card?')) {
+      const requestParams = { cardId: id };
+      this.adminService.approveCard(requestParams).subscribe({
+        next: () => {
+          this.snackBar.open('Card approved successfully', 'Dismiss', {
+            duration: 3000
+          });
+        },
+        error: (error) => {
+          console.error('Error approving card:', error);
+          this.snackBar.open('Error approving card', 'Dismiss', {
+            duration: 3000
+          });
+        }
+      });
+    }
   }
 
   activate(id: number) {

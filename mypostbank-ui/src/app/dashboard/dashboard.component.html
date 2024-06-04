@@ -47,7 +47,7 @@
               'transfer': trans.transactionType === 'TRANSFER',
               'credit': trans.transactionType === 'CREDIT_INSTALLMENT'
             }">{{ trans.transactionType.replace('_', ' ').toLowerCase() }}</span></td>
-      <td class="highlight"><b>{{ trans.amount }} TND</b></td>
+      <td class="highlight"><b>{{ trans.amount }}TND</b></td>
       <td>{{ trans.description }}</td>
       <td>{{ trans.date.substring(0,10) }}</td>
     </tr>

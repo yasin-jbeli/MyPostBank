@@ -1,0 +1,21 @@
+-------------------------------------------------------------------------------
+Test set: com.Spring.MyPostBank.AuthenticationServiceTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 1.197 s <<< FAILURE! -- in com.Spring.MyPostBank.AuthenticationServiceTest
+com.Spring.MyPostBank.AuthenticationServiceTest.testAuthenticate_UserNotFound -- Time elapsed: 0.049 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: Unexpected exception type thrown, expected: <org.springframework.security.core.userdetails.UsernameNotFoundException> but was: <java.util.NoSuchElementException>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:67)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3115)
+	at com.Spring.MyPostBank.AuthenticationServiceTest.testAuthenticate_UserNotFound(AuthenticationServiceTest.java:94)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+Caused by: java.util.NoSuchElementException: No value present
+	at java.base/java.util.Optional.orElseThrow(Optional.java:377)
+	at com.Spring.MyPostBank.Authentication.AuthenticationService.authenticate(AuthenticationService.java:139)
+	at com.Spring.MyPostBank.AuthenticationServiceTest.lambda$testAuthenticate_UserNotFound$0(AuthenticationServiceTest.java:95)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:53)
+	... 6 more
+

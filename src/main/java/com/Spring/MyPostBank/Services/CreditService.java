@@ -6,6 +6,7 @@ import com.Spring.MyPostBank.DTOs.RepaymentDetailDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
 @Service
 public interface CreditService {
 
-    void requestLoan(BigDecimal amount,BigDecimal rate,Integer duration,Integer accountId, Principal connectedUser, MultipartFile applicationForm, MultipartFile bankStatements, MultipartFile proofOfIncome);
+    void requestLoan(BigDecimal amount,BigDecimal rate,Integer duration,Integer accountId, Principal connectedUser, MultipartFile applicationForm, MultipartFile bankStatements, MultipartFile proofOfIncome) throws IOException;
 
     List<CreditDTO> getLoansByUser(Principal connectedUser);
 

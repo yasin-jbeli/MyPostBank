@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -22,4 +24,7 @@ public class CreditDTO {
     private Integer account;
     private String Owner;
     private LocalDateTime createdOn;
+    private MultipartFile applicationForm;
+    private MultipartFile bankStatements;
+    private MultipartFile proofOfIncome;
 }

@@ -3,5 +3,6 @@ package com.Spring.MyPostBank.Enums;
 public enum TokenType {
 
     BEARER,
-    ACTIVATION
+    ACTIVATION,
+    PASSWORD_RESET
 }

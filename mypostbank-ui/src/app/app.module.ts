@@ -36,6 +36,8 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatSelectModule} from "@angular/material/select";
 import {MatAutocomplete, MatAutocompleteTrigger} from "@angular/material/autocomplete";
 import {MatInput} from "@angular/material/input";
+import { RequestPasswordResetComponent } from './auth/request-password-reset/request-password-reset.component';
+import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +63,9 @@ import {MatInput} from "@angular/material/input";
     AdminTransactionsComponent,
     AdminCreditComponent,
     AdminCheckbooksComponent,
-    UsersComponent
+    UsersComponent,
+    RequestPasswordResetComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,

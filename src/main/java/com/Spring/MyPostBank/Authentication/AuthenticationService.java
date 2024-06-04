@@ -195,8 +195,50 @@ public class AuthenticationService {
         tokenRepository.save(savedToken);
     }
 
+    public void sendPasswordResetEmail(String email) throws MessagingException {
+        var user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        var resetToken = generateAndSavePasswordResetToken(user);
+        emailService.sendEMail(
+                user.getEmail(),
+                user.getFirstName(),
+                EmailTemplateName.PASSWORD_RESET,
+                activationUrl,
+                resetToken,
+                "Password Reset"
+        );
+    }
+
+    private String generateAndSavePasswordResetToken(User user) {
+        String generatedToken = generateActivationCode();
+        var token = Token.builder()
+                .token(generatedToken)
+                .tokenType(TokenType.PASSWORD_RESET)
+                .createdAt(LocalDateTime.now())
+                .expiresAt(LocalDateTime.now().plusMinutes(15))
+                .user(user)
+                .build();
+        tokenRepository.save(token);
+        return generatedToken;
+    }
+
+    public void resetPassword(String token, String newPassword) {
+        var savedToken = tokenRepository.findByToken(token)
+                .orElseThrow(() -> new AuthenticationException.InvalidTokenException("Invalid token"));
+        if (LocalDateTime.now().isAfter(savedToken.getExpiresAt())) {
+            throw new AuthenticationException.TokenExpiredException("Password reset token has expired");
+        }
+        var user = userRepository.findById(savedToken.getUser().getId())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+
+        savedToken.setValidatedAt(LocalDateTime.now());
+        tokenRepository.save(savedToken);
+    }
 
 }
+
 
 
 

@@ -15,13 +15,12 @@
       <tr *ngFor="let account of accounts">
         <td>{{ account.id }}</td>
         <td>{{ account.accountNo}}</td>
-        <td><b>{{ account.balance}}TND</b></td>
+        <td><b>{{ account.balance }}TND</b></td>
         <td>{{ account.accountType }}</td>
         <td>{{ account.owner }}</td>
       </tr>
       </tbody>
     </table>
-
   </div>
   <div class="details" *ngIf="requests && requests.length > 0">
     <h1>Requests</h1>
@@ -33,12 +32,12 @@
       <h4>Account Type:</h4>
       <h2>{{ request.accountType }}</h2>
       <h4>Request sent on:</h4>
-      <h2>{{ request.createdDate.substring(0,10) }}</h2>
-      <h4 (click)="download(request.userId)">Click Here to Download ID</h4>
+      <h2>{{ request.createdDate.substring(0, 10) }}</h2>
+      <button title="Download Files" class="download" (click)="downloadFiles()">Download Files</button>
       <div class="buttons-container">
-      <button title="Reject Request" class="rej" (click)="reject(request.id)">Reject</button>
-      <button title="Approve Request" class="app" (click)="approve(request.id)">Approve</button>
-      </div>
+        <button title="Reject Request" class="rej" (click)="rejectAccount(request.id)">Reject</button>
+        <button title="Approve Request" class="app" (click)="approveAccount(request.id)">Approve</button>
       </div>
     </div>
+  </div>
 </main>

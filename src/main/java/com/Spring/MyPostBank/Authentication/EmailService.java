@@ -9,6 +9,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,13 +33,8 @@ public class EmailService {
             String subject
     ) throws MessagingException {
 
-        String templateName;
-        if(emailTemplate == null) {
-            templateName = "confirm-email";
-        }
-        else {
-            templateName = emailTemplate.name();
-        }
+        String templateName = (emailTemplate != null) ? emailTemplate.getName() : "confirm-email";
+        System.out.println("Using template: " + templateName);  // Add this line for debugging
 
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(
@@ -61,8 +57,5 @@ public class EmailService {
         String template = templateEngine.process(templateName, context);
         helper.setText(template, true);
         mailSender.send(mimeMessage);
-
-
     }
-
 }

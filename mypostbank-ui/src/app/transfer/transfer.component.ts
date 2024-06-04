@@ -47,15 +47,18 @@ export class TransferComponent implements OnInit {
 
   private filterAccounts(value: string | BankAccountDto): BankAccountDto[] {
     const filterValue = typeof value === 'string' ? value.toLowerCase() : '';
+    const sourceAccountId = this.transferForm.get('sourceAccountId').value;
+
     if (!this.destinationAccounts) {
       return [];
     }
+
     return this.destinationAccounts.filter(account =>
-      account.owner.toLowerCase().includes(filterValue) ||
-      account.accountNo.includes(filterValue)
+      (account.owner.toLowerCase().includes(filterValue) ||
+        account.accountNo.includes(filterValue)) &&
+      account.id !== sourceAccountId
     );
   }
-
 
   onSubmit(): void {
     if (this.transferForm.invalid) {
@@ -71,19 +74,26 @@ export class TransferComponent implements OnInit {
       return;
     }
 
-    this.userService.transferFunds({ sourceAccountId, destinationAccountId: destinationAccount.id, amount })
-      .subscribe({
-        next: (response) => {
-          console.log('Transfer successful:', response);
-          this.transferForm.reset();
-          this.snackBar.open('Transfer successful', 'Dismiss', {
-            duration: 3000
-          });
-        },
-        error: (error) => {
-          console.error('Error transferring funds:', error);
-        }
-      });
+    const recipientInfo = `${destinationAccount.owner} (Account No: ${destinationAccount.accountNo})`;
+
+    if (confirm(`Are you sure you want to transfer ${amount} to ${recipientInfo}?`)) {
+      this.userService.transferFunds({ sourceAccountId, destinationAccountId: destinationAccount.id, amount })
+        .subscribe({
+          next: (response) => {
+            console.log('Transfer successful:', response);
+            this.transferForm.reset();
+            this.snackBar.open('Transfer successful', 'Dismiss', {
+              duration: 3000
+            });
+          },
+          error: (error) => {
+            console.error('Error transferring funds:', error);
+            this.snackBar.open('Error transferring funds', 'Dismiss', {
+              duration: 3000
+            });
+          }
+        });
+    }
   }
 
   private loadAccounts(): void {

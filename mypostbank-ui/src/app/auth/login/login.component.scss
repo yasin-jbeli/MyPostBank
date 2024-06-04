@@ -1,11 +1,57 @@
+main {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to bottom right, #14145b 50%, #fff 50%);
+}
+
+.container {
+  display: flex;
+  width: 80%;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 70%;
+  box-shadow: var(--box-shadow);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.left-section, .right-section {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.left-section {
+  background: transparent;
+  color: white;
+  text-align: center;
+  flex-direction: column;
+}
+
+.left-section h1 {
+  font-size: 2.5rem;
+  margin-top: 1rem;
+}
+
+.logo {
+  max-width: 100%;
+  height: auto;
+}
+
+.right-section {
+  background: white;
+}
+
 .card {
-  width: 500px;
-  padding: 2rem 1rem;
-  margin: 150px auto;
+  width: 100%;
+  padding: 2rem;
   background: #fff;
   border-radius: 10px;
   text-align: center;
-  box-shadow: var(--box-shadow);
 }
 
 input {
@@ -16,13 +62,6 @@ input {
   margin-bottom: 10px;
   border-radius: 20px;
   background: #e4e4e4;
-}
-
-main {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .log > button {
@@ -60,4 +99,3 @@ a {
   margin-top: 0.5rem;
   border-radius: 20px;
 }
-

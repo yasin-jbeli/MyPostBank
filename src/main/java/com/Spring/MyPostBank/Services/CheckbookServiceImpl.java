@@ -52,7 +52,7 @@ public class CheckbookServiceImpl implements CheckbookService{
         return checkbooks.stream()
                 .map(checkbook -> {
                     CheckbookDTO dto = CheckbookMapper.toDTO(checkbook);
-                    dto.setCheckbookNo(textEncryptor.decrypt(dto.getCheckbookNo())); // Decrypt checkbook number
+                    dto.setCheckbookNo(textEncryptor.decrypt(dto.getCheckbookNo()));
                     return dto;
                 })
                 .collect(Collectors.toList());

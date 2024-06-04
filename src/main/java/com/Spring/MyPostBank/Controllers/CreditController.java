@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
@@ -32,7 +33,7 @@ public class CreditController {
             @RequestPart("form") MultipartFile applicationForm,
             @RequestPart("statements") MultipartFile bankStatements,
             @RequestPart("proof") MultipartFile proofOfIncome
-    ) {
+    ) throws IOException {
         creditService.requestLoan(amount, rate, duration, accountId, connectedUser, applicationForm, bankStatements, proofOfIncome);
         return ResponseEntity.ok().build();
     }
@@ -93,6 +94,5 @@ public class CreditController {
         List<RepaymentDetailDTO> repaymentDetailDTO = creditService.getAllRepaymentsByUser(connectedUser, creditId);
         return ResponseEntity.ok(repaymentDetailDTO);
     }
-
 
 }

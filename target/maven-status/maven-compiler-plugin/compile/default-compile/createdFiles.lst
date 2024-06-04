@@ -2,6 +2,7 @@ com/Spring/MyPostBank/Models/Checkbook$CheckbookBuilderImpl.class
 com/Spring/MyPostBank/Controllers/BankAccountController.class
 com/Spring/MyPostBank/Handler/BusinessErrorCodes.class
 com/Spring/MyPostBank/Models/BankAccount$BankAccountBuilder.class
+com/Spring/MyPostBank/Controllers/FileController.class
 com/Spring/MyPostBank/Services/CreditService.class
 com/Spring/MyPostBank/DTOs/CardDTO.class
 com/Spring/MyPostBank/Authentication/ChangePasswordRequest$ChangePasswordRequestBuilder.class
@@ -17,6 +18,7 @@ com/Spring/MyPostBank/DTOs/UserDTO$UserDTOBuilder.class
 com/Spring/MyPostBank/Exception/AuthenticationException$InvalidTokenException.class
 com/Spring/MyPostBank/Controllers/AdminController.class
 com/Spring/MyPostBank/Models/Token$TokenBuilderImpl.class
+com/Spring/MyPostBank/Authentication/PasswordResetRequest.class
 com/Spring/MyPostBank/DTOs/CheckbookDTO.class
 com/Spring/MyPostBank/Repositories/RepaymentDetailRepository.class
 com/Spring/MyPostBank/Models/Credit.class
@@ -24,11 +26,13 @@ com/Spring/MyPostBank/DTOs/Mappers/CheckbookMapper.class
 com/Spring/MyPostBank/Models/Card.class
 com/Spring/MyPostBank/Services/CheckbookService.class
 com/Spring/MyPostBank/Enums/DocumentType.class
+com/Spring/MyPostBank/Models/Notification$NotificationBuilder.class
 com/Spring/MyPostBank/Models/AbstractEntity$AbstractEntityBuilderImpl.class
 com/Spring/MyPostBank/Models/Credit$CreditBuilder.class
 com/Spring/MyPostBank/Utils/PageResponse$PageResponseBuilder.class
 com/Spring/MyPostBank/DTOs/Mappers/RepaymentDetailMapper.class
 com/Spring/MyPostBank/Services/FileStorageService$1.class
+com/Spring/MyPostBank/Authentication/ResetPasswordRequest.class
 com/Spring/MyPostBank/Models/Token.class
 com/Spring/MyPostBank/Models/Card$CardBuilder.class
 com/Spring/MyPostBank/Exception/ActivationTokenException.class
@@ -61,6 +65,7 @@ com/Spring/MyPostBank/Authentication/AuthenticationResponse.class
 com/Spring/MyPostBank/Repositories/TransactionRepository.class
 com/Spring/MyPostBank/Controllers/UserController.class
 com/Spring/MyPostBank/DTOs/BankAccountDTO$BankAccountDTOBuilder.class
+com/Spring/MyPostBank/Repositories/NotificationRepository.class
 com/Spring/MyPostBank/DTOs/UserDetailsDTO.class
 com/Spring/MyPostBank/DTOs/RepaymentDetailDTO$RepaymentDetailDTOBuilder.class
 com/Spring/MyPostBank/Models/BankAccount.class
@@ -69,6 +74,7 @@ com/Spring/MyPostBank/DTOs/Mappers/TransactionMapper.class
 com/Spring/MyPostBank/Config/JwtAuthenticationFilter.class
 com/Spring/MyPostBank/Authentication/AuthenticationRequest$AuthenticationRequestBuilder.class
 com/Spring/MyPostBank/Enums/AccountType.class
+com/Spring/MyPostBank/Models/Notification.class
 com/Spring/MyPostBank/Enums/CheckBookStatus.class
 com/Spring/MyPostBank/Controllers/ManagementController.class
 com/Spring/MyPostBank/Models/RepaymentDetail.class
@@ -79,6 +85,7 @@ com/Spring/MyPostBank/Services/AccountServiceImpl.class
 com/Spring/MyPostBank/Config/ApplicationConfig.class
 com/Spring/MyPostBank/Controllers/CreditController.class
 com/Spring/MyPostBank/Models/BankAccount$BankAccountBuilderImpl.class
+com/Spring/MyPostBank/Models/Notification$NotificationBuilderImpl.class
 com/Spring/MyPostBank/Enums/TransactionType.class
 com/Spring/MyPostBank/Services/UserService.class
 com/Spring/MyPostBank/Authentication/RegisterRequest$RegisterRequestBuilder.class

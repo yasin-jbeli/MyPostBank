@@ -1,0 +1,12 @@
+-------------------------------------------------------------------------------
+Test set: com.Spring.MyPostBank.AccountServiceTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.051 s <<< FAILURE! -- in com.Spring.MyPostBank.AccountServiceTest
+com.Spring.MyPostBank.AccountServiceTest.testTransferSuccessful -- Time elapsed: 0.005 s <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "com.Spring.MyPostBank.Models.User.getFirstName()" because the return value of "com.Spring.MyPostBank.Models.BankAccount.getUser()" is null
+	at com.Spring.MyPostBank.Services.UserServiceImpl.transfer(UserServiceImpl.java:134)
+	at com.Spring.MyPostBank.AccountServiceTest.testTransferSuccessful(AccountServiceTest.java:66)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+

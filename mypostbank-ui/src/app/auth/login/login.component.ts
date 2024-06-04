@@ -61,4 +61,8 @@ export class LoginComponent {
   register() {
     this.router.navigate(['register']);
   }
+
+  recover() {
+    this.router.navigate(['request-password-reset']);
+  }
 }

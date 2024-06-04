@@ -3,6 +3,7 @@ import {CreditControllerService} from "../services/services/credit-controller.se
 import {AdminControllerService} from "../services/services/admin-controller.service";
 import {CreditDto} from "../services/models/credit-dto";
 import {RepaymentDetailDto} from "../services/models/repayment-detail-dto";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-admin-credit',
@@ -14,6 +15,7 @@ export class AdminCreditComponent implements OnInit{
   loans: CreditDto[];
   selectedLoan: CreditDto;
   payments: RepaymentDetailDto[];
+  private snackBar: MatSnackBar;
 
   constructor(private adminService: AdminControllerService,
               private creditService: CreditControllerService) {}
@@ -44,19 +46,42 @@ export class AdminCreditComponent implements OnInit{
       }
     });
   }
-
   reject(id: number) {
-    const requestParams = {
-      creditId: id
-    };
-    this.adminService.rejectCredit(requestParams).subscribe();
+    if (confirm('Are you sure you want to reject this credit application?')) {
+      const requestParams = { creditId: id };
+      this.adminService.rejectCredit(requestParams).subscribe({
+        next: () => {
+          this.snackBar.open('Credit application rejected successfully', 'Dismiss', {
+            duration: 3000
+          });
+        },
+        error: (error) => {
+          console.error('Error rejecting credit application:', error);
+          this.snackBar.open('Error rejecting credit application', 'Dismiss', {
+            duration: 3000
+          });
+        }
+      });
+    }
   }
 
   approve(id: number) {
-    const requestParams = {
-      creditId: id
-    };
-    this.adminService.approveCredit(requestParams).subscribe();
+    if (confirm('Are you sure you want to approve this credit application?')) {
+      const requestParams = { creditId: id };
+      this.adminService.approveCredit(requestParams).subscribe({
+        next: () => {
+          this.snackBar.open('Credit application approved successfully', 'Dismiss', {
+            duration: 3000
+          });
+        },
+        error: (error) => {
+          console.error('Error approving credit application:', error);
+          this.snackBar.open('Error approving credit application', 'Dismiss', {
+            duration: 3000
+          });
+        }
+      });
+    }
   }
 
 

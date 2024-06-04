@@ -48,4 +48,23 @@ public class AuthenticationController {
     ) throws MessagingException {
         service.activateAccount(token);
     }
+
+    @Operation(summary = "Send password reset email")
+    @PostMapping("/send-reset-email")
+    public ResponseEntity<Void> sendResetEmail(@RequestParam String email) throws MessagingException {
+        service.sendPasswordResetEmail(email);
+        return ResponseEntity.ok().build();
+    }
+
+    @Operation(summary = "Reset password")
+    @PostMapping("/reset-password")
+    public ResponseEntity<Void> resetPassword(
+            @RequestParam String token,
+            @RequestParam String newPassword
+    ) {
+        service.resetPassword(token, newPassword);
+        return ResponseEntity.ok().build();
+    }
+
+
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { CardControllerService } from "../services/services/card-controller.service";
 import { UserControllerService } from "../services/services/user-controller.service";
 import { CardDto } from "../services/models/card-dto";
@@ -6,6 +6,7 @@ import { UserDetailsDto } from "../services/models/user-details-dto";
 import { PageResponseTransactionDto } from "../services/models/page-response-transaction-dto";
 import { TransactionDto } from "../services/models/transaction-dto";
 import { Router } from "@angular/router";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-cards',
@@ -22,7 +23,9 @@ export class CardsComponent implements OnInit {
   constructor(
     private cardService: CardControllerService,
     private userService: UserControllerService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -51,6 +54,7 @@ export class CardsComponent implements OnInit {
   }
 
   private loadTransactions(selectedCard) {
+    this.selectedCard = selectedCard;
     this.userService.getTrans().subscribe({
       next: (response: TransactionDto[]) => {
         this.transaction = response.filter(trans => trans.transactionType === 'CARD_PAYMENT');
@@ -61,39 +65,74 @@ export class CardsComponent implements OnInit {
     });
   }
 
-
-
   showCardInfo(card: any) {
     this.selectedCard = card;
     this.loadTransactions(this.selectedCard);
   }
 
   deactivate(cardId: number) {
-    const requestParams = {
-      cardId: cardId
-    };
-    this.cardService.deactivateCard(requestParams).subscribe();
+    if (confirm('Are you sure you want to deactivate this card?')) {
+      const requestParams = {
+        cardId: cardId
+      };
+      this.cardService.deactivateCard(requestParams).subscribe(
+        () => {
+          console.log('Card deactivated successfully');
+        },
+        error => {
+          console.error('Error deactivating card:', error);
+        }
+      );
+      this.snackBar.open('Deactivating card...', 'Dismiss', {
+        duration: 3000,
+        panelClass: ['my-snackbar']
+      });
+      this.cdr.detectChanges(); // Manually trigger change detection
+    }
   }
 
   activate(cardId: number) {
-    const requestParams = {
-      cardId: cardId
-    };
-    this.cardService.activateCard(requestParams).subscribe();
+    if (confirm('Are you sure you want to activate this card?')) {
+      const requestParams = {
+        cardId: cardId
+      };
+      this.cardService.activateCard(requestParams).subscribe(
+        () => {
+          console.log('Card activated successfully');
+        },
+        error => {
+          console.error('Error activating card:', error);
+        }
+      );
+      this.snackBar.open('Activating card...', 'Dismiss', {
+        duration: 3000,
+        panelClass: ['my-snackbar']
+      });
+      this.cdr.detectChanges(); // Manually trigger change detection
+    }
   }
+
 
   delete(cardId: number) {
     const requestParams = {
       cardId: cardId
     };
-    this.cardService.cancelCardRequest(requestParams).subscribe({
-      next: () => {
-        this.loadCards();
-      },
-      error: (error) => {
-        console.error('Error deleting card:', error);
-      }
-    });
+
+    if (confirm('Are you sure you want to delete this card?')) {
+      this.cardService.cancelCardRequest(requestParams).subscribe(
+        () => {
+          this.loadCards();
+        },
+        (error) => {
+          console.error('Error deleting card:', error);
+        }
+      );
+
+      this.snackBar.open('Deleting card...', 'Dismiss', {
+        duration: 3000,
+        panelClass: ['my-snackbar']
+      });
+    }
   }
 
   trans() {

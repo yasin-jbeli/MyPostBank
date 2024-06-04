@@ -34,8 +34,8 @@
       <h4>Request sent on:</h4>
       <h2>{{ request.createDate.substring(0,10) }}</h2>
       <div class="buttons-container">
-      <button title="Reject Request" class="rej" (click)="reject(request.cardId)">Reject</button>
-      <button title="Approve Request" class="app" (click)="approve(request.cardId)">Approve</button>
+      <button title="Reject Request" class="rej" (click)="rejectCard(request.cardId)">Reject</button>
+      <button title="Approve Request" class="app" (click)="approveCard(request.cardId)">Approve</button>
     </div>
     </div>
   </div>

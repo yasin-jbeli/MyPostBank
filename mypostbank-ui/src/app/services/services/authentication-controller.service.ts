@@ -18,11 +18,81 @@ import { refresh } from '../fn/authentication-controller/refresh';
 import { Refresh$Params } from '../fn/authentication-controller/refresh';
 import { register } from '../fn/authentication-controller/register';
 import { Register$Params } from '../fn/authentication-controller/register';
+import { resetPassword } from '../fn/authentication-controller/reset-password';
+import { ResetPassword$Params } from '../fn/authentication-controller/reset-password';
+import { sendResetEmail } from '../fn/authentication-controller/send-reset-email';
+import { SendResetEmail$Params } from '../fn/authentication-controller/send-reset-email';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationControllerService extends BaseService {
   constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
+  }
+
+  /** Path part for operation `sendResetEmail()` */
+  static readonly SendResetEmailPath = '/send-reset-email';
+
+  /**
+   * Send password reset email.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `sendResetEmail()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  sendResetEmail$Response(params: SendResetEmail$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return sendResetEmail(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * Send password reset email.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `sendResetEmail$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  sendResetEmail(params: SendResetEmail$Params, context?: HttpContext): Observable<void> {
+    return this.sendResetEmail$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `resetPassword()` */
+  static readonly ResetPasswordPath = '/reset-password';
+
+  /**
+   * Reset password.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `resetPassword()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  resetPassword$Response(params: ResetPassword$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return resetPassword(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * Reset password.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `resetPassword$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  resetPassword(params: ResetPassword$Params, context?: HttpContext): Observable<void> {
+    return this.resetPassword$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
   }
 
   /** Path part for operation `register()` */

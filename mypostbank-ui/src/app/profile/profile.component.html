@@ -34,6 +34,7 @@
       <h2 *ngFor="let account of accounts">{{ account.accountNo }}</h2>
       <h3>Active Cards:</h3>
       <h2 *ngFor="let card of cards">{{ card.cardNo }}</h2>
+      <button class="del" (click)="del()">Delete Account</button>
     </div>
     <form (ngSubmit)="changePassword()">
       <h2>Change Password</h2>

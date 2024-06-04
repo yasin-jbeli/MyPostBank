@@ -2,6 +2,7 @@ package com.Spring.MyPostBank.Controllers;
 
 import com.Spring.MyPostBank.DTOs.*;
 import com.Spring.MyPostBank.Enums.CheckBookStatus;
+import com.Spring.MyPostBank.Enums.FileType;
 import com.Spring.MyPostBank.Services.AdminService;
 import com.Spring.MyPostBank.Services.CardService;
 import com.Spring.MyPostBank.Services.TransactionService;
@@ -10,6 +11,8 @@ import com.Spring.MyPostBank.Utils.PageResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
@@ -278,8 +281,5 @@ public class AdminController {
         adminService.rejectCredit(creditId);
         return ResponseEntity.ok("Credit request with ID " + creditId + " rejected.");
     }
-
-
-
-
 }
+

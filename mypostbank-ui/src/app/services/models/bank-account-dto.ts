@@ -4,6 +4,7 @@ export interface BankAccountDto {
   accountNo?: string;
   accountType?: 'CHECKING' | 'SAVINGS';
   balance?: number;
+  cinFile?: Array<string>;
   createdDate?: string;
   id?: number;
   owner?: string;

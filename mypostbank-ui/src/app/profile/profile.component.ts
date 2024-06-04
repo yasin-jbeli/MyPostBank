@@ -8,6 +8,7 @@ import { CardDto } from "../services/models/card-dto";
 import { UpdateUser$Params } from "../services/fn/user-controller/update-user";
 import { User } from "../services/models/user";
 import { ChangePassword$Params } from "../services/fn/user-controller/change-password";
+import { TokenService } from "../services/token/token.service";
 
 @Component({
   selector: 'app-profile',
@@ -36,7 +37,8 @@ export class ProfileComponent implements OnInit {
   constructor(
     private userService: UserControllerService,
     private accountService: BankAccountControllerService,
-    private cardService: CardControllerService
+    private cardService: CardControllerService,
+    private tokenService: TokenService
   ) {}
 
   ngOnInit(): void {
@@ -83,58 +85,72 @@ export class ProfileComponent implements OnInit {
   }
 
   updateProfile() {
-    this.updateProfileError = null;
-    const userData: User = {};
+    if (confirm('Are you sure you want to update your profile?')) {
+      this.updateProfileError = null;
+      const userData: User = {};
 
-    // Populate userData object with non-empty fields from this.user
-    if (this.user.firstName.trim() !== '') {
-      userData.firstName = this.user.firstName;
-    }
-    if (this.user.lastName.trim() !== '') {
-      userData.lastName = this.user.lastName;
-    }
-    if (this.user.email.trim() !== '') {
-      userData.email = this.user.email;
-    }
-    if (this.user.phone.trim() !== '') {
-      userData.phone = this.user.phone;
-    }
+      if (this.user.firstName.trim() !== '') {
+        userData.firstName = this.user.firstName;
+      }
+      if (this.user.lastName.trim() !== '') {
+        userData.lastName = this.user.lastName;
+      }
+      if (this.user.email.trim() !== '') {
+        userData.email = this.user.email;
+      }
+      if (this.user.phone.trim() !== '') {
+        userData.phone = this.user.phone;
+      }
 
-    if (Object.keys(userData).length > 0) {
-      this.userService.updateUser({ body: userData } as UpdateUser$Params).subscribe(
+      if (Object.keys(userData).length > 0) {
+        this.userService.updateUser({ body: userData } as UpdateUser$Params).subscribe(
+          () => {
+            console.log("Profile updated successfully");
+          },
+          (error) => {
+            this.updateProfileError = "Failed to update profile.";
+          }
+        );
+      }
+    }
+  }
+
+  changePassword() {
+    if (confirm('Are you sure you want to change your password?')) {
+      this.changePasswordError = null;
+      const changePasswordParams: ChangePassword$Params = {
+        body: {
+          currentPassword: this.changePasswordData.currentPassword,
+          newPassword: this.changePasswordData.newPassword,
+          confirmationPassword: this.changePasswordData.confirmationPassword
+        }
+      };
+
+      this.userService.changePassword(changePasswordParams).subscribe(
         () => {
-          console.log("Profile updated successfully");
+          console.log("Password changed successfully");
+          this.changePasswordData = {
+            currentPassword: '',
+            newPassword: '',
+            confirmationPassword: ''
+          };
         },
         (error) => {
-          this.updateProfileError = "Failed to update profile.";
+          this.changePasswordError = "Failed to change password.";
         }
       );
     }
   }
 
-  changePassword() {
-    this.changePasswordError = null;
-    const changePasswordParams: ChangePassword$Params = {
-      body: {
-        currentPassword: this.changePasswordData.currentPassword,
-        newPassword: this.changePasswordData.newPassword,
-        confirmationPassword: this.changePasswordData.confirmationPassword
-      }
-    };
-
-    this.userService.changePassword(changePasswordParams).subscribe(
-      () => {
-        console.log("Password changed successfully");
-        // Clear the change password form after successful password change
-        this.changePasswordData = {
-          currentPassword: '',
-          newPassword: '',
-          confirmationPassword: ''
-        };
-      },
-      (error) => {
-        this.changePasswordError = "Failed to change password.";
-      }
-    );
+  del() {
+    if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+      this.userService.deleteUser().subscribe(() => {
+        this.tokenService.logout();
+        alert('Your account has been deleted. You will be logged out now.');
+      }, error => {
+        console.error('Error deleting the user:', error);
+        alert('There was an error deleting your account. Please try again later.');
+      });
+    }
   }
 }

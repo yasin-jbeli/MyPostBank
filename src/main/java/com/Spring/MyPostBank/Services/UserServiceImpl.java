@@ -115,17 +115,37 @@ public class UserServiceImpl implements UserService {
         accountRepository.save(sourceAccount);
         accountRepository.save(destinationAccount);
 
-        Transaction transfer = Transaction.builder()
-                .transactionType(TransactionType.TRANSFER)
-                .amount(amount)
-                .description("Transfer from Account ID: " + sourceAccountId + " to Account ID: " + destinationAccountId)
-                .date(LocalDateTime.now())
-                .beneficiary(destinationAccount.getId())
-                .accountId(sourceAccount.getId())
-                .build();
-        System.out.println("Saving transaction: " + transfer);
-        transactionRepository.save(transfer);
+        if(sourceAccount.getUser()==destinationAccount.getUser()){
+            Transaction transfer = Transaction.builder()
+                    .transactionType(TransactionType.TRANSFER)
+                    .amount(amount)
+                    .description("Transfer from Account: " + sourceAccount.getAccountNo()+ " to: "+destinationAccount.getAccountNo())
+                    .date(LocalDateTime.now())
+                    .beneficiary(destinationAccount.getId())
+                    .accountId(sourceAccount.getId())
+                    .build();
+            System.out.println("Saving transaction: " + transfer);
+            transactionRepository.save(transfer);
+        }
+        else {
+            Transaction transfer = Transaction.builder()
+                    .transactionType(TransactionType.TRANSFER)
+                    .amount(amount)
+                    .description("Transfer from : " + sourceAccount.getUser().getFirstName() + " " + sourceAccount.getUser().getLastName() + " to: " + destinationAccount.getUser().getFirstName() + " " + destinationAccount.getUser().getLastName() + ".")
+                    .date(LocalDateTime.now())
+                    .beneficiary(destinationAccount.getId())
+                    .accountId(sourceAccount.getId())
+                    .build();
+            System.out.println("Saving transaction: " + transfer);
+            transactionRepository.save(transfer);
 
+            Notification not = Notification.builder()
+                    .message("You received a transfer of amount: " + transfer.getAmount() + "TND, from " + sourceAccount.getUser().getFirstName() + " " + sourceAccount.getUser().getLastName())
+                    .user(destinationAccount.getUser())
+                    .isRead(false)
+                    .build();
+            notificationRepository.save(not);
+        }
         System.out.println("Transfer completed successfully.");
     }
 

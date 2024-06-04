@@ -22,7 +22,7 @@ spring:
     host: localhost
     port: 1025
     username: yasin
-    password:
+    password: yasin
     properties:
       mail:
         smtp:
@@ -30,9 +30,9 @@ spring:
         auth: true
         starttls:
           enable: true
-        connection timeout: 5000
-        timeout: 3000rv
-        write timeout: 5000
+        connection-timeout: 5000
+        timeout: 3000
+        write-timeout: 5000
 
 springdoc:
   default-produces-media-type: application/json
@@ -41,6 +41,7 @@ server:
   servlet:
     context-path: /mypostbank/
   port: 8080
+
 application:
   security:
     jwt:

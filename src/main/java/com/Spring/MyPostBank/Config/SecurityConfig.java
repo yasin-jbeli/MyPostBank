@@ -46,7 +46,7 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
-                        authorize -> authorize.requestMatchers("/register/**","/authenticate/**","/activate-account/**").permitAll()
+                        authorize -> authorize.requestMatchers("/register/**","/authenticate/**","/activate-account/**","/reset-password","send-reset-email").permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/v3/**")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/swagger-ui/**")).permitAll()
                                 .requestMatchers("/management/**").hasAnyRole(ADMIN.name(), MANAGER.name())

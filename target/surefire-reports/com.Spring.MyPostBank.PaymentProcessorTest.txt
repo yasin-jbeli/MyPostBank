@@ -1,0 +1,13 @@
+-------------------------------------------------------------------------------
+Test set: com.Spring.MyPostBank.PaymentProcessorTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.236 s <<< FAILURE! -- in com.Spring.MyPostBank.PaymentProcessorTest
+com.Spring.MyPostBank.PaymentProcessorTest.testProcessDuePayments -- Time elapsed: 0.233 s <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "com.Spring.MyPostBank.Repositories.NotificationRepository.save(Object)" because "this.notificationRepository" is null
+	at com.Spring.MyPostBank.Services.CreditServiceImpl.processPayment(CreditServiceImpl.java:168)
+	at com.Spring.MyPostBank.Services.CreditServiceImpl.processDuePayments(CreditServiceImpl.java:133)
+	at com.Spring.MyPostBank.PaymentProcessorTest.testProcessDuePayments(PaymentProcessorTest.java:69)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+

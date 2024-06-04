@@ -23,11 +23,15 @@ import {AdminAccountsComponent} from "./admin-accounts/admin-accounts.component"
 import {AdminCardsComponent} from "./admin-cards/admin-cards.component";
 import {AdminCheckbooksComponent} from "./admin-checkbooks/admin-checkbooks.component";
 import {UsersComponent} from "./users/users.component";
+import {ResetPasswordComponent} from "./auth/reset-password/reset-password.component";
+import {RequestPasswordResetComponent} from "./auth/request-password-reset/request-password-reset.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'activate-account', component: ActivateAccountComponent },
+  { path: 'request-password-reset', component: RequestPasswordResetComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
   {
     path: 'admin',
     canActivate: [authGuard],

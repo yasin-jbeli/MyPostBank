@@ -2,8 +2,6 @@ package com.Spring.MyPostBank.Services;
 
 import com.Spring.MyPostBank.DTOs.*;
 import com.Spring.MyPostBank.Enums.CheckBookStatus;
-import com.Spring.MyPostBank.Models.Card;
-import com.Spring.MyPostBank.Models.Credit;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

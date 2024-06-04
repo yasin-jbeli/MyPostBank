@@ -678,6 +678,62 @@
         }
       }
     },
+    "/send-reset-email": {
+      "post": {
+        "tags": [
+          "authentication-controller"
+        ],
+        "summary": "Send password reset email",
+        "operationId": "sendResetEmail",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/reset-password": {
+      "post": {
+        "tags": [
+          "authentication-controller"
+        ],
+        "summary": "Reset password",
+        "operationId": "resetPassword",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "newPassword",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/register": {
       "post": {
         "tags": [
@@ -1732,6 +1788,65 @@
         }
       }
     },
+    "/admin/files/{fileType}/{id}": {
+      "get": {
+        "tags": [
+          "admin-controller"
+        ],
+        "summary": "Fetch files by type and ID",
+        "operationId": "getFilesByTypeAndId",
+        "parameters": [
+          {
+            "name": "fileType",
+            "in": "path",
+            "description": "File type (CIN_FILE or CREDIT)",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "CREDIT",
+                "CIN_FILE"
+              ]
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Files retrieved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileEntity"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Files not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FileEntity"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/admin/credit-requests": {
       "get": {
         "tags": [
@@ -2263,6 +2378,9 @@
             "items": {
               "$ref": "#/components/schemas/Credit"
             }
+          },
+          "file": {
+            "$ref": "#/components/schemas/FileEntity"
           }
         }
       },
@@ -2405,6 +2523,44 @@
             "items": {
               "$ref": "#/components/schemas/RepaymentDetail"
             }
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FileEntity"
+            }
+          }
+        }
+      },
+      "FileEntity": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fileName": {
+            "type": "string"
+          },
+          "fileData": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "byte"
+            }
+          },
+          "fileType": {
+            "type": "string",
+            "enum": [
+              "CREDIT",
+              "CIN_FILE"
+            ]
+          },
+          "bankAccount": {
+            "$ref": "#/components/schemas/BankAccount"
+          },
+          "credit": {
+            "$ref": "#/components/schemas/Credit"
           }
         }
       },
@@ -2795,6 +2951,18 @@
             "type": "string",
             "format": "date-time"
           },
+          "applicationForm": {
+            "type": "string",
+            "format": "binary"
+          },
+          "bankStatements": {
+            "type": "string",
+            "format": "binary"
+          },
+          "proofOfIncome": {
+            "type": "string",
+            "format": "binary"
+          },
           "owner": {
             "type": "string"
           }
@@ -2983,6 +3151,13 @@
           "createdDate": {
             "type": "string",
             "format": "date-time"
+          },
+          "cinFile": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "byte"
+            }
           }
         }
       },

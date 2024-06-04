@@ -4,10 +4,8 @@ import com.Spring.MyPostBank.DTOs.BankAccountDTO;
 import com.Spring.MyPostBank.DTOs.Mappers.BankAccountMapper;
 import com.Spring.MyPostBank.Enums.AccountStatus;
 import com.Spring.MyPostBank.Enums.AccountType;
-import com.Spring.MyPostBank.Enums.CardStatus;
 import com.Spring.MyPostBank.Enums.DocumentType;
 import com.Spring.MyPostBank.Models.BankAccount;
-import com.Spring.MyPostBank.Models.Card;
 import com.Spring.MyPostBank.Models.User;
 import com.Spring.MyPostBank.Repositories.BankAccountRepository;
 import com.Spring.MyPostBank.Repositories.CardRepository;
@@ -19,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 import java.security.Principal;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
