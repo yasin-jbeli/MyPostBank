@@ -3,18 +3,19 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(to bottom right, #14145b 50%, #fff 50%);
+  background: linear-gradient( 45deg, #14145b 50%, #fff 50%);
+  padding: 0 5%;
 }
 
 .container {
   display: flex;
-  width: 80%;
-  max-width: 1200px;
-  margin: 0 auto;
-  height: 70%;
+  width: 70%;
+  max-width: 800px;
+  height: auto;
   box-shadow: var(--box-shadow);
   border-radius: 20px;
   overflow: hidden;
+  background: white;
 }
 
 .left-section, .right-section {
@@ -26,24 +27,20 @@ main {
 }
 
 .left-section {
-  background: transparent;
-  color: white;
-  text-align: center;
   flex-direction: column;
-}
-
-.left-section h1 {
-  font-size: 2.5rem;
-  margin-top: 1rem;
-}
-
-.logo {
-  max-width: 100%;
-  height: auto;
+  background: transparent;
+  text-align: center;
 }
 
 .right-section {
-  background: white;
+  width: 80%;
+}
+
+.logo {
+  max-width: 200px;
+  height: auto;
+  border-radius: 25%;
+  margin-left: 5rem;
 }
 
 .card {
@@ -79,7 +76,7 @@ input {
 
 h2 {
   color: #14145b;
-  margin-bottom: 1rem;
+  margin-bottom: 1.6rem;
 }
 
 .msg {
@@ -98,4 +95,11 @@ a {
   padding: 0.5rem 1rem;
   margin-top: 0.5rem;
   border-radius: 20px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  text-align: left;
+  margin-left: 1.2rem;
 }

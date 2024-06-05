@@ -1,32 +1,50 @@
-.main {
+main {
+  height: 100vh;
   display: flex;
-  background: linear-gradient(110deg, #fdcd3b 60%, #ffed4b 60%);
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(45deg, #14145b 50%, #fff 50%);
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white; /* Ensure the container background is white */
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: var(--box-shadow);
 }
 
 .card {
-  width: 500px;
-  padding: 2rem 1rem;
+  width: 100%;
+  max-width: 800px;
+  padding: 2rem;
   background: #fff;
   border-radius: 10px;
   text-align: center;
   box-shadow: var(--box-shadow);
+  max-height: 800px;
+  height: 50%;
+}
+
+.form-sections {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-left, .form-right {
+  width: 45%;
 }
 
 input {
-  width: 92%;
+  width: 100%;
   outline: none;
   border: 1px solid #fff;
   padding: 12px 20px;
   margin-bottom: 10px;
   border-radius: 20px;
   background: #e4e4e4;
-}
-
-main {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .register > button {
@@ -36,21 +54,33 @@ main {
   border-radius: 20px;
   outline: none;
   border: none;
-  width: 90%;
+  width: 50%;
   color: #fff;
   cursor: pointer;
   background: #14145b;
 }
 
-.register .msg a{
+.register .msg a {
   cursor: pointer;
 }
 
 .error-message {
-  color: #ec8686; /* Text color for error messages */
-  background-color: #fbe3e3; /* Background color for error messages */
-  font-size: 0.9rem; /* Adjust font size as needed */
-  padding: 0.5rem 1rem; /* Add padding to the error messages */
-  margin-top: 0.5rem; /* Add some space above the error messages */
-  border-radius: 20px; /* Add rounded corners */
+  color: #ec8686;
+  background-color: #fbe3e3;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  border-radius: 20px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  text-align: left;
+  margin-left: 0.5rem;
+}
+
+h2 {
+  color: #14145b;
+  margin-bottom: 1.6rem;
 }
