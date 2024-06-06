@@ -33,7 +33,7 @@
       <h2>{{ request.accountType }}</h2>
       <h4>Request sent on:</h4>
       <h2>{{ request.createdDate.substring(0, 10) }}</h2>
-      <button title="Download Files" class="download" (click)="downloadFiles()">Download Files</button>
+      <a title="Download Files" class="download" (click)="downloadFiles(request.userId)">Download Files</a>
       <div class="buttons-container">
         <button title="Reject Request" class="rej" (click)="rejectAccount(request.id)">Reject</button>
         <button title="Approve Request" class="app" (click)="approveAccount(request.id)">Approve</button>

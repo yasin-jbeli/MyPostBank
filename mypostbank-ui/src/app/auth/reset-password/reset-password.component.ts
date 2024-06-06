@@ -10,7 +10,8 @@ import { ResetPassword$Params } from '../../services/fn/authentication-controlle
 })
 export class ResetPasswordComponent {
   resetForm: FormGroup;
-  message: string;
+  successMsg: string[] = [];
+  errorMsg: string[] = [];
 
   constructor(private fb: FormBuilder, private authService: AuthenticationControllerService) {
     this.resetForm = this.fb.group({
@@ -27,8 +28,14 @@ export class ResetPasswordComponent {
       };
       this.authService.resetPassword(resetPass)
         .subscribe(
-          () => this.message = 'Password reset successfully.',
-          error => this.message = 'An error occurred. Please try again.'
+          () => {
+            this.successMsg.push('Password reset successfully.');
+            this.errorMsg = [];
+          },
+          error => {
+            this.errorMsg.push('Invalid token. Please try again.');
+            this.successMsg = [];
+          }
         );
     }
   }

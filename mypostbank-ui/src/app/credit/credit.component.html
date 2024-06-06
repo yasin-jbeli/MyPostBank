@@ -17,12 +17,10 @@
           </mat-select>
         </mat-form-field>
       </div>
-
       <div>
         <label for="amount">Amount:</label>&nbsp;
         <input type="number" id="amount" name="amount" [(ngModel)]="loanRequest.amount" (ngModelChange)="onAmountChange()" required>
       </div>
-
       <div>
         <label for="loanOptionSelect">Loan Options:</label>&nbsp;
         <mat-form-field appearance="fill">
@@ -34,7 +32,6 @@
           </mat-select>
         </mat-form-field>
       </div>
-
       <div>
         <p>Please download the application form using the link below, fill it out, and then upload it:</p>
         <a href="./assets/LoanApplicationForm.pdf" download>Download</a><br><br>

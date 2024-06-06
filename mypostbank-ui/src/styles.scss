@@ -1,5 +1,4 @@
 // Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -7,17 +6,14 @@
 // Be sure that you only ever include this mixin once!
 @include mat.core();
 
-
-
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker hue.
+// Available color palettes: https://material.io/design/color/
 $mypostbank-ui-primary: mat.define-palette(mat.$blue-palette, 500);
 $mypostbank-ui-accent: mat.define-palette(mat.$blue-palette, 900);
 $mypostbank-ui-warn: mat.define-palette(mat.$red-palette);
 
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as "color" or "typography".
+// Create the theme object
 $mypostbank-ui-theme: mat.define-light-theme((
   color: (
     primary: $mypostbank-ui-primary,

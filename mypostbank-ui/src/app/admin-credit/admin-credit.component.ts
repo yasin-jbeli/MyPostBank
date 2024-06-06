@@ -4,6 +4,7 @@ import {AdminControllerService} from "../services/services/admin-controller.serv
 import {CreditDto} from "../services/models/credit-dto";
 import {RepaymentDetailDto} from "../services/models/repayment-detail-dto";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {FileService} from "../services/files/FileService";
 
 @Component({
   selector: 'app-admin-credit',
@@ -18,7 +19,8 @@ export class AdminCreditComponent implements OnInit{
   private snackBar: MatSnackBar;
 
   constructor(private adminService: AdminControllerService,
-              private creditService: CreditControllerService) {}
+              private creditService: CreditControllerService,
+              private fileService: FileService) {}
 
   ngOnInit(): void {
     this.loadLoans();
@@ -99,5 +101,24 @@ export class AdminCreditComponent implements OnInit{
         this.payments = res;
       }
     })
+  }
+
+  downloadFiles(): void {
+    const userId = 123;
+    const documentType = 'loans';
+    this.fileService.downloadFile(userId, documentType).subscribe(
+      (data: Blob) => {
+        const url = window.URL.createObjectURL(data);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'files.zip';
+        document.body.appendChild(link);
+        link.click();
+        window.URL.revokeObjectURL(url);
+      },
+      error => {
+        console.error('Error downloading files:', error);
+      }
+    );
   }
 }

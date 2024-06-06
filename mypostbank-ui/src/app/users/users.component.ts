@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AdminControllerService } from '../services/services/admin-controller.service';
 import { UserDto } from '../services/models/user-dto';
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-users',
@@ -11,9 +12,9 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 export class UsersComponent implements OnInit {
   users: UserDto[];
   searchQuery: string;
-  private snackBar: MatSnackBar;
 
-  constructor(private adminService: AdminControllerService) {}
+  constructor(private adminService: AdminControllerService,
+              private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.loadUsers();
@@ -48,24 +49,26 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  delete(userId: any): void {
+  delete(userId: number): void {
     if (confirm('Are you sure you want to delete this user? This action cannot be undone.')) {
-      const requestParams = { userId: userId };
+      const requestParams = {userId: userId};
       this.adminService.deleteUser1(requestParams).subscribe({
-        next: () => {
-          this.loadUsers();
-          this.snackBar.open('User deleted successfully', 'Dismiss', {
-            duration: 3000
-          });
-        },
         error: (error) => {
-          console.error('Error deleting user:', error);
-          this.snackBar.open('Error deleting user', 'Dismiss', {
-            duration: 3000
-          });
+          if (error instanceof HttpErrorResponse && error.status === 200) {
+            this.loadUsers();
+            this.snackBar.open('User deleted successfully', 'Dismiss', {
+              panelClass: "my-snackbar",
+              duration: 3000
+            });
+          } else {
+            console.error('Error deleting user:', error);
+            this.snackBar.open('User has active bank accounts.', 'Dismiss', {
+              panelClass: "my-snackbar",
+              duration: 3000
+            });
+          }
         }
       });
     }
   }
-
 }

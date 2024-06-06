@@ -53,8 +53,10 @@ public class User extends AbstractEntity implements UserDetails, Principal {
   @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
   private List<Credit> loans;
 
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+  private List<Token> tokens;
 
-  @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   @JsonManagedReference
   private List<Notification> notifications;
 

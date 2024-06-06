@@ -41,7 +41,7 @@ public class CreditServiceImpl implements CreditService{
     public void requestLoan(BigDecimal amount,BigDecimal rate,Integer duration,Integer accountId, Principal connectedUser,MultipartFile applicationForm, MultipartFile bankStatements, MultipartFile proofOfIncome) {
 
         User user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
-        boolean hasOngoingLoan = user.getLoans().stream().anyMatch(loan -> loan.getStatus() == CreditStatus.ONGOING);
+        boolean hasOngoingLoan = user.getLoans().stream().anyMatch(loan -> loan.getStatus() == CreditStatus.ONGOING || loan.getStatus() == CreditStatus.PENDING);
         if (hasOngoingLoan) {
             throw new RuntimeException("Ongoing loan has already been requested");
         }

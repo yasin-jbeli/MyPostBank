@@ -78,13 +78,17 @@ export class AdminAccountsComponent implements OnInit {
       });
     }
   }
-  downloadFiles(): void {
-    const userId = 402;
-    const documentType = 'BANK_account';
+  downloadFiles(id: number): void {
+    const userId = id;
+    const documentType = 'bank-account';
     this.fileService.downloadFile(userId, documentType).subscribe(
       (data: Blob) => {
         const url = window.URL.createObjectURL(data);
-        window.open(url, '_blank'); // Open the file in a new tab
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'files.zip';
+        document.body.appendChild(link);
+        link.click();
         window.URL.revokeObjectURL(url);
       },
       error => {

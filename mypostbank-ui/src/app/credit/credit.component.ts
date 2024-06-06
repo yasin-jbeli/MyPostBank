@@ -45,6 +45,11 @@ export class CreditComponent implements OnInit {
       return;
     }
 
+    if (!this.applicationForm || !this.bankStatements || !this.proofOfIncome) {
+      this.errorMessage = 'Please upload all required documents (Application Form, Bank Statements, Proof of Income).';
+      return;
+    }
+
     const requestParams = {
       amount: this.selectedLoanOption.amount,
       rate: this.selectedLoanOption.rate,
@@ -70,16 +75,15 @@ export class CreditComponent implements OnInit {
           this.fileNames = {};
         },
         error: (error) => {
-          if (error.status === 500) {
+          if (error.status === 500 || error.status === 400) {
             this.errorMessage = 'You already have an existing loan.';
-          } else if (error.status === 400 && error.error.message.includes('existing loan')) {
-            this.errorMessage = 'You have an already existing loan.';
           } else {
-            this.errorMessage = 'An error occurred while processing your request. Please try again later.';
+            this.errorMessage = 'Unknown error.';
           }
         }
       });
   }
+
 
   onFileSelected(event: any, fileType: string) {
     const file = event.target.files[0];

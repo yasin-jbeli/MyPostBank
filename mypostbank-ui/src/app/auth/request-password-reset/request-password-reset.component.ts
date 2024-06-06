@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationControllerService } from '../../services/services/authentication-controller.service';
 import { SendResetEmail$Params } from '../../services/fn/authentication-controller/send-reset-email';
-import {Router} from "@angular/router";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-request-password-reset',
@@ -11,7 +11,7 @@ import {Router} from "@angular/router";
 })
 export class RequestPasswordResetComponent {
   resetForm: FormGroup;
-  message: string;
+  errorMsg: string[] = [];
 
   constructor(private fb: FormBuilder, private authService: AuthenticationControllerService, private router: Router) {
     this.resetForm = this.fb.group({
@@ -25,10 +25,16 @@ export class RequestPasswordResetComponent {
       this.authService.sendResetEmail(resetPass)
         .subscribe(
           () => {
-            this.message = 'Password reset email sent successfully.';
+            this.errorMsg.push('Password reset email sent successfully.');
             this.router.navigate(['/reset-password']); // Navigate to Reset Password page
           },
-          error => this.message = 'An error occurred. Please try again.'
+          error => {
+            if (error.status === 500) {
+              this.errorMsg.push('Email does not exist. Please try again.');
+            } else {
+              this.errorMsg.push('An error occurred. Please try again.');
+            }
+          }
         );
     }
   }

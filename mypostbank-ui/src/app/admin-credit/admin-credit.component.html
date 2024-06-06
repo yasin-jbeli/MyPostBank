@@ -63,10 +63,7 @@
       <h2>{{ request.duration }} Months</h2>
       <h4>Loan Interest Rate:</h4>
       <h2>{{ request.interestRate }}%</h2>
-      <h4></h4>
-      <h4></h4>
-      <h4>ID Document:</h4>
-      <a>Documents</a>
+      <a title="Download Files" class="download" (click)="downloadFiles()">Download Files</a>
       <div class="buttons-container">
         <button title="Reject Request" class="rej" (click)="reject(request.id)">Reject</button>
         <button title="Approve Request" class="app" (click)="approve(request.id)">Approve</button>

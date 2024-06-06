@@ -99,7 +99,7 @@ export class TransferComponent implements OnInit {
             if (error.status === 400 || error.status === 500) {
               this.errorMsg.push('Insufficient balance');
             } else {
-              this.errorMsg.push('Transfer failed');
+              this.successMessage.push('Transfer successful');
             }
           }
         );
